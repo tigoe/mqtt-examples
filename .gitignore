@@ -1,2 +1,6 @@
 *.arduino_secrets.h
 *.DS_Store
+MqttClientButtonLed/arduino_secrets.h
+MqttClientMIDIPlayer/arduino_secrets.h
+MqttClientReceiver/arduino_secrets.h
+MqttClientSender/arduino_secrets.h
