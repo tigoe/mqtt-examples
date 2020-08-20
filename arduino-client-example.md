@@ -91,4 +91,8 @@ If you've got a friend  with an Arduino that's WiFi-enabled, have them follow th
 
 If you've used Arduino before, you probably have the basic idea now. and you can modify things from here to get what you want. 
 
+## Send from another client
+
+If you'd like to test this without a friend, there is a p5.js JavaScript example in this repository. called [p5js-mqtt-client](p5js-mqtt-client/). To run it, make sure you've downloaded the repository, then open the index.html page in a browser. Then click the button that appears in the page. A circle in the center of the screen should light up when you click the button, and if your Arduino is connected, the LED should light up too. Similarly, when you press the pushbutton on the Arduino, the circle on the HTML page will light up. Both the HTML page and the Arduino are MQTT clients of the shiftr.io broker.
+
 
