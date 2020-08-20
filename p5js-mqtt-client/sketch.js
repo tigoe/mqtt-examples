@@ -14,7 +14,7 @@
 // MQTT client details:
 let broker = {
     hostname: 'broker.shiftr.io/try',
-    port: 8883
+    port: 443
 };
 // MQTT client:
 let client;
