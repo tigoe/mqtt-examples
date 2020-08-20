@@ -48,7 +48,7 @@ function setup() {
             onSuccess: onConnect,       // callback function for when you connect
             userName: creds.userName,   // username
             password: creds.password,   // password
-            useSSL: true
+            useSSL: true                // use SSL
         }
     );
     // create the send button:
