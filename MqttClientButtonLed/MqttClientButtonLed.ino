@@ -4,8 +4,8 @@
   This sketch demonstrates an MQTT client that connects to a broker, subsrcibes to a topic,
   and both listens for messages on that topic and sends messages to it. When a pushbutton
   is pressed, the client sends a message, a random number between 0 and 15.
-  When the client receives a message, it parses it, and if the number matches the client's
-  number (myNumber, chosen arbitrarily), it sets an LED to full. When nothing is happening,
+  When the client receives a message, it parses it, and if the number is greater than 0, 
+  it sets an LED to full. When nothing is happening,
   if the LED is not off, it's faded down one point every time through the loop.
 
   This sketch uses https://shiftr.io/try as the MQTT broker.
@@ -38,8 +38,6 @@ int port = 1883;
 char topic[] = "try/notes";
 char clientID[] = "buttonClient";
 
-// number value of incoming message that will light the LED:
-int myNumber = 3;
 // intensity of LED:
 int intensity = 0;
 
@@ -98,8 +96,8 @@ void loop() {
       // convert numeric string to an int:
       int message = mqttClient.parseInt();
       Serial.println(message);
-      // if the message matches client's number, set the LED to full intensity:
-      if (message == myNumber) {
+      // if the message is greater than 0, set the LED to full intensity:
+      if (message > 0) {
         intensity = 255;
       }
     }
