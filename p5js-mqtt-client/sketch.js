@@ -38,7 +38,10 @@ let intensity = 255;
 function setup() {
     createCanvas(400, 400);
     // Create an MQTT client 
-    client = new Paho.MQTT.Client(broker.hostname, Number(broker.port), 'mqttwss', creds.clientID);
+    let key = creds.userName;
+    let secret = creds.password;
+    client = new Paho.MQTT.Client(„'wss://' + key + ':' + secret + '@' + hostname, creds.clientID)
+    // client = new Paho.MQTT.Client(broker.hostname, Number(broker.port), 'mqttwss', creds.clientID);
     // set callback handlers for the client:
     client.onConnectionLost = onConnectionLost;
     client.onMessageArrived = onMessageArrived;
