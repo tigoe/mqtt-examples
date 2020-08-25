@@ -1,17 +1,5 @@
  /* adapted from https://css-tricks.com/simplified-fluid-typography/ */
 
-
 div {
-  /* font-size: 16px; */
-  font-size: min(max(1rem, 4vw), 22px);
+  font-size: min(max(1rem, 4vw), 24px);
 }
-/* @media screen and (min-width: 320px) {
-  div {
-    font-size: calc(16px + 6 * ((100vw - 320px) / 680));
-  }
-}
-@media screen and (min-width: 1000px) {
-  div {
-    font-size: 22px;
-  }
-}  */
