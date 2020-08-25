@@ -1,10 +1,9 @@
-/* div {
-  font-size: calc(18px + 6 * ((100vw - 320px) / 680));
-} */
+ /* adapted from https://css-tricks.com/simplified-fluid-typography/ */
 
-div {
+
+/* div {
   font-size: 16px;
-}
+} */
 @media screen and (min-width: 320px) {
   div {
     font-size: calc(16px + 6 * ((100vw - 320px) / 680));
