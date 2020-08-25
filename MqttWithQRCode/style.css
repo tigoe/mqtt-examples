@@ -1,5 +1,5 @@
  /* adapted from https://css-tricks.com/simplified-fluid-typography/ */
 
 div {
-  font-size: min(max(1rem, 4vw), 24px);
+  font-size: min(max(1rem, 4vmax), 24px);
 }

@@ -46,7 +46,8 @@ let remoteDiv;
 let brightness = 0;
 
 function setup() {
-   createCanvas(windowWidth, windowHeight);
+   // createCanvas(windowWidth, windowHeight);
+   noCanvas();
    // make the HTML tag div:
    tagDiv = createDiv();
    // make the QR code:
