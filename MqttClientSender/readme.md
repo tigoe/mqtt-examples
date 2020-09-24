@@ -16,11 +16,11 @@ To make this work you'll need the following:
 ## Circuit
 Connect the parts as shown in Figure 1 (breadboard view) and Figure 2 (schematic view). The Nano 33 IoT is mounted at the top of the breadboard, straddling the center divide, with its USB connector facing up. The top pins of the Nano are in row 1 of the breadboard.
 
-<a href="img/NanoLedPushbutton_bb.png"><img src="img/NanoLedPushbutton_bb.png" width="200" alt="Breadboard view of an Arduino Nano 33 IoT connected to an LED and a pushbutton"/></a>
+<a href="../img/NanoLedPushbutton_bb.png"><img src="../img/NanoLedPushbutton_bb.png" width="200" alt="Breadboard view of an Arduino Nano 33 IoT connected to an LED and a pushbutton"/></a>
 
  _Figure 1. Arduino Nano connected to an LED and a pushbutton, breadboard view._
 
-<a href="img/NanoLedPushbutton_schem.png"><img src="img/NanoLedPushbutton_schem.png" width="300" alt="Schematic view of an Arduino Nano 33 IoT connected to an LED and a pushbutton"/></a>
+<a href="../img/NanoLedPushbutton_schem.png"><img src="../img/NanoLedPushbutton_schem.png" width="300" alt="Schematic view of an Arduino Nano 33 IoT connected to an LED and a pushbutton"/></a>
 
  _Figure 2. Arduino Nano connected to an LED and a pushbutton, schematic view._
 
