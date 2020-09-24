@@ -4,7 +4,8 @@ Here's an example for p5.js in which you can send a message to someone else's MQ
 
 Open the sketch in a browser. Here's a [link to this example](https://tigoe.github.io/mqtt-examples/p5js-mqtt-client/index.html) hosted online at gitHub, but you can also download this whole repository, and open the index.html page in the p5js-mqtt-client folder in your browser.
 
-When you open the page, you'll get a button labeled "Send a message" and a circle and two lines of text reading 
+When you open the page, you'll get a button labeled "Send a message" and a circle and two lines of text reading:
+
 ````
 I sent: 0
 I got a message:
