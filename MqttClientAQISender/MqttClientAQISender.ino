@@ -39,7 +39,7 @@ long lastSendTime = 0;
 char broker[] = "broker.shiftr.io";
 int port = 1883;
 char topic[] = "try/AQISensor";
-char clientID[] = "tigoe";
+char clientID[] = "AQISensor";
 
 // intensity of LED:
 int intensity = 0;
