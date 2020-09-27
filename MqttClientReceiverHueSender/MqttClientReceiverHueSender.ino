@@ -121,7 +121,7 @@ void sendRequest(int light, String cmd, int value) {
   // make a String for the HTTP request path:
   String request = "/api/" + hueUserName;
   request += "/lights/";
-  request += light;
+  request += String(light);
   request += "/state/";
 
   String contentType = "application/json";
