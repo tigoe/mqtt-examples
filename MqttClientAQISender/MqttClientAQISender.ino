@@ -85,6 +85,7 @@ void setup() {
 }
 
 void loop() {
+  // turn on built-in LED when you are connected to WiFi:
   digitalWrite(LED_BUILTIN, WiFi.status());
   // if not connected to the broker, try to connect:
   if (!mqttClient.connected()) {
