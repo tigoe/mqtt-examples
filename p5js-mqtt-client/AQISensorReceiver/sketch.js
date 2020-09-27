@@ -25,13 +25,12 @@ let creds = {
     password: 'try'
 }
 // topic to subscribe to when you connect:
-let topic = 'try/table_3';
+let topic = 'try/AQISensor';
 
 // a pushbutton to send messages
 let sendButton;
 let localDiv;
 let remoteDiv;
-let dataAdday = new Array();
 
 // intensity of the circle in the middle
 let intensity = 255;
@@ -61,6 +60,7 @@ function setup() {
 }
 
 function draw() {
+  
 }
 
 // called when the client connects

@@ -38,7 +38,7 @@ long lastSendTime = 0;
 // details for MQTT client:
 char broker[] = "broker.shiftr.io";
 int port = 1883;
-char topic[] = "try/table_3";
+char topic[] = "try/AQISensor";
 char clientID[] = "tigoe";
 
 // intensity of LED:
