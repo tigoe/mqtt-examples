@@ -49,8 +49,6 @@ void setup() {
   Serial.begin(9600);
  
   // initialize I/O pins:
-  pinMode(buttonPin, INPUT_PULLUP);
-  pinMode (ledPin, OUTPUT);
   pinMode(LED_BUILTIN, OUTPUT);
 
   // initialize WiFi, if not connected:
@@ -110,7 +108,7 @@ void loop() {
     // start the MQTT send:
     mqttClient.beginMessage(topic);
     // add the value:
-    mqttClient.println(dataString);
+    mqttClient.print(dataString);
     // send the message:
     mqttClient.endMessage();
     // timestamp for next send:
