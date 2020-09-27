@@ -44,6 +44,8 @@ HttpClient httpClient = HttpClient(wifi, hueHubIP);
 void setup() {
   // initialize serial:
   Serial.begin(9600);
+ // initialize I/O pins: 
+  pinMode(LED_BUILTIN, OUTPUT);
 
   // initialize WiFi, if not connected:
   while (WiFi.status() != WL_CONNECTED) {
@@ -69,10 +71,13 @@ void setup() {
 }
 
 void loop() {
+  // turn on built-in LED when you are connected to WiFi:
+  digitalWrite(LED_BUILTIN, WiFi.status());
   // if not connected to the broker, try to connect:
   if (!mqttClient.connected()) {
     Serial.println("reconnecting");
     connectToBroker();
+    delay(2000);
   }
 
   // if a message comes in, read it:
@@ -116,7 +121,7 @@ void sendRequest(int light, String cmd, int value) {
   // make a String for the HTTP request path:
   String request = "/api/" + hueUserName;
   request += "/lights/";
-  request += String(light);
+  request += light;
   request += "/state/";
 
   String contentType = "application/json";
