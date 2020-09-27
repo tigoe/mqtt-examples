@@ -31,13 +31,17 @@ let topic = 'try/AQISensor';
 let sendButton;
 let localDiv;
 let remoteDiv;
+let data = {
+    CO2: 0,
+    TVOC: 0
+};
 
 // intensity of the circle in the middle
 let intensity = 255;
 
 function setup() {
-// noCanvas();
-     createCanvas(400, 400);
+    // noCanvas();
+    createCanvas(400, 400);
     // Create an MQTT client:
     client = new Paho.MQTT.Client(broker.hostname, Number(broker.port), creds.clientID);
     // set callback handlers for the client:
@@ -60,7 +64,11 @@ function setup() {
 }
 
 function draw() {
-  
+    // background(255);
+    noFill();
+    stroke(0, 204, 255, 2);
+    circle_size = data.CO2 / 2;
+    circle(width / 2, height / 2, circle_size)
 }
 
 // called when the client connects
@@ -78,8 +86,8 @@ function onConnectionLost(response) {
 
 // called when a message arrives
 function onMessageArrived(message) {
-// get the JSOn string from the incoming message and parse it:
-  let data = JSON.parse(message.payloadString);
-  // put it in the HTML:
-  remoteDiv.html("CO2:" +  data.CO2 + "<br>TVOC: " +data.TVOC );
+    // get the JSOn string from the incoming message and parse it:
+    data = JSON.parse(message.payloadString);
+    // put it in the HTML:
+    remoteDiv.html("CO2:" + data.CO2 + "<br>TVOC: " + data.TVOC);
 }
