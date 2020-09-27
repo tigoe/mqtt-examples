@@ -1,25 +1,20 @@
 /*
-  MQTT Client with an LED
+  MQTT Client with a Philips Hue Client
 
   This sketch demonstrates an MQTT client that connects to a broker, subsrcibes to a topic,
-  and  listens for messages on that topic and sends messages to it. 
+  listens for messages on that topic and uses them to control a Philips Hue light 
   
-  When the client receives a message, it parses it, and if the number matches the client's
-  number (myNumber, chosen arbitrarily), it sets an LED to full. When nothing is happening,
-  if the LED is not off, it's faded down one point every time through the loop.
-
   This sketch uses https://shiftr.io/try as the MQTT broker.
 
   the circuit:
-  - LED's anode connected to pin 3, cathode connected to ground.
-
+  
   the arduino_secrets.h file:
   #define SECRET_SSID ""    // network name
   #define SECRET_PASS ""    // network password
   #define SECRET_MQTT_USER "" // broker username
   #define SECRET_MQTT_PASS "" // broker password
 
-  created 11 June 2020
+  created 27 Sep 2020
   by Tom Igoe
 */
 
