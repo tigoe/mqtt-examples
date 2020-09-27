@@ -48,7 +48,7 @@ void setup() {
   // initialize serial:
   Serial.begin(9600);
  
-  // initialize I/O pins:
+  // initialize I/O pins: 
   pinMode(LED_BUILTIN, OUTPUT);
 
   // initialize WiFi, if not connected:
@@ -98,9 +98,9 @@ void loop() {
 
     // make the sensor readings into a JSON string:
     String dataString = "{";
-    dataString += "CO2: ";
+    dataString += "\"CO2\":";
     dataString += String(mySensor.CO2);
-    dataString += ", TVOC: ";
+    dataString += ", \"TVOC\": ";
     dataString += String(mySensor.TVOC);
     dataString += "}";
     Serial.println(dataString);
