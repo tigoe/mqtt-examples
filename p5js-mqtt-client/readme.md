@@ -15,4 +15,4 @@ When you click the button, you're sending an MQTT message to `shiftr.io/try` to 
 
 This page will also work with the Arduino MQTT clients in this repository.
 
-There is also a second p5.js example in this directory that [receives MQTT messages](https://tigoe.github.io/mqtt-examples/p5js-mqtt-client/AQISensorReader/index.html) from an [SGP30 air quality sensor example](https://tigoe.github.io/mqtt-examples/MqttClientAQISender) for the Arduino Nano 33 IoT. This pair of examples is designed to show how to send and receive JSON.
+There is also a second p5.js example in this directory that [receives MQTT messages](https://tigoe.github.io/mqtt-examples/p5js-mqtt-client/AQISensorReceiver/index.html) from an [SGP30 air quality sensor example](https://tigoe.github.io/mqtt-examples/MqttClientAQISender) for the Arduino Nano 33 IoT. This pair of examples is designed to show how to send and receive JSON.
