@@ -1,8 +1,11 @@
 /*
-    p5.js MQTT Client example
+    p5.js MQTT Client and p5.serialport example
     This example uses p5.js: https://p5js.org/
     and the Eclipse Paho MQTT client library: https://www.eclipse.org/paho/clients/js/
     to create an MQTT client that sends and receives MQTT messages.
+    It takes input via websocket from p5.serialport, 
+    allowing you to connect microcontroller projects together
+    using p5.js, p5.serialport, and MQTT.
     The client is set up for use on the shiftr.io test MQTT broker (https://shiftr.io/try),
     but has also been tested on https://test.mosquitto.org
 
@@ -27,16 +30,23 @@ let creds = {
     password: 'try'
 }
 // topic to subscribe to when you connect
-// For shiftr.io, use whatever word you want for the subtopic
+// For shiftr.io, use try/ then whatever word you want
 // unless you have an account on the site. 
-let subTopic = 'monkey'
-let topic = 'try/' + myTopic;
+let topic = 'try/circle';
 
 // HTML divs for local and remote messages
 let localDiv;
 let remoteDiv;
 // position of the circle
 let xPos, yPos;
+// variable to hold an instance of the serialport library
+let serial;
+
+// fill in your serial port name here
+let portName = '/dev/cu.usbmodem1422301';
+
+let lastTimeSent = 0;
+const sendInterval = 1000;
 
 function setup() {
     createCanvas(400, 400);
@@ -61,6 +71,12 @@ function setup() {
     // create a div for the response:
     remoteDiv = createDiv('waiting for messages');
     remoteDiv.position(20, 80);
+
+    serial = new p5.SerialPort();
+    serial.on('open', portOpen);        // callback for the port opening
+    serial.on('data', serialEvent);     // callback for when new data arrives
+    serial.on('error', serialError);    // callback for errors
+    serial.open(portName);              // open a serial port
 }
 
 function draw() {
@@ -72,10 +88,24 @@ function draw() {
     circle(xPos, yPos, 30);
 }
 
-
-function mousePressed() {
-    sendMqttMessage(mouseX + ',' + mouseY);
+function portOpen() {
+    console.log('the serial port has opened.')
 }
+
+function serialEvent() {
+    // read a byte from the serial port, convert it to a number:
+     let inData = serial.readLine();
+  // send it as an MQTT message to the topic:
+    if (inData && millis() - lastTimeSent > sendInterval) {
+        sendMqttMessage(inData);
+        lastTimeSent = millis();             
+    }
+}
+
+function serialError(err) {
+    console.log('Something went wrong with the serial port. ' + err);
+}
+
 // called when the client connects
 function onConnect() {
     localDiv.html('client is connected');
@@ -85,6 +115,7 @@ function onConnect() {
 // called when the client loses its connection
 function onConnectionLost(response) {
     if (response.errorCode !== 0) {
+        console.log(response.errorMessage);
         localDiv.html('onConnectionLost:' + response.errorMessage);
     }
 }
@@ -92,12 +123,13 @@ function onConnectionLost(response) {
 // called when a message arrives
 function onMessageArrived(message) {
     remoteDiv.html('I got a message:' + message.payloadString);
-    // assume the message is two numbers, mouseX and mouseY.
-    // Split it into an array:
-    let values = split(message.payloadString, ',');
-    // convert the array values into numbers:
-    xPos = Number(values[0]);
-    yPos = Number(values[1]);
+    // assume the message payload is a JSON object
+    // From the ArduinoJoystick example in this folder:
+    // {"x":xPos,"y":yPos,"button":buttonState}
+    // parse it and use the X and Y:
+    var joyStick = JSON.parse(message.payloadString);
+    xPos = joyStick.x;
+    yPos = joyStick.y;
 }
 
 // called when you want to send a message:
