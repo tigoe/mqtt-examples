@@ -263,7 +263,6 @@ function getMIDIMessage(message) {
 
     // if connected to MQTT, send message as MQTT message:
     if (client.isConnected()) {
-    console.log('sending' + message);
         sendMqttMessage(message.data.buffer);
     }
 }
