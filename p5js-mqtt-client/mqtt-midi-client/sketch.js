@@ -113,14 +113,15 @@ function onConnectionLost(response) {
 
 // called when an MQTT  message arrives
 function onMessageArrived(message) {
-    remoteDiv.html('I got a message');
+    let payload = message.payloadBytes;
+    remoteDiv.html('I got a message ' + payload);
     // set up an arrayBuffer and a Uint8 array for the incoming:
-    let incomingBuffer = new ArrayBuffer(message.length);
+    let incomingBuffer = new ArrayBuffer(payload.length);
     let midiCmd = new Uint8Array(incomingBuffer);
 
     // move the message payload into the UInt8 array:
-    for (var i = 0; i < message.length; i++) {
-        midiCmd[i] = message.payload[i];
+    for (var i = 0; i < payload.length; i++) {
+        midiCmd[i] = payload[i];
     }
 
     // if the message is intended for the current MIDIoutput, 
@@ -261,5 +262,8 @@ function getMIDIMessage(message) {
     }
 
     // if connected to MQTT, send message as MQTT message:
-    sendMqttMessage(message.data.buffer);
+    if (client.isConnected()) {
+    console.log('sending' + message);
+        sendMqttMessage(message.data.buffer);
+    }
 }
