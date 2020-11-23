@@ -13,7 +13,7 @@
 
 // MQTT client details:
 let broker = {
-    hostname: 'next.shiftr.io/try',
+    hostname: 'public.cloud.shiftr.io',
     port: 443
 };
 // MQTT client:
