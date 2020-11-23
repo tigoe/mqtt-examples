@@ -8,7 +8,7 @@
   number (myNumber, chosen arbitrarily), it sets an LED to full. When nothing is happening,
   if the LED is not off, it's faded down one point every time through the loop.
 
-  This sketch uses https://shiftr.io/try as the MQTT broker.
+  This sketch uses https://next.shiftr.io/try as the MQTT broker.
 
   the circuit:
   - LED's anode connected to pin 3, cathode connected to ground.

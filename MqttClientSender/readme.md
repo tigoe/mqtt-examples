@@ -87,7 +87,7 @@ Got a message on topic: try/notes
 
 Woo hoo, you're sending messages to yourself!  
 
-If you've got a friend  with an Arduino that's WiFi-enabled, have them follow these steps. When either of you presses the button, both of your LEDs should light up. You're both sending messages through [shiftr.io](https://shiftr.io/try), an MQTT broker.
+If you've got a friend  with an Arduino that's WiFi-enabled, have them follow these steps. When either of you presses the button, both of your LEDs should light up. You're both sending messages through [shiftr.io](https://next.shiftr.io/try), an MQTT broker.
 
 If you've used Arduino before, you probably have the basic idea now. and you can modify things from here to get what you want. 
 

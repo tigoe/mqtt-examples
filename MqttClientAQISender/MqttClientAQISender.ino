@@ -4,7 +4,7 @@
   This sketch demonstrates an MQTT client that connects to a broker, subsrcibes to a topic,
   and  sends messages to it from an SGP30 AQI sensor. 
   
-  This sketch uses https://shiftr.io/try as the MQTT broker.
+  This sketch uses https://next.shiftr.io/try as the MQTT broker.
 
   the circuit:
   - SGP30 sensor attached to SDA and SCL of the Arduino

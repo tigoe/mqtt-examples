@@ -3,7 +3,7 @@
     This example uses p5.js: https://p5js.org/
     and the Eclipse Paho MQTT client library: https://www.eclipse.org/paho/clients/js/
     to create an MQTT client that receives MQTT messages.
-    The client is set up for use on the shiftr.io test MQTT broker (https://shiftr.io/try),
+    The client is set up for use on the shiftr.io test MQTT broker (https://next.shiftr.io/try),
     but has also been tested on https://test.mosquitto.org
 
     created 12 June 2020

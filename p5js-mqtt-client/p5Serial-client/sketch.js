@@ -6,7 +6,7 @@
     It takes input via websocket from p5.serialport, 
     allowing you to connect microcontroller projects together
     using p5.js, p5.serialport, and MQTT.
-    The client is set up for use on the shiftr.io test MQTT broker (https://shiftr.io/try),
+    The client is set up for use on the shiftr.io test MQTT broker (https://next.shiftr.io/try),
     but has also been tested on https://test.mosquitto.org
 
     created 12 June 2020
@@ -16,7 +16,7 @@
 
 // MQTT client details:
 let broker = {
-    hostname: 'broker.shiftr.io',
+    hostname: 'public.cloud.shiftr.io',
     port: 443
 };
 // MQTT client:
@@ -30,9 +30,9 @@ let creds = {
     password: 'public'
 }
 // topic to subscribe to when you connect
-// For shiftr.io, use try/ then whatever word you want
+// For shiftr.io, use whatever word you want
 // unless you have an account on the site. 
-let topic = 'try/circle';
+let topic = 'circle';
 
 // HTML divs for local and remote messages
 let localDiv;
