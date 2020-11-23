@@ -36,10 +36,10 @@ SGP30 mySensor;
 long lastSendTime = 0;
 
 // details for MQTT client:
-char broker[] = "broker.shiftr.io";
+char broker[] = "public.cloud.shiftr.io";
 int port = 1883;
-char topic[] = "try/AQISensor";
-char clientID[] = "AQISensor";
+char topic[] = "AQISensor";
+char clientID[] = "AQISensorClient";
 
 // intensity of LED:
 int intensity = 0;
