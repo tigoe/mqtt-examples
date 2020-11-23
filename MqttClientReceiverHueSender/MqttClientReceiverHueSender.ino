@@ -4,7 +4,7 @@
   This sketch demonstrates an MQTT client that connects to a broker, subsrcibes to a topic,
   listens for messages on that topic and uses them to control a Philips Hue light 
   
-  This sketch uses https://shiftr.io/try as the MQTT broker.
+  This sketch uses https://next.shiftr.io/try as the MQTT broker.
 
   the circuit:
   
