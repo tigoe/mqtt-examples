@@ -13,6 +13,4 @@ I got a message:
 
 When you click the button, you're sending an MQTT message to `shiftr.io/try` to a topic called `/notes`, with a random number from 0 to 15. Your page is also listening for messages from that topic too. When you receive any numeric message greater than 0, the circle will turn white, then slowly fade to black until another message is received.  Congratulations, you're sending and receiving MQTT messages. For the details, check out the [javaScript](public/sketch.js) for this page. 
 
-This page will also work with the Arduino MQTT clients in this repository.
-
-There is also a second p5.js example in this directory that [receives MQTT messages](https://tigoe.github.io/mqtt-examples/p5js-mqtt-client/AQISensorReceiver/index.html) from an [SGP30 air quality sensor example](https://github.com/tigoe/mqtt-examples/tree/master/MqttClientAQISender) for the Arduino Nano 33 IoT. Here is a [link to the code for the p5.js client](https://github.com/tigoe/mqtt-examples/tree/master/p5js-mqtt-client/AQISensorReceiver). This pair of examples is designed to show how to send and receive JSON.
+This page will also work with the Arduino MQTT clients in this repository, specifically the [MqttClientSender](../MqttClientSender) and [MqttClientButtonLED](../MqttClientButtonLED).
