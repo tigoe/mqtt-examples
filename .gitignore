@@ -1,4 +1,4 @@
-*.arduino_secrets.h
+*arduino_secrets.h
 *.DS_Store
 MqttClientButtonLed/arduino_secrets.h
 MqttClientMIDIPlayer/arduino_secrets.h
