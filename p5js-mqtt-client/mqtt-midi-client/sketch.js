@@ -5,16 +5,17 @@
     and the Web MIDI API (https://www.w3.org/TR/webmidi/)
     to create an MQTT client that sends and receives MQTT messages
     that are MIDI messages.
-    The client is set up for use on the shiftr.io test MQTT broker (https://shiftr.io/try),
+    The client is set up for use on the shiftr.io test MQTT broker (https://public.cloud.shiftr.io),
     but has also been tested on https://test.mosquitto.org
 
     created 11 Nov 2020
+    modiified 23 Nov 2020
     by Tom Igoe
 */
 
 // MQTT client details:
 let broker = {
-    hostname: 'broker.shiftr.io',
+    hostname: 'public.cloud.shiftr.io',
     port: 443
 };
 // MQTT client:
@@ -24,14 +25,14 @@ let client;
 // unless you have an account on the site. 
 let creds = {
     clientID: 'p5MidiClient',
-    userName: 'try',
-    password: 'try'
+    userName: 'public',
+    password: 'public'
 }
 // topic to subscribe to when you connect
 // For shiftr.io, use whatever word you want for the subtopic
 // unless you have an account on the site. 
-let subTopic = 'midi';
-let topic = 'try/' + subTopic;
+let subTopic = '';
+let topic = 'midi';
 
 // HTML divs for local and remote messages
 let localDiv;
