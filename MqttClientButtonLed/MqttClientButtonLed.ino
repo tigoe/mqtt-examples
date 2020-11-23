@@ -8,7 +8,7 @@
   it sets an LED to full. When nothing is happening,
   if the LED is not off, it's faded down one point every time through the loop.
 
-  This sketch uses https://shiftr.io/try as the MQTT broker.
+  This sketch uses https://next.shiftr.io/try as the MQTT broker.
 
   the circuit:
   - pushbutton attached to pin 2, connected to ground
@@ -17,8 +17,8 @@
   the arduino_secrets.h file:
   #define SECRET_SSID ""    // network name
   #define SECRET_PASS ""    // network password
-  #define SECRET_MQTT_USER "" // broker username
-  #define SECRET_MQTT_PASS "" // broker password
+  #define SECRET_MQTT_USER "public" // broker username
+  #define SECRET_MQTT_PASS "public" // broker password
 
   created 11 June 2020
   by Tom Igoe
@@ -33,9 +33,9 @@ WiFiClient wifi;
 MqttClient mqttClient(wifi);
 
 // details for MQTT client:
-char broker[] = "broker.shiftr.io";
+char broker[] = "public.cloud.shiftr.io";
 int port = 1883;
-char topic[] = "try/notes";
+char topic[] = "notes";
 char clientID[] = "buttonClient";
 
 // intensity of LED:
