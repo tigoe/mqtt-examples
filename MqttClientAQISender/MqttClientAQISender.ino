@@ -12,8 +12,8 @@
   the arduino_secrets.h file:
   #define SECRET_SSID ""    // network name
   #define SECRET_PASS ""    // network password
-  #define SECRET_MQTT_USER "try" // broker username
-  #define SECRET_MQTT_PASS "try" // broker password
+  #define SECRET_MQTT_USER "public" // broker username
+  #define SECRET_MQTT_PASS "public" // broker password
 
   created 26 Sep 2020
   by Tom Igoe

@@ -53,8 +53,8 @@ Once you've downloaded this repository, open the [MqttClientButtonLed sketch](..
 ````
 #define SECRET_SSID ""
 #define SECRET_PASS ""
-#define SECRET_MQTT_USER "try"
-#define SECRET_MQTT_PASS "try"
+#define SECRET_MQTT_USER "public"
+#define SECRET_MQTT_PASS "public"
 ````
 
 Fill in your network name and password between the quotes in the `SECRET_SSID` and `SECRET_PASS` lines, and upload the sketch to your Arduino. Once it's uploaded, you're ready to send and receive MQTT messages.
