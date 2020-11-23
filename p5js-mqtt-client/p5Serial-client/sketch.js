@@ -26,8 +26,8 @@ let client;
 // unless you have an account on the site. 
 let creds = {
     clientID: 'p5Client',
-    userName: 'try',
-    password: 'try'
+    userName: 'public',
+    password: 'public'
 }
 // topic to subscribe to when you connect
 // For shiftr.io, use try/ then whatever word you want

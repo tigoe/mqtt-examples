@@ -13,7 +13,7 @@
 
 // MQTT client details:
 let broker = {
-    hostname: 'broker.shiftr.io/try',
+    hostname: 'next.shiftr.io/try',
     port: 443
 };
 // MQTT client:
@@ -21,8 +21,8 @@ let client;
 // client credentials:
 let creds = {
     clientID: 'p5Client',
-    userName: 'try',
-    password: 'try'
+    userName: 'public',
+    password: 'public'
 }
 // topic to subscribe to when you connect:
 let topic = 'try/notes';

@@ -7,13 +7,13 @@
     but has also been tested on https://test.mosquitto.org
 
     created 12 June 2020
-    modified 16 Oct 2020
+    modified 23 Nov 2020
     by Tom Igoe
 */
 
 // MQTT client details:
 let broker = {
-    hostname: 'broker.shiftr.io',
+    hostname: 'next.shiftr.io',
     port: 443
 };
 // MQTT client:
@@ -23,14 +23,14 @@ let client;
 // unless you have an account on the site. 
 let creds = {
     clientID: 'p5Client',
-    userName: 'try',
-    password: 'try'
+    userName: 'public',
+    password: 'public'
 }
 // topic to subscribe to when you connect
 // For shiftr.io, use whatever word you want for the subtopic
 // unless you have an account on the site. 
-let subTopic = 'monkey'
-let topic = 'try/' + myTopic;
+
+let topic = 'monkey';
 
 // HTML divs for local and remote messages
 let localDiv;
