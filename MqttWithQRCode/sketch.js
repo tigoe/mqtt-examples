@@ -10,6 +10,7 @@
   https://unpkg.com/qrcode-generator@1.4.4/qrcode.js
 
   created 22 Aug 2020
+  modified 23 Nov 2020
   by Tom Igoe
 */
 
@@ -29,12 +30,12 @@ let broker = {
 let client;
 // client credentials:
 let creds = {
-   clientID: 'p5Client',
+   clientID: 'p5QRClient',
    userName: 'public',
    password: 'public'
 }
 // topic to subscribe to when you connect:
-let topic = 'try/lights';
+let topic = 'lights';
 
 // a pushbutton to send messages
 let sendButton;
