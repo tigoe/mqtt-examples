@@ -26,4 +26,25 @@ There is also an example here that combines [p5.js](https://p5js.org) with the [
 
 
 ## MQTT Brokers
-There are a number of MQTT brokers you can use, the most popular is [mosquitto](http://mosquitto.org/). You can run mosquitto on your own computer or server, or you can use [test.mosquitto.org](https://test.mosquitto.org/) as a test broker. [Shiftr.io](https://next.shiftr.io/try) is another MQTT test broker, with a graphic interface so you can see a graph of clients and topics. These examples use shiftr.io as their test broker. 
+
+There are a number of MQTT brokers you can use, the most popular is [mosquitto](http://mosquitto.org/). You can run mosquitto on your own computer or server, or you can use [test.mosquitto.org](https://test.mosquitto.org/) as a test broker. The instructions and port numbers for the various ways of reaching it are listed on [test.mosquitto.org](https://test.mosquitto.org). 
+
+[Shiftr.io](https://next.shiftr.io/try) is another MQTT test broker, with a graphic interface so you can see a graph of clients and topics. Shiftr.io has a [desktop broker](https://next.shiftr.io/desktop) that you can download and use for local testing as well. These examples use shiftr.io as their test broker, though they have been tested on mosquitto.org as well. Note that Shiftr.io's examples use a different Arduino client library and a different JavaScript library than this site does. The code here is still compatible with that briker, however. 
+
+[mqtt.eclipse.org](https://mqtt.eclipse.org/) is another MQTT test broker with a fairly bare-bones set of documentation and no visualizer. 
+
+## MQTT Explorer
+
+[MQTT Explorer](http://mqtt-explorer.com/) is a desktop client that can bve useful for diagnosing issues with client-to-broker communication. It's available on all major operating systems. 
+
+## MQTT, Web Sockets, and Encryption
+
+You can make an MQTT request directly, or you can do it encrypted. You can also make MQTT requests over websockets. Each transport method is typically done on a different port number. For example, test.mosquitto.org lists the following ports:
+
+* 1883 : MQTT, unencrypted
+* 8883 : MQTT, encrypted
+* 8884 : MQTT, encrypted, client certificate required
+* 8080 : MQTT over WebSockets, unencrypted
+* 8081 : MQTT over WebSockets, encrypted
+
+Different client APIs support different approaches. For example, the ArduinoMqttClient supports both unencrypted and encrypted MQTT or MQTTS connections just by changing the port number and the WiFiClient to a WiFiSSLClient. The Eclipse Paho JS client send MQTT messages over web sockets, encrypted or unencrypted. Other MQTT client frameworks use one or more of these four methods. 
