@@ -19,7 +19,7 @@ For JavaScript clients, the [Eclipse PAHO library](https://www.eclipse.org/paho/
 
 A simpler p5.js client that sends data on a mouse press is available at [this link](p5js-mqtt-client/mousePressed-client).
 
-An example combining the p5.js MQTT client and the p5.js serialport library is available at [this link](p5js-mqtt-client/p5Serial-client). 
+An example combining the p5.js MQTT client and the [p5.js serialport library](https://github.com/p5-serial/p5.serialport/blob/master/lib/p5.serialport.js) is available at [this link](p5js-mqtt-client/p5Serial-client). You'll need the [p5.serialcontrol app](https://github.com/p5-serial/p5.serialcontrol/releases) to connect to your serial ports. 
 
 ## Air Quality Index Clients
 
@@ -27,7 +27,7 @@ There is also a p5.js example in this directory that [receives MQTT messages](p5
 
 ## Web MIDI Client
 
-There is also an example here that combines [p5.js](https://p5js.org) with the [Web MIDI API](https://www.w3.org/TR/webmidi/), sending MIDI messages over an MQTT broker. It's called [mqtt-midi-client](p5-mqtt-client/mqtt-midi-client). This [Arduino MQTT-to-MIDI Client](https://github.com/tigoe/mqtt-examples/tree/master/MqttClientMIDIPlayer) can receive MIDI messages from the same broker and send MIDI to your operating system or MIDI system. 
+There is also an example here that combines [p5.js](https://p5js.org) with the [Web MIDI API](https://www.w3.org/TR/webmidi/), sending MIDI messages over an MQTT broker. It's called [mqtt-midi-client](p5js-mqtt-client/mqtt-midi-client). This [Arduino MQTT-to-MIDI Client](https://github.com/tigoe/mqtt-examples/tree/master/MqttClientMIDIPlayer) can receive MIDI messages from the same broker and send MIDI to your operating system or MIDI system. 
 
 ## Hue Control with QR Code Client
 
