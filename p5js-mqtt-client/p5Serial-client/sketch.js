@@ -10,7 +10,7 @@
     but has also been tested on https://test.mosquitto.org
 
     created 12 June 2020
-    modified 16 Oct 2020
+    modified 23 Nov 2020
     by Tom Igoe
 */
 
@@ -42,8 +42,8 @@ let xPos, yPos;
 // variable to hold an instance of the serialport library
 let serial;
 
-// fill in your serial port name here
-let portName = '/dev/cu.usbmodem1422301';
+// HTML Select option object:
+let portSelector;
 
 let lastTimeSent = 0;
 const sendInterval = 1000;
@@ -72,11 +72,10 @@ function setup() {
     remoteDiv = createDiv('waiting for messages');
     remoteDiv.position(20, 80);
 
-    serial = new p5.SerialPort();
-    serial.on('open', portOpen);        // callback for the port opening
-    serial.on('data', serialEvent);     // callback for when new data arrives
-    serial.on('error', serialError);    // callback for errors
-    serial.open(portName);              // open a serial port
+    serial = new p5.SerialPort(); // new instance of the serialport library
+    serial.on('list', printList); // callback function for serialport list event
+    serial.on('data', serialEvent); // callback function for serialport data event
+    serial.list(); // list the serial ports
 }
 
 function draw() {
@@ -88,17 +87,58 @@ function draw() {
     circle(xPos, yPos, 30);
 }
 
+
+// make a serial port selector object:
+function printList(portList) {
+    // create a select object:
+    portSelector = createSelect();
+    portSelector.position(10, 10);
+    // portList is an array of serial port names
+    for (var i = 0; i < portList.length; i++) {
+        // add this port name to the select object:
+        portSelector.option(portList[i]);
+    }
+    // set an event listener for when the port is changed:
+    portSelector.changed(mySelectEvent);
+}
+
+
+function mySelectEvent() {
+    let item = portSelector.value();
+    // give it an extra property for hiding later:
+    portSelector.visible = true;
+    // if there's a port open, close it:
+    if (serial.serialport != null) {
+        serial.close();
+    }
+    // open the new port:
+    serial.open(item);
+}
+
+function keyPressed() {
+    // if port selector is visible hide, else show:
+    if (portSelector) {
+      if (portSelector.visible) {
+        portSelector.hide();
+        portSelector.visible = false;
+      } else {
+        portSelector.show();
+        portSelector.visible = true;
+      }
+    }
+  }
+
 function portOpen() {
     console.log('the serial port has opened.')
 }
 
 function serialEvent() {
     // read a byte from the serial port, convert it to a number:
-     let inData = serial.readLine();
-  // send it as an MQTT message to the topic:
+    let inData = serial.readLine();
+    // send it as an MQTT message to the topic:
     if (inData && millis() - lastTimeSent > sendInterval) {
         sendMqttMessage(inData);
-        lastTimeSent = millis();             
+        lastTimeSent = millis();
     }
 }
 
