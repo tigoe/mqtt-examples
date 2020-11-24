@@ -27,7 +27,7 @@ There is also a second p5.js example in this directory that [receives MQTT messa
 
 ## Web MIDI Client
 
-There is also an example here that combines [p5.js](https://p5js.org) with the [Web MIDI API](https://www.w3.org/TR/webmidi/), sending MIDI messages over an MQTT broker. It's called [mqtt-midi-client](p5-mqtt-client/mqtt-midi-client). This [Arduino MQTT-to-MIDI Client](MqttClientMIDIPlayer) can receive MIDI messages from the same broker and send MIDI to your operating system or MIDI system. 
+There is also an example here that combines [p5.js](https://p5js.org) with the [Web MIDI API](https://www.w3.org/TR/webmidi/), sending MIDI messages over an MQTT broker. It's called [mqtt-midi-client](/p5-mqtt-client/mqtt-midi-client). This [Arduino MQTT-to-MIDI Client](MqttClientMIDIPlayer) can receive MIDI messages from the same broker and send MIDI to your operating system or MIDI system. 
 
 ## Hue Control with QR Code Client
 
