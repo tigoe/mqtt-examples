@@ -19,19 +19,19 @@ For JavaScript clients, the [Eclipse PAHO library](https://www.eclipse.org/paho/
 
 A simpler p5.js client that sends data on a mouse press is available at [this link](p5js-mqtt-client/mousePressed-client).
 
-An example combining the p5.js MQTT client and the p5.js serialport library is available at [this link](p5js-mqtt-client/ptSerial-client). 
+An example combining the p5.js MQTT client and the p5.js serialport library is available at [this link](p5js-mqtt-client/p5Serial-client). 
 
 ## Air Quality Index Clients
 
-There is also a p5.js example in this directory that [receives MQTT messages](https://tigoe.github.io/mqtt-examples/p5js-mqtt-client/AQISensorReceiver/index.html) from an [SGP30 air quality sensor example](https://github.com/tigoe/mqtt-examples/tree/master/MqttClientAQISender) for the Arduino Nano 33 IoT. Here is a [link to the code for the p5.js client](https://github.com/tigoe/mqtt-examples/tree/master/p5js-mqtt-client/AQISensorReceiver). This pair of examples is designed to show how to send and receive JSON.
+There is also a p5.js example in this directory that [receives MQTT messages](p5js-mqtt-client/AQISensorReceiver/index.html) from an [SGP30 air quality sensor example](https://github.com/tigoe/mqtt-examples/tree/master/MqttClientAQISender) for the Arduino Nano 33 IoT. Here is a [link to the code for the p5.js client](https://github.com/tigoe/mqtt-examples/tree/master/p5js-mqtt-client/AQISensorReceiver). This pair of examples is designed to show how to send and receive JSON.
 
 ## Web MIDI Client
 
-There is also an example here that combines [p5.js](https://p5js.org) with the [Web MIDI API](https://www.w3.org/TR/webmidi/), sending MIDI messages over an MQTT broker. It's called [mqtt-midi-client](https://tigoe.github.io/mqtt-examples/p5-mqtt-client/mqtt-midi-client). This [Arduino MQTT-to-MIDI Client](https://github.com/tigoe/mqtt-examples/tree/master/MqttClientMIDIPlayer) can receive MIDI messages from the same broker and send MIDI to your operating system or MIDI system. 
+There is also an example here that combines [p5.js](https://p5js.org) with the [Web MIDI API](https://www.w3.org/TR/webmidi/), sending MIDI messages over an MQTT broker. It's called [mqtt-midi-client](p5-mqtt-client/mqtt-midi-client). This [Arduino MQTT-to-MIDI Client](https://github.com/tigoe/mqtt-examples/tree/master/MqttClientMIDIPlayer) can receive MIDI messages from the same broker and send MIDI to your operating system or MIDI system. 
 
 ## Hue Control with QR Code Client
 
-Here is a [p5.js-based client with QR code](https://tigoe.github.io/mqtt-examples/MqttWithQRCode).  It generates its URL in a QR code, to make it easy to pass from one phone to another. It works with [this Philips Hue client](https://tigoe.github.io/mqtt-examples/MqttLightControl), which sends HTTP messages to a local Philips Hue hub to control Hue lights. 
+There is a [p5.js-based client with QR code](MqttWithQRCode) as well.  It generates its URL in a QR code, to make it easy to pass from one phone to another. It works with [this Philips Hue client](MqttLightControl), which sends HTTP messages to a local Philips Hue hub to control Hue lights. 
 
 ## MQTT Brokers
 
