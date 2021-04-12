@@ -37,6 +37,10 @@ There is also an example here that combines [p5.js](https://p5js.org) with the [
 
 There is a [p5.js-based client with QR code](MqttWithQRCode) as well.  It generates its URL in a QR code, to make it easy to pass from one phone to another. It works with [this Philips Hue client](MqttLightControl), which sends HTTP messages to a local Philips Hue hub to control Hue lights. 
 
+## Node.js Clients
+
+There are two clients built in node.js in this repository, [MqttNodeClient](MqttNodeClient) which is a basic example of how to make a client with the [node.js MQTT library](https://www.npmjs.com/package/mqtt). It sends a reading every few seconds, and subscribes to a topic called `lights`. It will work with the light control examples above. The other, [MqttNodeClientSerial](MqttNodeClientSerial) is similar, but it uses the node serialport library from [serialport.io](https://serialport.io/docs) to connect MQTT to serial in and out.
+
 ## MQTT Brokers
 
 There are a number of MQTT brokers you can use, the most popular is [mosquitto](http://mosquitto.org/). You can run mosquitto on your own computer or server, or you can use [test.mosquitto.org](https://test.mosquitto.org/) as a test broker. The instructions and port numbers for the various ways of reaching it are listed on [test.mosquitto.org](https://test.mosquitto.org). 
