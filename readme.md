@@ -10,6 +10,8 @@ What's nice about MQTT, as opposed to HTTP, for example, is that it's a simple p
 
 For a more detailed explanation, see [this explanation from IBM](https://developer.ibm.com/technologies/messaging/articles/iot-mqtt-why-good-for-iot), who developed the protocol initially. 
 
+Here is a [comparison between WebSockets and MQTT](mqtt-vs-websockets.md). 
+
 ----
 
 ## Arduino MQTT Clients
