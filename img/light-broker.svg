@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="66 337 767 560" width="767" height="560">
+  <defs>
+    <font-face font-family="Helvetica Neue" font-size="16" panose-1="2 0 5 3 0 0 0 2 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="951.9958" descent="-212.99744" font-weight="400">
+      <font-face-src>
+        <font-face-name name="HelveticaNeue"/>
+      </font-face-src>
+    </font-face>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -4 10 8" markerWidth="10" markerHeight="8" color="black">
+      <g>
+        <path d="M 8 0 L 0 -3 L 0 3 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+  </defs>
+  <metadata> Produced by OmniGraffle 7.18.5\n2021-04-12 13:51:15 +0000</metadata>
+  <g id="Canvas_1" stroke="none" fill="none" fill-opacity="1" stroke-dasharray="none" stroke-opacity="1">
+    <title>Canvas 1</title>
+    <rect fill="white" x="66" y="337" width="767" height="560"/>
+    <g id="Canvas_1_Layer_1">
+      <title>Layer 1</title>
+      <g id="Graphic_38">
+        <path d="M 326 563 L 428.5 563 C 430.15685 563 431.5 564.34315 431.5 566 L 431.5 644 C 431.5 645.65685 430.15685 647 428.5 647 L 326 647 C 324.34315 647 323 645.65685 323 644 L 323 566 C 323 564.34315 324.34315 563 326 563 Z" fill="white"/>
+        <path d="M 326 563 L 428.5 563 C 430.15685 563 431.5 564.34315 431.5 566 L 431.5 644 C 431.5 645.65685 430.15685 647 428.5 647 L 326 647 C 324.34315 647 323 645.65685 323 644 L 323 566 C 323 564.34315 324.34315 563 326 563 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(328 595.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="25.546" y="15">Broker</tspan>
+        </text>
+      </g>
+      <g id="Graphic_39">
+        <path d="M 308.5 349 L 446 349 C 447.65685 349 449 350.34315 449 352 L 449 451 C 449 452.65685 447.65685 454 446 454 L 308.5 454 C 306.84315 454 305.5 452.65685 305.5 451 L 305.5 352 C 305.5 350.34315 306.84315 349 308.5 349 Z" fill="white"/>
+        <path d="M 308.5 349 L 446 349 C 447.65685 349 449 350.34315 449 352 L 449 451 C 449 452.65685 447.65685 454 446 454 L 308.5 454 C 306.84315 454 305.5 452.65685 305.5 451 L 305.5 352 C 305.5 350.34315 306.84315 349 308.5 349 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(310.5 383.052)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="13.118" y="15">Microcontroller </tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="39.622" y="33.448">dimmer</tspan>
+        </text>
+      </g>
+      <g id="Graphic_40">
+        <path d="M 89.5 791 L 227 791 C 228.65685 791 230 792.3431 230 794 L 230 893 C 230 894.6569 228.65685 896 227 896 L 89.5 896 C 87.84315 896 86.5 894.6569 86.5 893 L 86.5 794 C 86.5 792.3431 87.84315 791 89.5 791 Z" fill="white"/>
+        <path d="M 89.5 791 L 227 791 C 228.65685 791 230 792.3431 230 794 L 230 893 C 230 894.6569 228.65685 896 227 896 L 89.5 896 C 87.84315 896 86.5 894.6569 86.5 893 L 86.5 794 C 86.5 792.3431 87.84315 791 89.5 791 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(91.5 825.052)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="13.118" y="15">Microcontroller </tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="51.638" y="33.448">light</tspan>
+        </text>
+      </g>
+      <g id="Graphic_41">
+        <path d="M 673 791 L 810.5 791 C 812.1569 791 813.5 792.3431 813.5 794 L 813.5 893 C 813.5 894.6569 812.1569 896 810.5 896 L 673 896 C 671.34315 896 670 894.6569 670 893 L 670 794 C 670 792.3431 671.34315 791 673 791 Z" fill="white"/>
+        <path d="M 673 791 L 810.5 791 C 812.1569 791 813.5 792.3431 813.5 794 L 813.5 893 C 813.5 894.6569 812.1569 896 810.5 896 L 673 896 C 671.34315 896 670 894.6569 670 893 L 670 794 C 670 792.3431 671.34315 791 673 791 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(675 834.276)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="9.11" y="15">Philips Hue Hub</tspan>
+        </text>
+      </g>
+      <g id="Graphic_42">
+        <path d="M 673 552.5 L 810.5 552.5 C 812.1569 552.5 813.5 553.84315 813.5 555.5 L 813.5 654.5 C 813.5 656.15685 812.1569 657.5 810.5 657.5 L 673 657.5 C 671.34315 657.5 670 656.15685 670 654.5 L 670 555.5 C 670 553.84315 671.34315 552.5 673 552.5 Z" fill="white"/>
+        <path d="M 673 552.5 L 810.5 552.5 C 812.1569 552.5 813.5 553.84315 813.5 555.5 L 813.5 654.5 C 813.5 656.15685 812.1569 657.5 810.5 657.5 L 673 657.5 C 671.34315 657.5 670 656.15685 670 654.5 L 670 555.5 C 670 553.84315 671.34315 552.5 673 552.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(675 586.552)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="12.382" y="15">Browser-based </tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="16.526" y="33.448">Hue controller</tspan>
+        </text>
+      </g>
+      <g id="Line_43">
+        <line x1="377.25" y1="454" x2="377.25" y2="553.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_44">
+        <line x1="431.5" y1="605" x2="660.1" y2="605" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_45">
+        <line x1="338.68396" y1="647" x2="213.15345" y2="783.7079" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_46">
+        <line x1="741.75" y1="657.5" x2="741.75" y2="781.1" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_47">
+        <rect x="316.386" y="483.5807" width="121.728" height="46.895996" fill="white"/>
+        <text transform="translate(321.386 488.5807)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="0" y="15">Publish to topic</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="15.4" y="33.448">light: 0-254</tspan>
+        </text>
+      </g>
+      <g id="Graphic_48">
+        <rect x="486.9365" y="581.552" width="145.728" height="46.895996" fill="white"/>
+        <text transform="translate(491.9365 586.552)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="2.224" y="15">Subscribe to topic </tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="24.728" y="33.448">Light: 0-254</tspan>
+        </text>
+      </g>
+      <g id="Graphic_49">
+        <rect x="207.89934" y="686.6299" width="145.728" height="46.895996" fill="white"/>
+        <text transform="translate(212.89934 691.6299)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="2.224" y="15">Subscribe to topic </tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="24.728" y="33.448">Light: 0-254</tspan>
+        </text>
+      </g>
+      <g id="Line_51">
+        <path d="M 670 567.22604 L 567 513 L 440.40816 574.37786" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_52">
+        <rect x="498.9365" y="483.0672" width="121.728" height="46.895996" fill="white"/>
+        <text transform="translate(503.9365 488.0672)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="0" y="15">Publish to topic</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="12.728" y="33.448">Light: 0-254</tspan>
+        </text>
+      </g>
+      <g id="Graphic_53">
+        <rect x="651.126" y="676.0332" width="181.248" height="83.79199" fill="white"/>
+        <text transform="translate(656.126 681.0332)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="65.48" y="15">HTTP</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="0" y="33.448">PUT /api/id/light/3/state</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="46.504" y="51.895996">{“on”: true,</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="41.608" y="70.34399">“bri”: 0-254}</tspan>
+        </text>
+      </g>
+      <g id="Graphic_55">
+        <circle cx="463" cy="843.5" r="30.0000479370569" fill="white"/>
+        <circle cx="463" cy="843.5" r="30.0000479370569" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(444 834.276)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="4.032" y="15">LED</tspan>
+        </text>
+      </g>
+      <g id="Line_56">
+        <line x1="230" y1="843.5" x2="423.1" y2="843.5" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_57">
+        <rect x="268.04236" y="829.276" width="149.584" height="28.447998" fill="white"/>
+        <text transform="translate(273.04236 834.276)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="0" y="15">analogWrite() 0-254</tspan>
+        </text>
+      </g>
+      <g id="Group_61">
+        <g id="Graphic_59">
+          <circle cx="132.028" cy="401.5" r="30.0000479370569" fill="white"/>
+          <circle cx="132.028" cy="401.5" r="30.0000479370569" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+        <g id="Graphic_60">
+          <circle cx="132.028" cy="401.5" r="19.000030360136" fill="white"/>
+          <circle cx="132.028" cy="401.5" r="19.000030360136" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+      </g>
+      <g id="Graphic_62">
+        <text transform="translate(71.5 342)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="24158453e-20" y="15">Potentiometer</tspan>
+        </text>
+      </g>
+      <g id="Line_63">
+        <line x1="151.02801" y1="401.5" x2="295.6" y2="401.5" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_64">
+        <rect x="167.0506" y="378.052" width="110.144" height="46.895996" fill="white"/>
+        <text transform="translate(172.0506 383.052)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="2.224" y="15">AnalogRead() </tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="29.168" y="33.448">0-254</tspan>
+        </text>
+      </g>
+    </g>
+  </g>
+</svg>
