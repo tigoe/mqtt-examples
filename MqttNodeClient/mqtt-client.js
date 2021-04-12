@@ -10,7 +10,6 @@
 
 // include the MQTT library:
 const mqtt = require('mqtt');
-const { lstat } = require('node:fs');
 // the broker you plan to connect to. 
 // transport options: 
 // 'mqtt', 'mqtts', 'tcp', 'tls', 'ws', or 'wss':
@@ -35,7 +34,7 @@ function setupClient() {
 
 // new message handler:
 function readMqttMessage(topic, message) {
-  // message is Buffer
+  // message is a Buffer, so convert to a string:
   let msgString = message.toString();
   console.log(topic);
   console.log(msgString);
