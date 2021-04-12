@@ -39,7 +39,7 @@ There is a [p5.js-based client with QR code](MqttWithQRCode) as well.  It genera
 
 ## Node.js Clients
 
-There are two clients built in node.js in this repository, [MqttNodeClient](MqttNodeClient) which is a basic example of how to make a client with the [node.js MQTT library](https://www.npmjs.com/package/mqtt). It sends a reading every few seconds, and subscribes to a topic called `lights`. It will work with the light control examples above. The other, [MqttNodeClientSerial](MqttNodeClientSerial) is similar, but it uses the node serialport library from [serialport.io](https://serialport.io/docs) to connect MQTT to serial in and out.
+There are two clients built in node.js in this repository, [MqttNodeClient](https://github.com/tigoe/mqtt-examples/tree/master/MqttNodeClient) which is a basic example of how to make a client with the [node.js MQTT library](https://www.npmjs.com/package/mqtt). It sends a reading every few seconds, and subscribes to a topic called `lights`. It will work with the light control examples above. The other, [https://github.com/tigoe/mqtt-examples/tree/master/MqttNodeClientSerial](MqttNodeClientSerial) is similar, but it uses the node serialport library from [serialport.io](https://serialport.io/docs) to connect MQTT to serial in and out.
 
 ## MQTT Brokers
 
