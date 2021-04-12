@@ -93,6 +93,6 @@ If you've used Arduino before, you probably have the basic idea now. and you can
 
 ## Send from another client
 
-If you'd like to test this without a friend, there is a p5.js JavaScript example in this repository. called [../p5js-mqtt-client](p5js-mqtt-client/).  You can try it at [this link](https://tigoe.github.io/mqtt-examples/p5js-mqtt-client/public/index.html). You can also download it and open the index.html file locally. Click the button that appears in the page. A circle in the center of the screen should light up when you click the button, and if your Arduino is connected, the LED should light up too. Similarly, when you press the pushbutton on the Arduino, the circle on the HTML page will light up. Both the HTML page and the Arduino are MQTT clients of the shiftr.io broker.
+If you'd like to test this without a friend, there is a p5.js JavaScript example in this repository. called [../p5js-mqtt-client](https://tigoe.github.io/mqtt-examples/p5js-mqtt-client/).  You can try it at [this link](https://tigoe.github.io/mqtt-examples/p5js-mqtt-client/public/index.html). You can also download it and open the index.html file locally. Click the button that appears in the page. A circle in the center of the screen should light up when you click the button, and if your Arduino is connected, the LED should light up too. Similarly, when you press the pushbutton on the Arduino, the circle on the HTML page will light up. Both the HTML page and the Arduino are MQTT clients of the shiftr.io broker.
 
 

@@ -8,7 +8,7 @@
   it sets an LED to full. When nothing is happening,
   if the LED is not off, it's faded down one point every time through the loop.
 
-  This sketch uses https://next.shiftr.io/try as the MQTT broker.
+  This sketch uses https://shiftr.io/try as the MQTT broker.
 
   the circuit:
   - pushbutton attached to pin 2, connected to ground
@@ -21,6 +21,7 @@
   #define SECRET_MQTT_PASS "public" // broker password
 
   created 11 June 2020
+  updated 12 Apr 2021
   by Tom Igoe
 */
 
