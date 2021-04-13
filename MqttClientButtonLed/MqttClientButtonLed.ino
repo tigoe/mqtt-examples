@@ -108,7 +108,7 @@ void loop() {
     // update its level:
     analogWrite(ledPin, intensity);
     // fade level down one point for next time through loop:
-    intensity = max(intensity--, 0);
+    intensity--;
   }
 
   // read the pushbutton:
