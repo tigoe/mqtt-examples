@@ -31,9 +31,11 @@ An example combining the p5.js MQTT client and the [p5.js serialport library](ht
 
 There is also a p5.js example in this directory that [receives MQTT messages](p5js-mqtt-client/AQISensorReceiver/index.html) from an [SGP30 air quality sensor example](https://github.com/tigoe/mqtt-examples/tree/master/MqttClientAQISender) for the Arduino Nano 33 IoT. Here is a [link to the code for the p5.js client](https://github.com/tigoe/mqtt-examples/tree/master/p5js-mqtt-client/AQISensorReceiver). This pair of examples is designed to show how to send and receive JSON.
 
-## Web MIDI Client
+## Web MIDI Clients
 
-There is also an example here that combines [p5.js](https://p5js.org) with the [Web MIDI API](https://www.w3.org/TR/webmidi/), sending MIDI messages over an MQTT broker. It's called [mqtt-midi-client](p5js-mqtt-client/mqtt-midi-client). This [Arduino MQTT-to-MIDI Client](https://github.com/tigoe/mqtt-examples/tree/master/MqttClientMIDIPlayer) can receive MIDI messages from the same broker and send MIDI to your operating system or MIDI system.  This [Arduino MIDI-to-MQTT client](https://github.com/tigoe/mqtt-examples/tree/master/MqttClientMIDIController) can send noteon and noteoff messages via MQTT at the push of a button
+There are also examples here that combines [p5.js](https://p5js.org) with the [Web MIDI API](https://www.w3.org/TR/webmidi/), sending MIDI messages over an MQTT broker. It's called [mqtt-midi-client](p5js-mqtt-client/mqtt-midi-client). If you prefer a version without p5.js, and with keyboard input so that it can act as a MIDI controller, see [mqtt-midi-controller](mqtt-midi-controller).
+ 
+This [Arduino MQTT-to-MIDI Client](https://github.com/tigoe/mqtt-examples/tree/master/MqttClientMIDIPlayer) can receive MIDI messages from the same broker and send MIDI to your operating system or MIDI system.  This [Arduino MIDI-to-MQTT client](https://github.com/tigoe/mqtt-examples/tree/master/MqttClientMIDIController) can send noteon and noteoff messages via MQTT at the push of a button.
 
 ## Hue Control with QR Code Client
 
