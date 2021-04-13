@@ -81,7 +81,7 @@ connected to broker
 You're connected, press the button! You should see the LED light up after a fraction of a second, and then fade. In the Serial Monitor, you'll get a message like this (the number will be a random number from 0 to 15):
 
 ````
-Got a message on topic: notes
+Got a message on topic: lights
 13
 ````
 

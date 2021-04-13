@@ -9,3 +9,4 @@ MqttClientButtonLed/arduino_secrets.h
 
 MqttClientSender/arduino_secrets.h
 MqttClientMIDIPlayer/arduino_secrets.h
+MqttClientButtonLed/arduino_secrets.h

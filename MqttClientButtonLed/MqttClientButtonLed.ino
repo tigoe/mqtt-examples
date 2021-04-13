@@ -36,7 +36,7 @@ MqttClient mqttClient(wifi);
 // details for MQTT client:
 char broker[] = "public.cloud.shiftr.io";
 int port = 1883;
-char topic[] = "notes";
+char topic[] = "lights";
 char clientID[] = "buttonClient";
 
 // intensity of LED:
