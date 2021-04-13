@@ -129,10 +129,10 @@ function keyAction(key, direction) {
   // third byte is velocity (0x70 = reasonably loud):
   if (direction === 'up') {
     midiCmd[0] = 0x80;
-    midiCmd[2] = 0x70;
+    midiCmd[2] = 0x00;
   } else {
     midiCmd[0] = 0x90;
-    midiCmd[2] = 0x00;
+    midiCmd[2] = 0x70;
   }
  // print the MIDI bytes as hexadeciimal values:
  messageDiv.innerHTML = "MIDI message:"
