@@ -81,18 +81,16 @@ connected to broker
 You're connected, press the button! You should see the LED light up after a fraction of a second, and then fade. In the Serial Monitor, you'll get a message like this (the number will be a random number from 0 to 15):
 
 ````
-Got a message on topic: try/notes
+Got a message on topic: notes
 13
 ````
 
 Woo hoo, you're sending messages to yourself!  
 
-If you've got a friend  with an Arduino that's WiFi-enabled, have them follow these steps. When either of you presses the button, both of your LEDs should light up. You're both sending messages through [shiftr.io](https://next.shiftr.io/try), an MQTT broker.
+If you've got a friend  with an Arduino that's WiFi-enabled, have them follow these steps. When either of you presses the button, both of your LEDs should light up. You're both sending messages through [shiftr.io](https://.shiftr.io/try), an MQTT broker.
 
 If you've used Arduino before, you probably have the basic idea now. and you can modify things from here to get what you want. 
 
 ## Send from another client
 
 If you'd like to test this without a friend, there is a p5.js JavaScript example in this repository. called [../p5js-mqtt-client](https://tigoe.github.io/mqtt-examples/p5js-mqtt-client/).  You can try it at [this link](https://tigoe.github.io/mqtt-examples/p5js-mqtt-client/public/index.html). You can also download it and open the index.html file locally. Click the button that appears in the page. A circle in the center of the screen should light up when you click the button, and if your Arduino is connected, the LED should light up too. Similarly, when you press the pushbutton on the Arduino, the circle on the HTML page will light up. Both the HTML page and the Arduino are MQTT clients of the shiftr.io broker.
-
-
