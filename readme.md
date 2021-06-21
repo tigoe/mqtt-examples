@@ -8,6 +8,8 @@ Clients  either publish new messages to topics, or subscribe to topics, and the 
 
 What's nice about MQTT, as opposed to HTTP, for example, is that it's a simple protocol, you can send anything you want in a message with whatever formatting you want, and when you subscribe to a topic, you get updates whenever a new message from a remote client arrives. So it's great for situations where two or more devices need to communicate in both directions in near real-time. It offers the convenience of web sockets, but without having to maintain a connection to the server, as all communication is message-based, not session-based.
 
+Because MQTT doesn't care what you put in each message, you can format your messages to match whatever end use you need. You text-formatted messages like comma-separate values (CSV) or JSON strings inside an MQTT message, for example, or binary messages like MIDI commands or OSC messages. The broker doesn't care what's in the message. This means that your client's job is just to send and receive messages between the broker and your end application, whatever it may be.
+
 For a more detailed explanation, see [this explanation from IBM](https://developer.ibm.com/technologies/messaging/articles/iot-mqtt-why-good-for-iot), who developed the protocol initially. 
 
 Here is a [comparison between WebSockets and MQTT](mqtt-vs-websockets.md). 
