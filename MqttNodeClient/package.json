@@ -2,7 +2,7 @@
   "dependencies": {
     "mqtt": "^1.14.0"
   },
-  "name": "mqttnodeclient",
+  "name": "mqtt-node-client",
   "version": "0.0.2",
   "description": "a simple node mqtt client",
   "main": "mqtt-client.js",
