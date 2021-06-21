@@ -13,7 +13,7 @@ const mqtt = require('mqtt');
 // the broker you plan to connect to. 
 // transport options: 
 // 'mqtt', 'mqtts', 'tcp', 'tls', 'ws', or 'wss':
-const broker = 'mqtts://public.cloud.shiftr.io';
+const broker = 'mqtt://public.cloud.shiftr.io';
 
 // client options:
 const options = {
@@ -45,6 +45,7 @@ function sendMqttMessage(topic, msg) {
   if (client.connected) {
     let msgString = JSON.stringify(msg);
     client.publish(topic, msgString);
+    console.log('update');
   }
 }
 

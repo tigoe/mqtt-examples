@@ -10,6 +10,7 @@
   Arduino sketch SerialInOut.ino works with this script.
 
   created 10 Apr 2021
+  modified 21 Jun 2021
   by Tom Igoe
 */
 
@@ -22,7 +23,7 @@ const Readline = require('@serialport/parser-readline');
 // the broker you plan to connect to. 
 // transport options: 
 // 'mqtt', 'mqtts', 'tcp', 'tls', 'ws', or 'wss':
-const broker = 'mqtts://public.cloud.shiftr.io';
+const broker = 'mqtt://public.cloud.shiftr.io';
 
 // client options:
 const options = {
