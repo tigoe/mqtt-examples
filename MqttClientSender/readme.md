@@ -48,7 +48,7 @@ To install the [ArduinoMqttClient](https://www.arduino.cc/reference/en/libraries
 
 ### Programming the Board
 
-Once you've downloaded this repository, open the [MqttClientButtonLed sketch](../MqttClientButtonLed/) in the Arduino IDE. Click on the `Arduino_secrets.h` tab, and you'll see the following:
+Once you've downloaded this repository, open the [MqttClientButtonLed sketch](https://github.com/tigoe/mqtt-examples/tree/main/MqttClientButtonLed) in the Arduino IDE. Click on the `Arduino_secrets.h` tab (or create it if it's not there), and you'll see the following:
 
 ````
 #define SECRET_SSID ""
