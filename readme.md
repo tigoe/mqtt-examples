@@ -61,12 +61,30 @@ There are a number of MQTT brokers you can use, the most popular is [mosquitto](
 
 ## MQTT, Web Sockets, and Encryption
 
-You can make an MQTT request directly, or you can do it encrypted. You can also make MQTT requests over websockets. Each transport method is typically done on a different port number. For example, test.mosquitto.org lists the following ports:
+You can make an MQTT request directly, or you can do it encrypted. You can also make MQTT requests over websockets. Each transport method is typically done on a different port number. For example, [test.mosquitto.org](https://test.mosquitto.org) lists the following ports:
 
-* 1883 : MQTT, unencrypted
-* 8883 : MQTT, encrypted
-* 8884 : MQTT, encrypted, client certificate required
-* 8080 : MQTT over WebSockets, unencrypted
-* 8081 : MQTT over WebSockets, encrypted
+* 1883 MQTT, unencrypted, unauthenticated
+* 1884 MQTT, unencrypted, authenticated
+* 8883 MQTT, encrypted, unauthenticated
+* 8884 MQTT, encrypted, client certificate required
+* 8885 MQTT, encrypted, authenticated
+* 8886 MQTT, encrypted, unauthenticated
+* 8887 MQTT, encrypted, server certificate deliberately expired
+* 8080 MQTT over WebSockets, unencrypted, unauthenticated
+* 8081 MQTT over WebSockets, encrypted, unauthenticated
+* 8090 MQTT over WebSockets, unencrypted, authenticated
+* 8091 MQTT over WebSockets, encrypted, authenticated
+
+And [shiftr.io](https://www.shiftr.io/docs/broker/mqtt-interface/) lists the following:
+
+shiftr.io Cloud : 
+* 1883 MQTT, unencrypted port 1883
+* 8883: MQTT, encrypted
+* 443: secure WebSocket (WSS/HTTPS)
+
+shiftr.io Desktop : 
+* 1883 MQTT, unencrypted port 1883
+* 8883: MQTT, encrypted
+* 1884:  WebSocket (WS/HTTP)
 
 Different client APIs support different approaches. For example, the ArduinoMqttClient supports both unencrypted and encrypted MQTT or MQTTS connections just by changing the port number and the WiFiClient to a WiFiSSLClient. The Eclipse Paho JS client send MQTT messages over web sockets, encrypted or unencrypted. Other MQTT client frameworks use one or more of these four methods. 
