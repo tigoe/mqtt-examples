@@ -29,21 +29,21 @@ WiFiClient wifi;
 MqttClient mqttClient(wifi);
 
 // details for MQTT client:
-char broker[] = "public.cloud.shiftr.io";
+char broker[] = "test.mosquitto.org";
 int port = 1883;
-char topic[] = "notes";
-char clientID[] = "senderClient";
+char topic[] = "undnet/yourname";
+char clientID[] = "yourNameClient";
 
 // last time the client sent a message, in ms:
 long lastTimeSent = 0;
 // message sending interval:
-int interval = 3000;
+int interval = 10*1000;
 
 void setup() {
   // initialize serial:
   Serial.begin(9600);
   // wait for serial monitor to open:
-  while (!Serial);
+  if (!Serial) delay(3000);
 
   // initialize WiFi, if not connected:
   while (WiFi.status() != WL_CONNECTED) {
@@ -58,8 +58,8 @@ void setup() {
 
   // set the credentials for the MQTT client:
   mqttClient.setId(clientID);
-  // login to the broker with a username and password:
-  mqttClient.setUsernamePassword(SECRET_MQTT_USER, SECRET_MQTT_PASS);
+  // if needed, login to the broker with a username and password:
+  //mqttClient.setUsernamePassword(SECRET_MQTT_USER, SECRET_MQTT_PASS);
 
   // try to connect to the MQTT broker once you're connected to WiFi:
   while (!connectToBroker()) {
@@ -76,17 +76,26 @@ void loop() {
     connectToBroker();
   }
 
-// once every interval, send a message:
+  // once every interval, send a message:
   if (millis() - lastTimeSent > interval) {
     // start a new message on the topic:
     mqttClient.beginMessage(topic);
-    // add a random number as a numeric string (print(), not write()):
-    mqttClient.print(random(16));
+    // generate two random numbers:
+    int x = random(10000);
+    int y = random(6000);
+
+// put them into a JSON String:
+    String body = "{\"x\": xx, \"y\", yy}";
+    body.replace("xx", String(x));
+    body.replace("yy", String(y));
+
+    // print the body of the message:
+    mqttClient.print(body);
     // send the message:
     mqttClient.endMessage();
+    // timestamp this message:
     lastTimeSent = millis();
   }
-
 }
 
 boolean connectToBroker() {
