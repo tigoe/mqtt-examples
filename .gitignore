@@ -12,3 +12,5 @@ MqttClientButtonLed/arduino_secrets.h
 */node_modules/*
 MqttClientButtonLed/arduino_secrets.h
 */arduino_secrets.h
+MqttClientButtonLed/arduino_secrets.h
+MqttClientSender/arduino_secrets.h
