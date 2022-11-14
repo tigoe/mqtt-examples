@@ -1,0 +1,18 @@
+{
+  "name": "mqttnodeclientfilewriter",
+  "version": "0.0.2",
+  "description": "A node mqtt client that writes to the filesystem",
+  "main": "client.js",
+  "dependencies": {
+    "mqtt": "^4.3.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mqtt"
+  ],
+  "author": "Tom Igoe",
+  "license": "ISC"
+}
