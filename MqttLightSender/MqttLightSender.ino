@@ -11,11 +11,10 @@
    http://librarymanager/All#Adafruit_TCS34725 (for the sensor)
 
   created 13 Jun 2021
-  modified 11 Nov 2022
+  modified 14 Nov 2022
   by Tom Igoe
 */
 // include required libraries and config files
-// #include <SPI.h>
 //#include <WiFi101.h>        // for MKR1000 modules
 #include <WiFiNINA.h>  // for MKR1010 modules and Nano 33 IoT modules
 #include <ArduinoMqttClient.h>
@@ -27,21 +26,21 @@
 
 // initialize WiFi connection using SSL
 // (use WIFiClient and port number 1883 for unencrypted connections):
-WiFiSSLClient wifi;
+WiFiClient wifi;
 MqttClient mqttClient(wifi);
 String addressString = "";
 
 // details for MQTT client:
-char broker[] = "public.cloud.shiftr.io";
-int port = 8883;
-char topic[] = "light-readings";
-String clientID = "light-client-";
+char broker[] = "test.mosquitto.org";
+int port = 1883;
+char topic[] = "undnet/tigoe";
+String clientID = "light-client-tigoe";
 
 // timestamp for the sensor reading and send:
 long lastSendTime = 0;
 
 // interval between requests:
-int sendInterval = 10*1000;
+int sendInterval = 60 * 1000;
 // initialize the light sensor:
 Adafruit_TCS34725 tcs = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_600MS, TCS34725_GAIN_1X);
 
@@ -50,11 +49,13 @@ void setup() {
   // if serial monitor is not open, wait 3 seconds:
   if (!Serial) delay(3000);
 
-
   // set the credentials for the MQTT client:
-  mqttClient.setId(clientID);
-  // login to the broker with a username and password:
-  mqttClient.setUsernamePassword(SECRET_MQTT_USER, SECRET_MQTT_PASS);
+   mqttClient.setId(clientID);
+  // // login to the broker with a username and password:
+  // mqttClient.setUsernamePassword(SECRET_MQTT_USER, SECRET_MQTT_PASS);
+
+// connect to WiFi
+  connectToNetwork();
 
   // try to connect to the MQTT broker once you're connected to WiFi:
   while (!connectToBroker()) {
@@ -122,8 +123,8 @@ boolean connectToBroker() {
     // return that you're not connected:
     return false;
   }
-  // once you're connected, you can proceed:
   mqttClient.subscribe(topic);
+  // once you're connected, you
   // return that you're connected:
   return true;
 }
