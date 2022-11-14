@@ -92,7 +92,7 @@ void loop() {
       // send:
       mqttClient.beginMessage(topic);
       // add the value:
-      mqttClient.print(body);
+      mqttClient.println(body);
       // send the message:
       mqttClient.endMessage();
 

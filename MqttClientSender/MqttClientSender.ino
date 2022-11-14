@@ -90,7 +90,7 @@ void loop() {
     body.replace("yy", String(y));
 
     // print the body of the message:
-    mqttClient.print(body);
+    mqttClient.println(body);
     // send the message:
     mqttClient.endMessage();
     // timestamp this message:

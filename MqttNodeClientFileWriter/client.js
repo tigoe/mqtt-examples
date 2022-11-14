@@ -16,7 +16,7 @@ const fs = require('fs')						// and the filesystem library
 // the broker you plan to connect to. 
 // transport options: 
 // 'mqtt', 'mqtts', 'tcp', 'tls', 'ws', or 'wss':
-const broker = 'mqtt://public.cloud.shiftr.io';
+const broker = 'mqtt://test.mosquitto.org';
 
 // client options:
 const options = {
@@ -25,7 +25,7 @@ const options = {
   password: 'public'
 }
 // topic and message payload:
-let myTopic = 'myTopic';
+let myTopic = 'undnet/#';
 let payload;
 
 // connect handler:
@@ -39,21 +39,19 @@ function readMqttMessage(topic, message) {
   // message is a Buffer, so convert to a string:
 
   let msgString = message.toString();
-  console.log(topic);
-  console.log(msgString);
-  saveData(msgString)
+  console.log(topic + ": " + msgString);
+  saveData(topic, msgString)
 }
 
 
-function saveData(data) {
-  data += "\n";
+function saveData(topic, data) {
   // get the path to the data file: 
   let filePath = __dirname + '/data.txt';
  
   // this function is called by by the writeFile and appendFile functions 
   // below:
   function fileWriteResponse() {
-    console.log("wrote: " + data + " to file");
+    console.log(topic + ": " + data);
   }
   /* 
     write to the file asynchronously. The third parameter of 
