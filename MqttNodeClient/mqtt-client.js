@@ -13,16 +13,16 @@ const mqtt = require('mqtt');
 // the broker you plan to connect to. 
 // transport options: 
 // 'mqtt', 'mqtts', 'tcp', 'tls', 'ws', or 'wss':
-const broker = 'mqtt://public.cloud.shiftr.io';
+const broker = 'mqtt://test.mosquitto.org';
 
 // client options:
 const options = {
-  clientId: 'nodeClient',
-  username: 'public',
-  password: 'public'
+  clientId: 'nodeClient' //,
+  // username: 'public',
+  // password: 'public'
 }
 // topic and message payload:
-let myTopic = 'lights';
+let myTopic = 'undnet/#';
 let payload;
 
 // connect handler:
@@ -40,7 +40,7 @@ function readMqttMessage(topic, message) {
   console.log(msgString);
 }
 
-// message sender:
+ // message sender:
 function sendMqttMessage(topic, msg) {
   if (client.connected) {
     let msgString = JSON.stringify(msg);
@@ -59,5 +59,5 @@ function update() {
 let client = mqtt.connect(broker, options);
 client.on('connect', setupClient);
 
-// send a message every two seconds:
-setInterval(update, 2000);
+// // send a message every two seconds:
+// setInterval(update, 2000);
