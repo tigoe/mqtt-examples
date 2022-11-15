@@ -29,7 +29,10 @@ const broker = 'mqtt://public.cloud.shiftr.io';
 const options = {
   clientId: 'nodeClient',
   username: 'public',
-  password: 'public'
+  password: 'public',
+  clean: true,
+  connectTimeout: 4000,
+  reconnectPeriod: 1000
 }
 // topic and message payload:
 let myTopic = 'lights';

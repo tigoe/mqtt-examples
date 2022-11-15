@@ -5,13 +5,13 @@
   data.txt
 
   created 10 Apr 2021
-  modified 11 Nov 2022
+  modified 14 Nov 2022
   by Tom Igoe
 */
 
-// include the MQTT library:
+// include the libraries:
 const mqtt = require('mqtt');
-const fs = require('fs')						// and the filesystem library	
+const fs = require('fs')						
 
 // the broker you plan to connect to. 
 // transport options: 
@@ -22,7 +22,10 @@ const broker = 'mqtt://test.mosquitto.org';
 const options = {
   clientId: 'nodeClient',
   username: 'public',
-  password: 'public'
+  password: 'public',
+  clean: true,
+  connectTimeout: 4000,
+  reconnectPeriod: 1000
 }
 // topic and message payload:
 let myTopic = 'undnet/#';
@@ -31,27 +34,25 @@ let payload;
 // connect handler:
 function setupClient() {
   client.subscribe(myTopic);
-  client.on('message', readMqttMessage);
 }
 
 // new message handler:
 function readMqttMessage(topic, message) {
   // message is a Buffer, so convert to a string:
-
   let msgString = message.toString();
-  console.log(topic + ": " + msgString);
-  saveData(topic, msgString)
+  saveData(topic, msgString);
 }
+
 
 
 function saveData(topic, data) {
   // get the path to the data file: 
   let filePath = __dirname + '/data.txt';
- 
+
   // this function is called by by the writeFile and appendFile functions 
   // below:
   function fileWriteResponse() {
-    console.log(topic + ": " + data);
+    console.log("writing: " + topic + ": " + data);
   }
   /* 
     write to the file asynchronously. The third parameter of 
@@ -71,3 +72,4 @@ function saveData(topic, data) {
 // make a client and connect:
 let client = mqtt.connect(broker, options);
 client.on('connect', setupClient);
+client.on('message', readMqttMessage);

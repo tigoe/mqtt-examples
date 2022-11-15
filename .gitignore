@@ -16,3 +16,4 @@ MqttClientButtonLed/arduino_secrets.h
 MqttClientSender/arduino_secrets.h
 MqttClientSender/arduino_secrets.h
 MqttNodeClientFileWriter/data.txt
+MqttClientSender/arduino_secrets.h
