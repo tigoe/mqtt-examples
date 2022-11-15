@@ -89,7 +89,7 @@ void loop() {
       body.replace("ll", String(lux));
       body.replace("cc", String(colorTemp));
 
-      // send:
+      // start the mesage:
       mqttClient.beginMessage(topic);
       // add the value:
       mqttClient.println(body);
