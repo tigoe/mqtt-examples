@@ -37,7 +37,7 @@ char clientID[] = "yourNameClient";
 // last time the client sent a message, in ms:
 long lastTimeSent = 0;
 // message sending interval:
-int interval = 10*1000;
+int interval = 60*1000;
 
 void setup() {
   // initialize serial:
