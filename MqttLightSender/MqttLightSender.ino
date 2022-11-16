@@ -85,7 +85,7 @@ void loop() {
       tcs.getRawData(&r, &g, &b, &c);
       colorTemp = tcs.calculateColorTemperature_dn40(r, g, b, c);
       lux = tcs.calculateLux(r, g, b);
-      String body = "{\"lux\": ll, \"ct\", cc}";
+      String body = "{\"lux\": ll, \"ct\": cc}";
       body.replace("ll", String(lux));
       body.replace("cc", String(colorTemp));
 
