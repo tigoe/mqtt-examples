@@ -85,7 +85,7 @@ void loop() {
     int y = random(6000);
 
 // put them into a JSON String:
-    String body = "{\"x\": xx, \"y\", yy}";
+    String body = "{\"x\": xx, \"y\": yy}";
     body.replace("xx", String(x));
     body.replace("yy", String(y));
 
