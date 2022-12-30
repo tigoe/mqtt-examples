@@ -13,17 +13,22 @@ Works with eclipse Paho, ArduinoMqttClient, and mqtt.js
 | Broker| | Arduino | mqtt.js |  eclipse.PAHO.js |
 | --- |--- | --- | --- | --- |
 | EQMX | Initializer |WiFiSSLClient | wss:// | useSSL: true in client.connect() | 
+|     |   |   |   |
  | | address| broker.emqx.io | same | same |
 | | port | 8883 | 8084| 8084|
+|     |   |   |   |
 | | credentials | none | none | none |
+|     |   |   |   |
 | shiftr.io cloud | Initializer |WiFiSSLClient | wss:// | useSSL: true in client.connect() | 
  | | address| public.cloud.shiftr.io | same | same |
 | | port | 8883 | not specified| 443|
 | | credentials | username : public, password: public | same| same|
+|     |   |   |   |
 | shiftr.io desktop | Initializer |WiFiClient | ws:// | none | 
  | | address| your computer's IP address | same| same|
 | | port | 1883 | 1884 | 1884|
 | | credentials | none | none| none|
+|     |   |   |   |
 | test.mosquitto.org | Initializer |WiFiSSLClient | wss:// | useSSL: true in client.connect() | 
  | | address| test.mosquitto.org | same | same |
 | | port | 8886 | 8081| 8081|
