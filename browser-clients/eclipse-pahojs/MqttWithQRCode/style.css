@@ -1,0 +1,5 @@
+ /* adapted from https://css-tricks.com/simplified-fluid-typography/ */
+
+html {
+  font-size: min(max(1rem, 4vmax), 22px);
+}

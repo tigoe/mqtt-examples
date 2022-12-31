@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js" type="text/javascript"></script>
+  <script src="script.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <title>Document</title>
+</head>
+<body>
+  <h1>MIDI MQTT Message Sender and Receiver</h1>
+  <p>This page connects to an MQTT broker, and uses WebMIDI to connect to any MIDI inputs or outputs on your system. It will auto-detect new MIDI devices as they are connected or disconnected from your system.</p>
+  <p>When a MIDI message is received, it is converted to an MQTT message on a topic called Midi, and sent out to the MQTT broker. Likewise, when an MQTT message is received, it is converted to a MIDI message and sent to the selected MIDI output device.</p>
+  <p>You can also generate MIDI messages (and MQTT messages) by typing the keys below.</p>
+  <p>The Local Echo checkbox selects whether the MIDI output takes messages from local sources, or just from MQTT.</p>
+  
+  <select id="inputs"></select><br>
+  <select id="outputs"></select><br>
+  <label for="echo">Local echo: </label><input type="checkbox"  id="echo"><br>
+  <div id="local">local messages will go here</div>
+  <div id="remote">waiting for messages</div>
+  <div id="messages">messages will go here</div>
+ 
+  <h2>Keyboard Input:</h2>
+  <span id="black-keys">&nbsp;W E&nbsp;&nbsp;&nbsp;&nbsp;T Y U&nbsp;&nbsp;&nbsp;O</span><br>
+  <span id="white-keys">A S D F G H J K L</span><br>
+  <span id="notes">C3 D3 E3 F3 G3 A4 B4 C4 D4</span>
+</body>
+</html>

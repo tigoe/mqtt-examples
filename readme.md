@@ -1,4 +1,4 @@
-# MQTT Client Examples
+# MQTT Examples
 
 **Message Queueing Telemetry Transfer**, or **[MQTT](https://mqtt.org/)**, is a lightweight IP-based messaging protocol designed for communication between sensors, controllers, and other devices. It's designed to support equipment that may not always be online, like automated devices built with microcontrollers. MQTT server programs are called **brokers**. A broker keeps track of messages from clients, and allows any client to query the last message sent by another client. 
 
@@ -14,53 +14,44 @@ For a more detailed explanation, see [this explanation from IBM](https://develop
 
 Here is a [comparison between WebSockets and MQTT](mqtt-vs-websockets.md). 
 
-----
+## Arduino Client Libraries
 
-## Arduino MQTT Clients
-The [ArduinoMqttClient](https://github.com/arduino-libraries/ArduinoMqttClient) library makes it easy to send and receive MQTT messages using WiFi-enabled Arduino models such as the Nano 33 IoT, MKR1010, MKR1000, or other third-party devices with compatible WiFi libraries. This repository contains examples using this library. Here's a [page to get you started](MqttClientSender/readme.md). 
+There are multiple MQTT client libraries for Arduino. The examples here all use the [ArduinoMqttClient](https://github.com/arduino-libraries/ArduinoMqttClient) library. This library works with all the WiFi-enabled Arduino models, and many third-party models as well. 
 
-There are many other Arduino MQTT libraries. Joël Gähwiler's [arduino-mqtt](https://github.com/256dpi/arduino-mqtt) is another good example. There are examples for many programming environments, like [node.js](https://github.com/mqttjs/MQTT.js/), [Processing](https://github.com/256dpi/processing-mqtt) (also by Joël Gähwiler) and more. 
+There are many other Arduino MQTT libraries. Joël Gähwiler's [arduino-mqtt](https://github.com/256dpi/arduino-mqtt) is another good example. 
 
 ## JavaScript Clients
 
-For JavaScript clients, the [Eclipse PAHO library](https://www.eclipse.org/paho/index.php?page=clients/js/index.php) is an excellent library. It sends MQTT messages over webSockets. Many MQTT brokers support websocket connections. For example, here are the connection details for [test.mosquitto.org](https://test.mosquitto.org/) and [shiftr.io](https://docs.shiftr.io/interfaces/mqtt/), both mentioned below. There is a [p5.js](https://p5js.org/) example using Eclipse PAHO in this repository as well. Here's a [link that introduces it](p5js-mqtt-client/readme.md). You can see it in action at [this link](p5js-mqtt-client/public/index.html).
-
-A simpler p5.js client that sends data on a mouse press is available at [this link](p5js-mqtt-client/mousePressed-client).
-
-An example combining the p5.js MQTT client and the [p5.js serialport library](https://github.com/p5-serial/p5.serialport/blob/main/lib/p5.serialport.js) is available at [this link](p5js-mqtt-client/p5Serial-client). You'll need the [p5.serialcontrol app](https://github.com/p5-serial/p5.serialcontrol/releases) to connect to your serial ports. 
-
-## Air Quality Index Clients
-
-There is also a p5.js example in this directory that [receives MQTT messages](p5js-mqtt-client/AQISensorReceiver/index.html) from an [SGP30 air quality sensor example](https://github.com/tigoe/mqtt-examples/tree/main/MqttClientAQISender) for the Arduino Nano 33 IoT. Here is a [link to the code for the p5.js client](https://github.com/tigoe/mqtt-examples/tree/main/p5js-mqtt-client/AQISensorReceiver). This pair of examples is designed to show how to send and receive JSON.
-
-## Web MIDI Clients
-
-There are also examples here that combines [p5.js](https://p5js.org) with the [Web MIDI API](https://www.w3.org/TR/webmidi/), sending MIDI messages over an MQTT broker. It's called [mqtt-midi-client](p5js-mqtt-client/mqtt-midi-client). If you prefer a version without p5.js, and with keyboard input so that it can act as a MIDI controller, see [mqtt-midi-controller](mqtt-midi-controller).
- 
-This [Arduino MQTT-to-MIDI Client](https://github.com/tigoe/mqtt-examples/tree/main/MqttClientMIDIPlayer) can receive MIDI messages from the same broker and send MIDI to your operating system or MIDI system.  This [Arduino MIDI-to-MQTT client](https://github.com/tigoe/mqtt-examples/tree/main/MqttClientMIDIController) can send noteon and noteoff messages via MQTT at the push of a button.
-
-## Hue Control with QR Code Client
-
-There is a [p5.js-based client with QR code](MqttWithQRCode) as well.  It generates its URL in a QR code, to make it easy to pass from one phone to another. It works with [this Philips Hue client](MqttLightControl), which sends HTTP messages to a local Philips Hue hub to control Hue lights. 
+For JavaScript clients, there are multiple libraries. The examples here use the [Eclipse PAHO library](https://www.eclipse.org/paho/index.php?page=clients/js/index.php) and the [mqtt.js library](https://github.com/mqttjs/MQTT.js#readme). They both have similar functionality, but the mqtt.js library has a bit simpler syntax, and it can be used both in the browser and in node.js scripts. 
+* [Eclipse PAHO browser examples](browser-clients/eclipse-pahojs/)
+* [mqtt.js browser examples](browser-clients/mqttjs/)
 
 ## Node.js Clients
 
-There are three clients built in node.js in this repository
-* [MqttNodeClient](https://github.com/tigoe/mqtt-examples/tree/main/MqttNodeClient) which is a basic example of how to make a client with the [node.js MQTT library](https://www.npmjs.com/package/mqtt). It sends a reading every few seconds, and subscribes to a topic called `lights`. It will work with the light control examples above.  
-* [MqttNodeClientSerial](https://github.com/tigoe/mqtt-examples/tree/main/MqttNodeClientSerial) is similar, but it uses the node serialport library from [serialport.io](https://serialport.io/docs) to connect MQTT to serial in and out.
-* [MqttNodeClientFileWriter](https://github.com/tigoe/mqtt-examples/tree/main/MqttNodeClientFileWriter) reads messages from a topic and writes them to a text file.
+There are a few clients built in node.js in this repository, using the same mqtt.js library used in some of the browser clients above
+* [node.js clients](node-clients)
 
-## MQTT Brokers
+## Processing Library
+
+There is an MQTT library for [Processing](https://github.com/256dpi/processing-mqtt) (also by Joël Gähwiler). 
+
+## Desktop and Mobile Client Apps
+
+[MQTT Explorer](http://mqtt-explorer.com/) is a desktop client that can be useful for diagnosing issues with client-to-broker communication. It's available on all major operating systems. 
+
+[MQTTX](https://mqttx.app/) is a desktop client for Windows, MacOS, Linux, and Ubuntu, from EMQX. 
+
+[MQTTTool](https://apps.apple.com/us/app/mqttool/id1085976398) is a mobile client for iOS. 
+
+[MyMQTT](https://play.google.com/store/apps/details?id=at.tripwire.mqtt.client&hl=en_US&gl=US&pli=1) is a good Anrdoid MQTT client app. 
+
+There are multiple other desktop and command line client apps. 
+
+# MQTT Brokers
 
 There are a number of MQTT brokers you can use, the most popular is [mosquitto](http://mosquitto.org/). You can run mosquitto on your own computer or server, or you can use [test.mosquitto.org](https://test.mosquitto.org/) as a test broker. The instructions and port numbers for the various ways of reaching it are listed on [test.mosquitto.org](https://test.mosquitto.org). 
 
 [Shiftr.io](https://next.shiftr.io/try) is another MQTT test broker, with a graphic interface so you can see a graph of clients and topics. Shiftr.io has a [desktop broker](https://next.shiftr.io/desktop) that you can download and use for local testing as well. These examples use shiftr.io as their test broker, though they have been tested on mosquitto.org as well. Note that Shiftr.io's examples use a different Arduino client library and a different JavaScript library than this site does. The code here is still compatible with that briker, however. 
-
-[mqtt.eclipse.org](https://mqtt.eclipse.org/) is another MQTT test broker with a fairly bare-bones set of documentation and no visualizer. 
-
-## MQTT Explorer
-
-[MQTT Explorer](http://mqtt-explorer.com/) is a desktop client that can bve useful for diagnosing issues with client-to-broker communication. It's available on all major operating systems. 
 
 ## MQTT, Web Sockets, and Encryption
 

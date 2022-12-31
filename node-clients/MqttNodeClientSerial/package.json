@@ -1,0 +1,27 @@
+{
+  "name": "mqtt-node-client-serial",
+  "version": "0.0.2",
+  "description": "An MQTT to Serialport client",
+  "main": "mqtt-client-serial.js",
+  "dependencies": {
+    "mqtt": "^1.14.0",
+    "serialport": "^9.2.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tigoe/mqtt-examples.git"
+  },
+  "keywords": [
+    "mqtt",
+    "serialport"
+  ],
+  "author": "Tom Igoe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tigoe/mqtt-examples/issues"
+  },
+  "homepage": "https://github.com/tigoe/mqtt-examples#readme"
+}

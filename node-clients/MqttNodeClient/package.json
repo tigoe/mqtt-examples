@@ -1,0 +1,26 @@
+{
+  "dependencies": {
+    "mqtt": "^1.14.0"
+  },
+  "name": "mqtt-node-client",
+  "version": "0.0.2",
+  "description": "a simple node mqtt client",
+  "main": "mqtt-client.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tigoe/mqtt-examples.git"
+  },
+  "keywords": [
+    "mqtt"
+  ],
+  "author": "Tom Igoe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tigoe/mqtt-examples/issues"
+  },
+  "homepage": "https://github.com/tigoe/mqtt-examples#readme"
+}
