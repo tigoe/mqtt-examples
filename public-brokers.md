@@ -12,27 +12,26 @@ Works with eclipse Paho, ArduinoMqttClient, and mqtt.js
 
 | Broker| | Arduino | mqtt.js |  eclipse.PAHO.js |
 | --- |--- | --- | --- | --- |
-| EQMX |   |   |   |
-|  | Initializer |WiFiSSLClient | wss:// | useSSL: true in client.connect() | 
- | | address| broker.emqx.io | same | same |
-| | port | 8883 | 8084| 8084|
-|     |   |   |   |
-| | credentials | none | none | none |
-| shiftr.io cloud |   |   |   |
-|  | Initializer |WiFiSSLClient | wss:// | useSSL: true in client.connect() | 
- | | address| public.cloud.shiftr.io | same | same |
-| | port | 8883 | not specified| 443|
-| | credentials | username : public, password: public | same| same|
-| shiftr.io desktop |   |   |   |
-|  | Initializer |WiFiClient | ws:// | none | 
- | | address| your computer's IP address | same| same|
-| | port | 1883 | 1884 | 1884|
-| | credentials | none | none| none|
-| test.mosquitto.org |   |   |   |
-|  | Initializer |WiFiSSLClient | wss:// | useSSL: true in client.connect() | 
- | | address| test.mosquitto.org | same | same |
-| | port | 8886 | 8081| 8081|
-| | credentials | none | none | none |
+| [EQMX](https://www.emqx.com/en/mqtt/public-mqtt5-broker) |   |   |   |
+|  | Initializer: |WiFiSSLClient | wss:// | useSSL: true in client.connect() | 
+ | | Address:| broker.emqx.io | same | same |
+| | Port: | 8883 | 8084| 8084|
+| | Credentials: | none | none | none |
+| [shiftr.io cloud](https://www.shiftr.io/docs/broker) |   |   |   |
+|  | Initializer: |WiFiSSLClient | wss:// | useSSL: true in client.connect() | 
+ | | Address:| public.cloud.shiftr.io | same | same |
+| | Port: | 8883 | not specified| 443|
+| | Credentials: | username : public, password: public | same| same|
+| [shiftr.io desktop](https://www.shiftr.io/docs/broker) |   |   |   |
+|  | Initializer: |WiFiClient | ws:// | none | 
+ | | Address:| your computer's IP address | same| same|
+| | Port: | 1883 | 1884 | 1884|
+| | Credentials: | none | none| none|
+| [test.mosquitto.org](https://test.mosquitto.org/) |   |   |   |
+|  | Initializer: |WiFiSSLClient | wss:// | useSSL: true in client.connect() | 
+ | | Address:| test.mosquitto.org | same | same |
+| | Port: | 8886 | 8081| 8081|
+| | Credentials: | none | none | none |
 
 
 
