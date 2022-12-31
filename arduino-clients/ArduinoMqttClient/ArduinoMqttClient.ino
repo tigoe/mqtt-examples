@@ -1,13 +1,17 @@
 /*
-  MQTT Client sender
+  MQTT Client sender/receiver
 
   This sketch demonstrates an MQTT client that connects to a broker, subscribes to a topic,
-  and both listens for messages on that topic and sends messages to it, a random number between 0 and 15.
-  When the client receives a message, it parses it, and if the number matches the client's
-  number (myNumber, chosen arbitrarily), it sets an LED to full. When nothing is happening,
-  if the LED is not off, it's faded down one point every time through the loop.
+  and both listens for messages on that topic and sends messages to it, a random number between 0 and 255.
+  When the client receives a message, it parses it, and PWMs the built-in LED.
 
-  This sketch uses https://public.cloud.shiftr.io as the MQTT broker.
+  This sketch uses https://public.cloud.shiftr.io as the MQTT broker, but others will work as well.
+  See https://tigoe.github.io/mqtt-examples/#broker-client-settings for connection details. 
+
+Libraries used:
+  * http://librarymanager/All#WiFiNINA or
+  * http://librarymanager/All#WiFi101 
+  * http://librarymanager/All#ArduinoMqttClient
 
   the arduino_secrets.h file:
   #define SECRET_SSID ""    // network name
@@ -20,7 +24,8 @@
   by Tom Igoe
 */
 
-#include <WiFiNINA.h>
+#include <WiFiNINA.h>  // use this for Nano 33 IoT, MKR1010, Uno WiFi
+// #include <WiFi101.h>    // use this for MKR1000
 #include <ArduinoMqttClient.h>
 #include "arduino_secrets.h"
 
@@ -83,7 +88,7 @@ void loop() {
       // send the message:
       mqttClient.endMessage();
       // send a serial notification:
-      Serial.print("published a message: ");      
+      Serial.print("published a message: ");
       Serial.println(sensorReading);
       // timestamp this message:
       lastTimeSent = millis();

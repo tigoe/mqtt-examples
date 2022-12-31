@@ -1,5 +1,8 @@
 # Eclipse PAHO JavaScript Library
 
+* [Eclipse PAHO home](https://www.eclipse.org/paho/index.php?page=clients/js/index.php)
+* [PAHO JS documentation](https://www.eclipse.org/paho/files/jsdoc/index.html)
+
 There are several examples for Eclipse PAHO in [this directory]({{site.codeurl}}/browser-clients/eclipse-pahojs/). 
 
 ## EclipsePahoClientSimple
@@ -27,9 +30,17 @@ A simpler Eclipse PAHO and p5.js client that sends the mouseX and mouseY on a mo
 
 This example combines the p5.js MQTT client and the [p5.js webserial library](https://github.com/yoonbuck/p5.WebSerial). It takes any incoming serial messages and sends them out as MQTT messages. An accompanying Arduino sketch, [ArduinoJoystick](p5-webSerial-client/ArduinoJoystick/) sends the values from a Arduino connected via asynchronous serial port. For more on p5.WebSerial, see [these exercises](https://itp.nyu.edu/physcomp/labs/#p5js_webserial_library).
 
+## Sensor Reader Client with JSON
+* [See the example running](EclipsePahoSensorReceiverJSON)
+* [See the source code]({{site.codeurl}}/browser-clients/eclipse-pahojs/EclipsePahoSensorReceiverJSON)
 
-## Air Quality Index Clients
-There is also a p5.js example in this directory that [receives MQTT messages](p5js-mqtt-client/AQISensorReceiver/index.html) from an [SGP30 air quality sensor example](https://github.com/tigoe/mqtt-examples/tree/main/MqttClientAQISender) for the Arduino Nano 33 IoT. Here is a [link to the code for the p5.js client](https://github.com/tigoe/mqtt-examples/tree/main/p5js-mqtt-client/AQISensorReceiver). This pair of examples is designed to show how to send and receive JSON.
+The example `EclipsePahoSensorReceiverJSON` subscribes to a topic and listens for JSON messages. It then parses them and displays them. It doesn't care what the data is, as long as it's in JSON format. You can change topics just by entering a new topic name in the topic field.
+
+This [JSON validator](https://jsonlint.com/) may be useful for when you start reformatting strings and make mistakes. 
+
+This example will work with the following Arduino examples:
+* [MqttClient_SensorENS160Sender]({{site.codeurl}}/arduino-clients/MqttClient_SensorENS160Sender)- an Air Quality sensor, the [Sciosense ENS160](https://www.sciosense.com/products/environmental-sensors/digital-multi-gas-sensor/)
+* [MqttClient_SensorCombinedAQISender]({{site.codeurl}}/arduino-clients/MqttClient_SensorCombinedAQISender)- an Air Quality sensor, the ENS160, combined with a temperature and relative humidity sensor, the [Sensiron SHTC3](https://sensirion.com/products/catalog/SHTC3/), for compensation. 
 
 ## Web MIDI Clients
 

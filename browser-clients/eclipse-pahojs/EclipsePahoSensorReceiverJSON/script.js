@@ -1,14 +1,16 @@
 /*
-  Bare minimum client example for Eclipse PAHO JS library
+    MQTT Client example with JSON parsing
+    This example uses p5.js: https://p5js.org/
+    and the Eclipse Paho MQTT client library: https://www.eclipse.org/paho/clients/js/
+    to create an MQTT client that receives MQTT messages.
+    The client is set up for use on the shiftr.io test MQTT broker,
+    but other options listed will work.
 
-  On document load, this script gets two divs from the HTML
-  for local and remote messages. Then it attempts
-  to connect to the broker. Once every two seconds, 
-  it sends the local time if it's connected. 
-  The publish button allows you to turn on and off publishing status.
-
-  created 31 Dec 2022
-  by Tom Igoe
+    There's no loop here: all the functions are event-driven.
+    
+    created 12 June 2020
+    modified 31 Dec 2022
+    by Tom Igoe
 */
 
 // All these brokers work with this code. 
@@ -54,11 +56,12 @@ let options = {
 };
 
 // topic to subscribe to when you connect:
-let topic = 'aardvarks';
+let topic = 'AQISensor';
 // divs to show messages:
 let localDiv, remoteDiv;
-// whether the client should be publishing or not:
-let publishing = true;
+
+// incoming data:
+let data;
 
 function setup() {
   // put the divs in variables for ease of use:
@@ -76,40 +79,12 @@ function setup() {
   client.connect(options);
 }
 
-function loop() {
-  if (client.isConnected() && publishing) {
-    // make a message with a random number from 0-255
-    let payload = Math.floor(Math.random() * 255).toString();
-    // publish to broker:
-    let message = new Paho.MQTT.Message(payload);
-    // // choose the destination topic:
-    message.destinationName = topic;
-    // send it:
-    client.send(message);
-    // update localDiv text:
-    localDiv.innerHTML = 'published ' + message.payloadString + ' to broker.'
-  }
-}
-
-// changes the status of the publishing variable
-// on a click of the publishStatus button:
-function changeSendStatus(target) {
-  // change the publishing status:
-  publishing = !publishing;
-  // set the html of the button accordingly:
-  if (publishing) {
-    target.innerHTML = 'stop publishing';
-  } else {
-    target.innerHTML = 'start publishing';
-  }
-}
-
 // handler for mqtt connect event:
 function onConnect() {
   // update localDiv text:
-  localDiv.innerHTML = 'connected to broker. Subscribing...'
+  localDiv.innerHTML = 'connected to broker.'
   // subscribe to the topic:
-  client.subscribe(topic, {onSuccess: onSubscribe});
+  client.subscribe(topic, {onSuccess:onSubscribe});
 }
 
 // handler for mqtt disconnect event:
@@ -120,29 +95,51 @@ function onDisconnect(response) {
   }
 }
 
+// handler for mqtt error event:
+function onError(error) {
+  // update localDiv text:
+  localDiv.innerHTML = error;
+}
+
 // handler for mqtt subscribe event:
 function onSubscribe(response) {
-  // update localDiv text:
-  localDiv.innerHTML = JSON.stringify(response)
-  +'<br>Subscribed to ' + topic;
+    // update localDiv text:
+    localDiv.innerHTML = JSON.stringify(response)
+    +'<br>Subscribed to ' + topic;
+}
+
+function subscribeToTopic(target) {
+  client.unsubscribe(topic);
+  localDiv.innerHTML = "unsubscribed from " + topic;
+   topic = target.value;
+  if (client.isConnected()) {
+    client.subscribe(topic, {onSuccess:onSubscribe});
+  }
 }
 
 // handler for mqtt message received event:
 function onMessage(message) {
-  let result = 'received a message:<br>\n<ul>';
-  // message is  a Buffer, so convert to a string:
-  result += '<li>message payload: ' + message.payloadString + '</li>';
-  result += '<li>message destinationName: ' + message.destinationName + '</li>';
-  result += '<li>message qos: ' + message.qos + '</li>';
-  result += '<li>message retained: ' + message.retained + '</li>';
-  result += '<li>message duplicate: ' + message.duplicate + '</li>';
-  // close the ul tag
-  result += '</ul>';
-  // update the remote div text:
+  // variable to hold the incoming result:
+  let result;
+  // get the JSON string from the incoming message and parse it:
+  try {
+    data = JSON.parse(message.payloadString);
+  } catch (error) {
+    // if it's not JSON, report that
+    result = "message is not JSON: " + message.payloadString;
+    remoteDiv.innerHTML = result;
+    return;
+  }
+  // assuming you got good JSON: 
+  result = "Incoming data: <br>\n<ul>";
+  // if it's JSON, doesn't matter what the items are, 
+  // you can parse it as needed:
+  for (item in data) {
+    result += "<li>" + item + ":" + data[item] + "</li>\n";
+  }
+  // put it in the HTML:
   remoteDiv.innerHTML = result;
 }
 
 // on page load, call the setup function:
 document.addEventListener('DOMContentLoaded', setup);
-// run a loop every 2 seconds:
-setInterval(loop, 2000);

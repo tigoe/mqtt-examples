@@ -1,5 +1,5 @@
 /*
-    p5.js MQTT Client and p5.serialport example
+    p5.js MQTT Client and p5.WebSerial example
     This example uses p5.js: https://p5js.org/
     and the Eclipse Paho MQTT client library: https://www.eclipse.org/paho/clients/js/
     to create an MQTT client that sends and receives MQTT messages.

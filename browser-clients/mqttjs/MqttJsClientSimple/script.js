@@ -62,7 +62,7 @@ function setup() {
   client = mqtt.connect(broker, options);
   // set listeners:
   client.on('connect', onConnect);
-  client.on('close', onDisonnect);
+  client.on('close', onDisconnect);
   client.on('message', onMessage);
   client.on('error', onError);
 }
@@ -101,7 +101,7 @@ function onConnect() {
 }
 
 // handler for mqtt disconnect event:
-function onDisonnect() {
+function onDisconnect() {
   // update localDiv text:
   localDiv.innerHTML = 'disconnected from broker.'
 }
@@ -112,8 +112,8 @@ function onError(error) {
   localDiv.innerHTML = error;
 }
 
-// handler for mqtt subsribe event:
-function onSubscribe(error) {
+// handler for mqtt subscribe event:
+function onSubscribe(response) {
   if (!error) {
     // update localDiv text:
     localDiv.innerHTML = 'Subscribed to broker.';

@@ -1,21 +1,28 @@
 /*
-  MQTT Client sender with ENS160 AQI sensor
+  This sketch demonstrates an MQTT client that connects to a broker, 
+  and publishes messages to it from an ENS160 AQI sensor. Shows how to
+  send JSON strings with just the String object. 
 
-  Sends the values from an ENS160 Air Quality Sensor as a JSON string
-  to an MQTT broker. 
+  This sketch uses https://public.cloud.shiftr.io as the MQTT broker, but others will work as well.
+  See https://tigoe.github.io/mqtt-examples/#broker-client-settings for connection details. 
 
-  This sketch uses https://test.mosquitto.org as the MQTT broker.
+Libraries used:
+  * http://librarymanager/All#WiFiNINA or
+  * http://librarymanager/All#WiFi101 
+  * http://librarymanager/All#ArduinoMqttClient
+  * http://librarymanager/All#SparkFun_ENS160
 
-  The ENS160 sensor is attached to the Arduino via the I2C interface. 
-
+  the circuit:
+  - ENS160 sensor attached to SDA and SCL of the Arduino
+  
   the arduino_secrets.h file:
   #define SECRET_SSID ""    // network name
   #define SECRET_PASS ""    // network password
-  #define SECRET_MQTT_USER    // MQTT username if needed
-  #define SECRET_MQTT_PASS    // MQTT passwd if needed
+  #define SECRET_MQTT_USER "public" // broker username
+  #define SECRET_MQTT_PASS "public" // broker password
 
   created 11 June 2020
-  updated 19 Nov 2022
+  updated 31 Dec 2022
   by Tom Igoe
 */
 
@@ -25,26 +32,26 @@
 #include "SparkFun_ENS160.h"
 #include "arduino_secrets.h"
 
-// initialize WiFi connection:
-WiFiClient wifi;
+// initialize WiFi connection as SSL:
+WiFiSSLClient wifi;
 MqttClient mqttClient(wifi);
 
-// instance of the ENS160 sensor library:
-SparkFun_ENS160 myENS;
-
 // details for MQTT client:
-char broker[] = "test.mosquitto.org";
-int port = 1883;
-char topic[] = "undnet/yourName/AQI";
-char clientID[] = "yourNameClient";
+char broker[] = "public.cloud.shiftr.io";
+int port = 8883;
+char topic[] = "AQISensor";
+char clientID[] = "AQISensorClient";
 
 // last time the client sent a message, in ms:
 long lastTimeSent = 0;
 // message sending interval:
-int interval = 60 * 1000;
+int interval = 10 * 1000;
+
+// instance of the ENS160 sensor library:
+SparkFun_ENS160 AQISensor;
 
 void setup() {
-  // initialize serial:
+   // initialize serial:
   Serial.begin(9600);
   // wait for serial monitor to open:
   if (!Serial) delay(3000);
@@ -60,9 +67,14 @@ void setup() {
   Serial.print("Connected. My IP address: ");
   Serial.println(WiFi.localIP());
 
+  // set the credentials for the MQTT client:
+  mqttClient.setId(clientID);
+  // if needed, login to the broker with a username and password:
+  mqttClient.setUsernamePassword(SECRET_MQTT_USER, SECRET_MQTT_PASS);
+
   // attempt to start the sensor:
   Wire.begin();
-  if (!myENS.begin(0x53)) {
+  if (!AQISensor.begin(0x53)) {
     Serial.println("Sensor is not responding. Check wiring.");
     // stop the program here if the sensor didn't respond:
     while (true)
@@ -70,36 +82,23 @@ void setup() {
   }
 
   // Reset the indoor air quality sensor's settings:
-  if (myENS.setOperatingMode(SFE_ENS160_RESET)) {
+  if (AQISensor.setOperatingMode(SFE_ENS160_RESET)) {
     Serial.println("Ready.");
   }
   delay(100);
   // Set to standard operation:
-  myENS.setOperatingMode(SFE_ENS160_STANDARD);
-
-  // set the credentials for the MQTT client:
-  mqttClient.setId(clientID);
-  // if needed, login to the broker with a username and password:
-  //mqttClient.setUsernamePassword(SECRET_MQTT_USER, SECRET_MQTT_PASS);
-
-  // try to connect to the MQTT broker once you're connected to WiFi:
-  while (!connectToBroker()) {
-    Serial.println("attempting to connect to broker");
-    delay(1000);
-  }
-  Serial.println("connected to broker");
+  AQISensor.setOperatingMode(SFE_ENS160_STANDARD);
 }
 
 void loop() {
-  // if not connected to the broker, try to connect:
+ // if not connected to the broker, try to connect:
   if (!mqttClient.connected()) {
-    Serial.println("reconnecting");
+    Serial.println("attempting to connect to broker");
     connectToBroker();
   }
 
   // once every interval, send a message:
   if (millis() - lastTimeSent > interval) {
-
 
     // the sensor can have four possible states:
     // 0 - Operating ok: Standard Opepration
@@ -107,25 +106,26 @@ void loop() {
     // 2 - Initial Start-up: Occurs for the first hour of operation.
     //												and only once in sensor's lifetime.
     // 3 - No Valid Output
-    int ensStatus = myENS.getFlags();
+    int ensStatus = AQISensor.getFlags();
     // if the sensor's ready to read, read it:
-    if (myENS.checkDataStatus()) {
-      int AQI = myENS.getAQI();
-      int TVOC = myENS.getTVOC();
-      int eCO2 = myENS.getECO2();
+    if (AQISensor.checkDataStatus()) {
+      int aqi = AQISensor.getAQI();
+      int tvoc = AQISensor.getTVOC();
+      int eCO2 = AQISensor.getECO2();
 
       // put them into a JSON String:
-      String body = "{\"AQI\": aqi, \"TVOC\": tvoc, \"eCO2\": eco2, \"status\": ensStat}";
+      String payload = "{\"sensor\": \"ENS160\",";
+      payload += "\"aqi\": AQI, \"tvoc\": TVOC, \"eCO2\": ECO2, \"status\": STATUS}";
       // replace the value substrings with actual values:
-      body.replace("aqi", String(AQI));
-      body.replace("tvoc", String(TVOC));
-      body.replace("eco2", String(eCO2));
-      body.replace("ensStat", String(ensStatus));
+      payload.replace("AQI", String(aqi));
+      payload.replace("TVOC", String(tvoc));
+      payload.replace("ECO2", String(eCO2));
+      payload.replace("STATUS", String(ensStatus));
 
       // start a new message on the topic:
       mqttClient.beginMessage(topic);
-      // print the body of the message:
-      mqttClient.println(body);
+      // print the payload of the message:
+      mqttClient.println(payload);
       // send the message:
       mqttClient.endMessage();
       // timestamp this message:

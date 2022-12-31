@@ -103,7 +103,13 @@ function draw() {
 // called when the client connects
 function onConnect() {
     localDiv.html('client is connected');
-    client.subscribe(topic);
+    client.subscribe(topic, {onSuccess: onSubscribe});
+}
+
+function onSubscribe(response) {
+    // update localDiv text:
+    localDiv.innerHTML = JSON.stringify(response)
+    +'<br>Subscribed to ' + topic;
 }
 
 // called when the client loses its connection
