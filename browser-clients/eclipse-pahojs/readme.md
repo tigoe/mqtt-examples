@@ -1,13 +1,34 @@
-## Eclipse PAHO JavaScript Library
+# Eclipse PAHO JavaScript Library
 
-The [Eclipse PAHO library](https://www.eclipse.org/paho/index.php?page=clients/js/index.php) is an excellent library. It sends MQTT messages over webSockets. Many MQTT brokers support websocket connections. For example, here are the connection details for [test.mosquitto.org](https://test.mosquitto.org/) and [shiftr.io](https://docs.shiftr.io/interfaces/mqtt/), both mentioned below. There is a [p5.js](https://p5js.org/) example using Eclipse PAHO in this repository as well. Here's a [link that introduces it](p5js-mqtt-client/readme.md). You can see it in action at [this link](p5js-mqtt-client/public/index.html).
+There are several examples for Eclipse PAHO in [this directory]({{site.codeurl}}/browser-clients/eclipse-pahojs/). 
 
-A simpler p5.js client that sends data on a mouse press is available at [this link](p5js-mqtt-client/mousePressed-client).
+## EclipsePahoClientSimple
+* [See the example running](EclipsePahoClientSimple)
+* [See the source code]({{site.codeurl}}/browser-clients/eclipse-pahojs/EclipsePahoClientSimple)
 
-An example combining the p5.js MQTT client and the [p5.js serialport library](https://github.com/p5-serial/p5.serialport/blob/main/lib/p5.serialport.js) is available at [this link](p5js-mqtt-client/p5Serial-client). You'll need the [p5.serialcontrol app](https://github.com/p5-serial/p5.serialcontrol/releases) to connect to your serial ports. 
+This is a bare minimum client example for Eclipse PAHO JS. On document load, the script for this page gets two divs from the HTML document for local and remote messages.Then it attempts to connect to the broker. Once it does, it sends the local time if it's connected every two seconds. The publish button allows you to turn on and off publishing status, in case you're testing with a second client that's sending to the same topic.
+
+The [ArduinoMqttClient example]({{site.codeurl}}/arduino-clients/ArduinoMqttClient) uses the same topic and sends the same range of numeric values if you want to test against another client.  The [MqttJsClientSimple](../mqttjs/MqttJsClientSimple/) does the same. 
+
+## EclipsePahoP5Client
+* [See the example running](EclipsePahoP5Client)
+* [See the source code]({{site.codeurl}}/browser-clients/eclipse-pahojs/EclipsePahoP5Client)
+
+This example combines Eclipse PAHO and [p5.js](https://p5js.org/). It sends a value between 1 and 15 to a topic called "notes". The MQTT functionality is similar to the example above. 
+
+## mousePressed-client
+* [See the example running](mousePressed-client)
+* [See the source code]({{site.codeurl}}/browser-clients/eclipse-pahojs/mousePressed-client)
+A simpler Eclipse PAHO and p5.js client that sends the mouseX and mouseY on a mouse press. The topic for this one is "monkey".
+
+## p5-webSerial-client
+* [See the example running](p5-webSerial-client)
+* [See the source code]({{site.codeurl}}/browser-clients/eclipse-pahojs/p5-webSerial-client)
+
+This example combines the p5.js MQTT client and the [p5.js webserial library](https://github.com/yoonbuck/p5.WebSerial). It takes any incoming serial messages and sends them out as MQTT messages. An accompanying Arduino sketch, [ArduinoJoystick](p5-webSerial-client/ArduinoJoystick/) sends the values from a Arduino connected via asynchronous serial port. For more on p5.WebSerial, see [these exercises](https://itp.nyu.edu/physcomp/labs/#p5js_webserial_library).
+
 
 ## Air Quality Index Clients
-
 There is also a p5.js example in this directory that [receives MQTT messages](p5js-mqtt-client/AQISensorReceiver/index.html) from an [SGP30 air quality sensor example](https://github.com/tigoe/mqtt-examples/tree/main/MqttClientAQISender) for the Arduino Nano 33 IoT. Here is a [link to the code for the p5.js client](https://github.com/tigoe/mqtt-examples/tree/main/p5js-mqtt-client/AQISensorReceiver). This pair of examples is designed to show how to send and receive JSON.
 
 ## Web MIDI Clients

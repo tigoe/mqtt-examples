@@ -3,54 +3,78 @@
     This example uses p5.js: https://p5js.org/
     and the Eclipse Paho MQTT client library: https://www.eclipse.org/paho/clients/js/
     to create an MQTT client that sends and receives MQTT messages.
-    The client is set up for use on the shiftr.io test MQTT broker (https://next.shiftr.io/try),
-    but has also been tested on https://test.mosquitto.org
+    The client is set up for use on the shiftr.io test MQTT broker,
+    but other options listed will work.
 
     created 12 June 2020
-    modified 20 Aug 2020
+    modified 31 Dec 2022
     by Tom Igoe
 */
 
-// MQTT client details:
-let broker = {
-    hostname: 'public.cloud.shiftr.io',
-    port: 443
-};
+// All these brokers work with this code. 
+// Uncomment the one you want to use. 
+
+////// emqx. Works in both basic WS and SSL WS:
+// const broker = 'broker.emqx.io'
+// const port = 8083;   // no SSL
+// const broker = 'broker.emqx.io'
+// const port = 8084;   // SSL
+
+//////// shiftr.io desktop client. 
+// Fill in your desktop URL for localhost:
+// const broker = 'localhost';   
+// const port = 1884;  //  no SSL
+
+//////// shiftr.io, requires username and password 
+// (see options variable below):
+const broker = 'public.cloud.shiftr.io';
+const port = 443;
+
+//////// test.mosquitto.org, uses no username and password:
+// const broker = 'test.mosquitto.org';
+// const port = 8081;
+
 // MQTT client:
 let client;
 // client credentials:
-let creds = {
-    clientID: 'p5Client',
-    userName: 'public',
-    password: 'public'
-}
+let clientID = 'EclipsePahoClient';
+
+let options = {
+  // Clean session
+  cleanSession: true,
+  // connect timeout in seconds:
+  timeout: 10,
+  // callback function for when you connect:
+  onSuccess: onConnect,
+  // username & password:
+  userName: 'public',
+  password: 'public',
+  // use SSL
+  useSSL: true
+};
+
 // topic to subscribe to when you connect:
 let topic = 'notes';
+// divs to show messages:
+let localDiv, remoteDiv;
+// whether the client should be publishing or not:
+let publishing = true;
+let connected = false;
 
 // a pushbutton to send messages
 let sendButton;
-let localDiv;
-let remoteDiv;
-
 // intensity of the circle in the middle
 let intensity = 255;
 
 function setup() {
     createCanvas(400, 400);
     // Create an MQTT client:
-    client = new Paho.MQTT.Client(broker.hostname, Number(broker.port), creds.clientID);
+    client = new Paho.MQTT.Client(broker, port, clientID);
     // set callback handlers for the client:
-    client.onConnectionLost = onConnectionLost;
-    client.onMessageArrived = onMessageArrived;
+    client.onConnectionLost = onDisconnect;
+    client.onMessageArrived = onMessage;
     // connect to the MQTT broker:
-    client.connect(
-        {
-            onSuccess: onConnect,       // callback function for when you connect
-            userName: creds.userName,   // username
-            password: creds.password,   // password
-            useSSL: true                // use SSL
-        }
-    );
+    client.connect(options);
     // create the send button:
     sendButton = createButton('send a message');
     sendButton.position(20, 20);
@@ -83,14 +107,14 @@ function onConnect() {
 }
 
 // called when the client loses its connection
-function onConnectionLost(response) {
+function onDisconnect(response) {
     if (response.errorCode !== 0) {
-        localDiv.html('onConnectionLost:' + response.errorMessage);
+        localDiv.html('disconnect:' + response.errorMessage);
     }
 }
 
 // called when a message arrives
-function onMessageArrived(message) {
+function onMessage(message) {
     remoteDiv.html('I got a message:' + message.payloadString);
     let  incomingNumber = parseInt(message.payloadString);
     if (incomingNumber > 0) {

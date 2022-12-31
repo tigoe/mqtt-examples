@@ -1,5 +1,5 @@
 /*
-  Bare minimum client example for mqtt.js
+  Bare minimum client example for Eclipse PAHO JS library
 
   On document load, this script gets two divs from the HTML
   for local and remote messages. Then it attempts
@@ -7,43 +7,52 @@
   it sends the local time if it's connected. 
   The publish button allows you to turn on and off publishing status.
 
-  created 29 Dec 2022
+  created 31 Dec 2022
   by Tom Igoe
 */
 
 // All these brokers work with this code. 
 // Uncomment the one you want to use. 
 
-////// emqx. Works in both basic WS and TLS WS:
-// const broker = 'wss://broker.emqx.io:8084/mqtt'
-// const broker = 'ws://broker.emqx.io:8083/mqtt'
+////// emqx. Works in both basic WS and SSL WS:
+// const broker = 'broker.emqx.io'
+// const port = 8083;   // no SSL
+// const broker = 'broker.emqx.io'
+// const port = 8084;   // SSL
 
 //////// shiftr.io desktop client. 
-// Fill in your desktop IP address for localhost:
-// const broker = 'ws://localhost:1884';     
+// Fill in your desktop URL for localhost:
+// const broker = 'localhost';   
+// const port = 1884;  //  no SSL
 
 //////// shiftr.io, requires username and password 
 // (see options variable below):
-const broker = 'wss://public.cloud.shiftr.io';
+const broker = 'public.cloud.shiftr.io';
+const port = 443;
 
 //////// test.mosquitto.org, uses no username and password:
-// const broker = 'wss://test.mosquitto.org:8081';
+// const broker = 'test.mosquitto.org';
+// const port = 8081;
 
 // MQTT client:
 let client;
+// client credentials:
+let clientID = 'EclipsePahoClient';
 
-// connection options:
 let options = {
   // Clean session
-  clean: true,
-  // connect timeout in ms:
-  connectTimeout: 10000,
-  // Authentication
-  clientId: 'mqttJsClient',
-  // add these in for public.cloud.shiftr.io:
-  username: 'public',
-  password: 'public'
-}
+  cleanSession: true,
+  // connect timeout in seconds:
+  timeout: 10,
+  // callback function for when you connect:
+  onSuccess: onConnect,
+  // username & password:
+  userName: 'public',
+  password: 'public',
+  // use SSL
+  useSSL: true
+};
+
 // topic to subscribe to when you connect:
 let topic = 'aardvarks';
 // divs to show messages:
@@ -58,24 +67,27 @@ function setup() {
 
   // set text of localDiv:
   localDiv.innerHTML = 'trying to connect';
-  // attempt to connect:
-  client = mqtt.connect(broker, options);
-  // set listeners:
-  client.on('connect', onConnect);
-  client.on('close', onDisonnect);
-  client.on('message', onMessage);
-  client.on('error', onError);
+  // Create an MQTT client:
+  client = new Paho.MQTT.Client(broker, port, clientID);
+  // set callback handlers for the client:
+  client.onConnectionLost = onDisconnect;
+  client.onMessageArrived = onMessage;
+  // connect to the MQTT broker:
+  client.connect(options);
 }
 
 function loop() {
-  // if the client is connected, publish:
-  if (client.connected && publishing) {
+  if (client.isConnected() && publishing) {
     // make a message with a random number from 0-255
-    let thisMessage = Math.floor(Math.random() * 255).toString();
+    let payload = Math.floor(Math.random() * 255).toString();
     // publish to broker:
-    client.publish(topic, thisMessage);
+    let message = new Paho.MQTT.Message(payload);
+    // // choose the destination topic:
+    message.destinationName = topic;
+    // send it:
+    client.send(message);
     // update localDiv text:
-    localDiv.innerHTML = 'published to broker.'
+    localDiv.innerHTML = 'published ' + message.payloadString + ' to broker.'
   }
 }
 
@@ -101,10 +113,13 @@ function onConnect() {
 }
 
 // handler for mqtt disconnect event:
-function onDisonnect() {
+function onDisconnect(response) {
   // update localDiv text:
-  localDiv.innerHTML = 'disconnected from broker.'
+  if (response.errorCode !== 0) {
+    localDiv.innerHTML = 'disconnected from broker: ' + response.errorMessage;
+  }
 }
+
 
 // handler for mqtt error event:
 function onError(error) {
@@ -124,15 +139,14 @@ function onSubscribe(error) {
 }
 
 // handler for mqtt message received event:
-function onMessage(topic, payload, packet) {
-  let result = 'received a message on topic:  ' + topic;
+function onMessage(message) {
+  let result = 'received a message:<br>\n<ul>';
   // message is  a Buffer, so convert to a string:
-  result += '<br>message payload: ' + payload.toString();
-  // packet is a JSON object, so list its elements:
-  result += '<br>MQTT packet: <ul>';
-  for (let item in packet) {
-    result += '<li>' + item + ': ' + packet[item] + '</li>';
-  }
+  result += '<li>message payload: ' + message.payloadString + '</li>';
+  result += '<li>message destinationName: ' + message.destinationName + '</li>';
+  result += '<li>message qos: ' + message.qos + '</li>';
+  result += '<li>message retained: ' + message.retained + '</li>';
+  result += '<li>message duplicate: ' + message.duplicate + '</li>';
   // close the ul tag
   result += '</ul>';
   // update the remote div text:
