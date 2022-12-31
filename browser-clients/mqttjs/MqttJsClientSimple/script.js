@@ -4,13 +4,8 @@
   On document load, this script gets two divs from the HTML
   for local and remote messages. Then it attempts
   to connect to the broker. Once every two seconds, 
-  it sends the local time if it's connected.
-
-  References:
-  * mqtt.js client library: https://github.com/mqttjs/MQTT.js
-  * shiftr.io broker: https://www.shiftr.io/try
-  * shiftr.io desktop client: https://www.shiftr.io/desktop
-  * emqx.io broker: https://www.emqx.com/en/mqtt/public-mqtt5-broker
+  it sends the local time if it's connected. 
+// handler for mqtt connect event:
 
   created 29 Dec 2022
   by Tom Igoe
@@ -27,7 +22,8 @@
 // Fill in your desktop URL for localhost:
 // const url = 'ws://localhost:1884';     
 
-//////// shiftr.io, requires username and password:
+//////// shiftr.io, requires username and password 
+// (see options variable below):
 // const url = 'wss://public.cloud.shiftr.io';
 
 //////// test.mosquitto.org, uses no username and password:
@@ -36,7 +32,7 @@ const url = 'wss://test.mosquitto.org:8081';
 // MQTT client:
 let client;
 
-// connect options:
+// connection options:
 let options = {
   // Clean session
   clean: true,
@@ -52,6 +48,8 @@ let options = {
 let topic = 'aardvarks';
 // divs to show messages:
 let localDiv, remoteDiv;
+// whether the client should be publishing or not:
+let publishing = true;
 
 function setup() {
   // put the divs in variables for ease of use:
@@ -71,7 +69,7 @@ function setup() {
 
 function loop() {
   // if the client is connected, publish:
-  if (client.connected) {
+  if (client.connected && publishing) {
     // make a message with a random number from 0-255
     let thisMessage = Math.floor(Math.random() * 255).toString();
     // publish to broker:
@@ -80,38 +78,55 @@ function loop() {
     localDiv.innerHTML = 'published to broker.'
   }
 }
+
+// changes the status of the publishing variable
+// on a click of the publishStatus button:
+function changeSendStatus(target) {
+  // change the publishing status:
+  publishing = !publishing;
+  // set the html of the button accordingly:
+  if (publishing) {
+    target.innerHTML = 'stop publishing';
+  } else {
+    target.innerHTML = 'start publishing';
+  }
+}
+
+// handler for mqtt connect event:
 function onConnect() {
-   // update localDiv text:
+  // update localDiv text:
   localDiv.innerHTML = 'connected to broker. Subscribing...'
   // subscribe to the topic:
   client.subscribe(topic, onSubscribe);
 }
 
+// handler for mqtt disconnect event:
 function onDisonnect() {
- // update localDiv text:
+  // update localDiv text:
   localDiv.innerHTML = 'disconnected from broker.'
 }
 
+// handler for mqtt error event:
 function onError(error) {
-   // update localDiv text:
+  // update localDiv text:
   localDiv.innerHTML = error;
 }
 
+// handler for mqtt subsribe event:
 function onSubscribe(error) {
   if (!error) {
-     // update localDiv text:
+    // update localDiv text:
     localDiv.innerHTML = 'Subscribed to broker.';
   } else {
-     // update localDiv text with the error:
+    // update localDiv text with the error:
     localDiv.innerHTML = error;
   }
 }
 
-
+// handler for mqtt message received event:
 function onMessage(topic, payload, packet) {
-
   let result = 'received a message on topic:  ' + topic;
-    // message is  a Buffer, so convert to a string:
+  // message is  a Buffer, so convert to a string:
   result += '<br>message payload: ' + payload.toString();
   // packet is a JSON object, so list its elements:
   result += '<br>MQTT packet: <ul>';
@@ -124,7 +139,7 @@ function onMessage(topic, payload, packet) {
   remoteDiv.innerHTML = result;
 }
 
-// on page load, call the QR code function:
+// on page load, call the setup function:
 document.addEventListener('DOMContentLoaded', setup);
 // run a loop every 2 seconds:
 setInterval(loop, 2000);
