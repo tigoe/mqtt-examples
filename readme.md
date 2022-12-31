@@ -66,6 +66,7 @@ There are a number of MQTT brokers you can use, the most popular is [mosquitto](
 
 You can make an MQTT request directly, or you can do it encrypted. You can also make MQTT requests over websockets. Each transport method is typically done on a different port number. For example, [test.mosquitto.org](https://test.mosquitto.org) lists the following ports:
 
+__test.mosquitto.org:__
 * 1883 MQTT, unencrypted, unauthenticated
 * 1884 MQTT, unencrypted, authenticated
 * 8883 MQTT, encrypted, unauthenticated
@@ -78,16 +79,50 @@ You can make an MQTT request directly, or you can do it encrypted. You can also 
 * 8090 MQTT over WebSockets, unencrypted, authenticated
 * 8091 MQTT over WebSockets, encrypted, authenticated
 
-And [shiftr.io](https://www.shiftr.io/docs/broker/mqtt-interface/) lists the following:
+[Shiftr.io](https://www.shiftr.io/docs/broker/mqtt-interface/) lists the following:
 
-shiftr.io Cloud : 
+__shiftr.io Cloud:__ 
 * 1883 MQTT, unencrypted port 1883
 * 8883: MQTT, encrypted
 * 443: secure WebSocket (WSS/HTTPS)
 
-shiftr.io Desktop : 
+__shiftr.io Desktop:__ 
 * 1883 MQTT, unencrypted port 1883
-* 8883: MQTT, encrypted
 * 1884:  WebSocket (WS/HTTP)
 
-Different client APIs support different approaches. For example, the ArduinoMqttClient supports both unencrypted and encrypted MQTT or MQTTS connections just by changing the port number and the WiFiClient to a WiFiSSLClient. The Eclipse Paho JS client send MQTT messages over web sockets, encrypted or unencrypted. Other MQTT client frameworks use one or more of these four methods. 
+[EMQX](https://www.emqx.com/en/mqtt/public-mqtt5-broker) lists the following:
+
+__EMQX:__
+* MQTT TCP Port: 1883
+* WebSocket Port: 8083
+* MQTT SSL/TLS Port: 8883
+* WebSocket SSL/TLS Port: 8084
+
+Different client APIs support different approaches. For example, the ArduinoMqttClient supports both unencrypted and encrypted MQTT or MQTTS connections just by changing the port number and the WiFiClient to a WiFiSSLClient. The browser clients generally send MQTT messages over web sockets, encrypted or unencrypted. Other MQTT client frameworks use one or more of these four methods. 
+
+## Broker Client Settings 
+
+Table 1 below shows the settings for each of three client tools: the ArduinoMqttClient library: mqtt.js in a browser; and eclipse.paho.js in a browser; and four different brokers: EMQX; shiftr.io cloud; shiftr.io desktop client; and test.mosquitto.org. 
+
+| Broker| | ArduinoMqttClient | mqtt.js |  eclipse.paho.js |
+| --- |--- | --- | --- | --- |
+| [EMQX](https://www.emqx.com/en/mqtt/public-mqtt5-broker) |   |   |   |
+|  | Initializer: |WiFiSSLClient | wss:// | useSSL: true in client.connect() | 
+ | | Address:| broker.emqx.io | same | same |
+| | Port: | 8883 | 8084| 8084|
+| | Credentials: | none | none | none |
+| [shiftr.io cloud](https://www.shiftr.io/docs/broker) |   |   |   |
+|  | Initializer: |WiFiSSLClient | wss:// | useSSL: true in client.connect() | 
+ | | Address:| public.cloud.shiftr.io | same | same |
+| | Port: | 8883 | not specified| 443|
+| | Credentials: | username : public, password: public | same| same|
+| [shiftr.io desktop](https://www.shiftr.io/docs/broker) |   |   |   |
+|  | Initializer: |WiFiClient | ws:// | none | 
+ | | Address:| your computer's IP address | same| same|
+| | Port: | 1883 | 1884 | 1884|
+| | Credentials: | none | none| none|
+| [test.mosquitto.org](https://test.mosquitto.org/) |   |   |   |
+|  | Initializer: |WiFiSSLClient | wss:// | useSSL: true in client.connect() | 
+ | | Address:| test.mosquitto.org | same | same |
+| | Port: | 8886 | 8081| 8081|
+| | Credentials: | none | none | none |
