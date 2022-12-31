@@ -44,7 +44,14 @@ This example will work with the following Arduino examples:
 
 ## Web MIDI Clients
 
-There are also examples here that combines [p5.js](https://p5js.org) with the [Web MIDI API](https://www.w3.org/TR/webmidi/), sending MIDI messages over an MQTT broker. It's called [mqtt-midi-client](p5js-mqtt-client/mqtt-midi-client). If you prefer a version without p5.js, and with keyboard input so that it can act as a MIDI controller, see [mqtt-midi-controller](mqtt-midi-controller).
+* [See the example running](mqtt-midi-client)
+* [See the source code]({{site.codeurl}}/browser-clients/eclipse-pahojs/mqtt-midi-client)
+
+The mqtt-midi-client example combines Eclipse PAHO and [p5.js](https://p5js.org) with the [Web MIDI API](https://www.w3.org/TR/webmidi/), sending MIDI messages over an MQTT broker:
+
+* [See the example running](mqtt-midi-controller)
+* [See the source code]({{site.codeurl}}/browser-clients/eclipse-pahojs/mqtt-midi-controller)
+The mqtt-midi-controller example works without p5.js, and with keyboard input so that it can act as a MIDI controller.
  
 This [Arduino MQTT-to-MIDI Client](https://github.com/tigoe/mqtt-examples/tree/main/MqttClientMIDIPlayer) can receive MIDI messages from the same broker and send MIDI to your operating system or MIDI system.  This [Arduino MIDI-to-MQTT client](https://github.com/tigoe/mqtt-examples/tree/main/MqttClientMIDIController) can send noteon and noteoff messages via MQTT at the push of a button.
 
