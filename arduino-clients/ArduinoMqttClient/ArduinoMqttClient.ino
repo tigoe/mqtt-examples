@@ -16,7 +16,7 @@
   #define SECRET_MQTT_PASS "public" // broker password
 
   created 11 June 2020
-  updated 29 Jan 2022
+  updated 30 Dec 2022
   by Tom Igoe
 */
 
@@ -24,13 +24,13 @@
 #include <ArduinoMqttClient.h>
 #include "arduino_secrets.h"
 
-// initialize WiFi connection:
+// initialize WiFi connection as SSL:
 WiFiSSLClient wifi;
 MqttClient mqttClient(wifi);
 
 // details for MQTT client:
-char broker[] = "test.mosquitto.org";
-int port = 8886;
+char broker[] = "public.cloud.shiftr.io";
+int port = 8883;
 char topic[] = "aardvarks";
 char clientID[] = "arduinoMqttClient";
 
@@ -59,7 +59,7 @@ void setup() {
   // set the credentials for the MQTT client:
   mqttClient.setId(clientID);
   // if needed, login to the broker with a username and password:
-  // mqttClient.setUsernamePassword(SECRET_MQTT_USER, SECRET_MQTT_PASS);
+  mqttClient.setUsernamePassword(SECRET_MQTT_USER, SECRET_MQTT_PASS);
 }
 
 void loop() {
@@ -82,6 +82,9 @@ void loop() {
       mqttClient.print(sensorReading);
       // send the message:
       mqttClient.endMessage();
+      // send a serial notification:
+      Serial.print("published a message: ");      
+      Serial.println(sensorReading);
       // timestamp this message:
       lastTimeSent = millis();
     }
@@ -110,7 +113,6 @@ boolean connectToBroker() {
   return true;
 }
 
-
 void onMqttMessage(int messageSize) {
   // we received a message, print out the topic and contents
   Serial.println("Received a message with topic ");
@@ -123,9 +125,12 @@ void onMqttMessage(int messageSize) {
   while (mqttClient.available()) {
     incoming += (char)mqttClient.read();
   }
+  // convert the incoming string to an int so you can use it:
   int result = incoming.toInt();
+  // use the result to dim the builtin LED:
   if (result > 0) {
     analogWrite(LED_BUILTIN, result);
   }
+  // print the result:
   Serial.println(result);
 }
