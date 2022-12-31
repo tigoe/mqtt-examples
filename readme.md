@@ -50,7 +50,7 @@ There is an MQTT library for [Processing](https://github.com/256dpi/processing-m
 
 There are multiple other desktop and command line client apps. 
 
-# MQTT Brokers
+## MQTT Brokers
 
 There are a number of MQTT brokers you can use. The most popular is [mosquitto](http://mosquitto.org/). You can run mosquitto on your own computer or server, or you can use [test.mosquitto.org](https://test.mosquitto.org/) as a test broker. 
 
