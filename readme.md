@@ -10,15 +10,18 @@ What's nice about MQTT, as opposed to HTTP, for example, is that it's a simple p
 
 Because MQTT doesn't care what you put in each message, you can format your messages to match whatever end use you need. You text-formatted messages like comma-separate values (CSV) or JSON strings inside an MQTT message, for example, or binary messages like MIDI commands or OSC messages. The broker doesn't care what's in the message. This means that your client's job is just to send and receive messages between the broker and your end application, whatever it may be.
 
-For a more detailed explanation, see [this explanation from IBM](https://developer.ibm.com/technologies/messaging/articles/iot-mqtt-why-good-for-iot), who developed the protocol initially. 
+For a more detailed explanation, see [this explanation from IBM](https://developer.ibm.com/articles/iot-mqtt-why-good-for-iot/), who developed the protocol initially. 
 
 Here is a [comparison between WebSockets and MQTT](mqtt-vs-websockets.md). 
 
 ## Arduino Client Libraries
 
+[ArduinoMqttClient examples in this repository](arduino-clients)
+
 There are multiple MQTT client libraries for Arduino. The examples here all use the [ArduinoMqttClient](https://github.com/arduino-libraries/ArduinoMqttClient) library. This library works with all the WiFi-enabled Arduino models, and many third-party models as well. 
 
 There are many other Arduino MQTT libraries. Joël Gähwiler's [arduino-mqtt](https://github.com/256dpi/arduino-mqtt) is another good example. 
+
 
 ## JavaScript Clients
 
@@ -49,15 +52,18 @@ There are multiple other desktop and command line client apps.
 
 # MQTT Brokers
 
-There are a number of MQTT brokers you can use, the most popular is [mosquitto](http://mosquitto.org/). You can run mosquitto on your own computer or server, or you can use [test.mosquitto.org](https://test.mosquitto.org/) as a test broker. The instructions and port numbers for the various ways of reaching it are listed on [test.mosquitto.org](https://test.mosquitto.org). 
+There are a number of MQTT brokers you can use. The most popular is [mosquitto](http://mosquitto.org/). You can run mosquitto on your own computer or server, or you can use [test.mosquitto.org](https://test.mosquitto.org/) as a test broker. 
 
-[Shiftr.io](https://next.shiftr.io/try) is another MQTT test broker, with a graphic interface so you can see a graph of clients and topics. Shiftr.io has a [desktop broker](https://next.shiftr.io/desktop) that you can download and use for local testing as well. These examples use shiftr.io as their test broker, though they have been tested on mosquitto.org as well. Note that Shiftr.io's examples use a different Arduino client library and a different JavaScript library than this site does. The code here is still compatible with that briker, however. 
+[Shiftr.io](https://shiftr.io/try) is another MQTT test broker, with a graphic interface so you can see a graph of clients and topics. Shiftr.io has a [desktop broker](https://shiftr.io/desktop) that you can download and use for local testing as well. These examples use shiftr.io as their test broker, though they have been tested on mosquitto.org as well. Note that Shiftr.io's examples use a different Arduino client library and a different JavaScript library than this site does. The code here is still compatible with that briker, however. 
 
 ## MQTT, Web Sockets, and Encryption
 
-You can make an MQTT request directly, or you can do it encrypted. You can also make MQTT requests over websockets. Each transport method is typically done on a different port number. For example, [test.mosquitto.org](https://test.mosquitto.org) lists the following ports:
+You can make an MQTT request directly, or you can do it encrypted. You can also make MQTT requests over websockets. Each transport method is typically done on a different port number. 
 
-__test.mosquitto.org:__
+### test.mosquitto.org Ports
+
+For example, [test.mosquitto.org](https://test.mosquitto.org) lists the following ports:
+
 * 1883 MQTT, unencrypted, unauthenticated
 * 1884 MQTT, unencrypted, authenticated
 * 8883 MQTT, encrypted, unauthenticated
@@ -70,20 +76,22 @@ __test.mosquitto.org:__
 * 8090 MQTT over WebSockets, unencrypted, authenticated
 * 8091 MQTT over WebSockets, encrypted, authenticated
 
-[Shiftr.io](https://www.shiftr.io/docs/broker/mqtt-interface/) lists the following:
+### Shiftr.io Cloud Ports
 
-__shiftr.io Cloud:__ 
+[Shiftr.io](https://www.shiftr.io/docs/broker/mqtt-interface/) lists the following:
 * 1883 MQTT, unencrypted port 1883
 * 8883: MQTT, encrypted
 * 443: secure WebSocket (WSS/HTTPS)
 
-__shiftr.io Desktop:__ 
+### Shiftr.io Desktop Ports
+
 * 1883 MQTT, unencrypted port 1883
 * 1884:  WebSocket (WS/HTTP)
 
 [EMQX](https://www.emqx.com/en/mqtt/public-mqtt5-broker) lists the following:
 
-__EMQX:__
+### EMQX Public Broker Ports
+
 * MQTT TCP Port: 1883
 * WebSocket Port: 8083
 * MQTT SSL/TLS Port: 8883
