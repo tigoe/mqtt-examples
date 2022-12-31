@@ -5,7 +5,7 @@
   for local and remote messages. Then it attempts
   to connect to the broker. Once every two seconds, 
   it sends the local time if it's connected. 
-// handler for mqtt connect event:
+  The publish button allows you to turn on and off publishing status.
 
   created 29 Dec 2022
   by Tom Igoe
@@ -24,10 +24,10 @@
 
 //////// shiftr.io, requires username and password 
 // (see options variable below):
-// const url = 'wss://public.cloud.shiftr.io';
+const url = 'wss://public.cloud.shiftr.io';
 
 //////// test.mosquitto.org, uses no username and password:
-const url = 'wss://test.mosquitto.org:8081';
+// const url = 'wss://test.mosquitto.org:8081';
 
 // MQTT client:
 let client;
@@ -41,8 +41,8 @@ let options = {
   // Authentication
   clientId: 'mqttJsClient',
   // add these in for public.cloud.shiftr.io:
-  // username: 'public',
-  // password: 'public'
+  username: 'public',
+  password: 'public'
 }
 // topic to subscribe to when you connect:
 let topic = 'aardvarks';
