@@ -62,7 +62,7 @@ You can make an MQTT request directly, or you can do it encrypted. You can also 
 
 ### test.mosquitto.org Ports
 
-For example, [test.mosquitto.org](https://test.mosquitto.org) lists the following ports:
+[test.mosquitto.org](https://test.mosquitto.org) lists the following ports:
 
 * 1883 MQTT, unencrypted, unauthenticated
 * 1884 MQTT, unencrypted, authenticated
@@ -78,7 +78,7 @@ For example, [test.mosquitto.org](https://test.mosquitto.org) lists the followin
 
 ### Shiftr.io Cloud Ports
 
-[Shiftr.io](https://www.shiftr.io/docs/broker/mqtt-interface/) lists the following:
+[Shiftr.io](https://www.shiftr.io/docs/broker/mqtt-interface/) lists the following ports:
 * 1883 MQTT, unencrypted port 1883
 * 8883: MQTT, encrypted
 * 443: secure WebSocket (WSS/HTTPS)
@@ -88,9 +88,9 @@ For example, [test.mosquitto.org](https://test.mosquitto.org) lists the followin
 * 1883 MQTT, unencrypted port 1883
 * 1884:  WebSocket (WS/HTTP)
 
-[EMQX](https://www.emqx.com/en/mqtt/public-mqtt5-broker) lists the following:
-
 ### EMQX Public Broker Ports
+
+[EMQX](https://www.emqx.com/en/mqtt/public-mqtt5-broker) lists the following ports:
 
 * MQTT TCP Port: 1883
 * WebSocket Port: 8083
