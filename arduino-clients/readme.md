@@ -29,24 +29,27 @@ This is a basic  client example for the ArduinoMqttClient library. The global va
 
 The other Arduino examples in this repository follow more or less the same structure. 
 
-## MqttLightSensor
+## Sensor Clients
 
-[See the source code]({{site.codeurl}}/arduino-clients/MqttLightSensor/MqttLightSensor.ino)
+There are a couple sensor clients in this repository, to show how to read and publish sensors of differing values. 
+
+### MqttClient_SensorTCS34725Sender
+
+[See the source code]({{site.codeurl}}/arduino-clients/MqttClient_SensorTCS34725Sender/MqttClient_SensorTCS34725Sender.ino)
 
 This example reads lux and color temperature levels from an AMS [TCS34725 light and color sensor](https://ams.com/en/tcs34725) using Adafruit's Adafruit_TCS34725 library. It also reads the MAC address of the WIFi radio and uses it as a unique ID to send in the MQTT message. It follows the same structure as the basic example described above. This example also shows how to send JSON strings with just the String object.
 
-## MqttClient_SensorENS160Sender
+### MqttClient_SensorENS160Sender
 
 [See the source code]({{site.codeurl}}/arduino-clients/MqttClient_SensorENS160Sender/MqttClient_SensorENS160Sender.ino)
 
 This example reads a [Sciosense ENS160 AQI sensor](https://www.sciosense.com/products/environmental-sensors/digital-multi-gas-sensor/), which calculates CO2-equivalent (eCO2), Total Volatile Organic Compounds (TVOC) and, air quality index (AQI). Breakout boards from both Sparkfun and Adafruit were used in the testing and both work well. The example uses Sparkfun's SparkFun_ENS160 library. This example also shows how to send JSON strings with just the String object.
 
-## MqttClient_SensorCombinedAQISender
+### MqttClient_SensorCombinedAQISender
 
 [See the source code]({{site.codeurl}}/arduino-clients/MqttClient_SensorCombinedAQISender/MqttClient_SensorCombinedAQISender.ino)
 
 This example reads temperature and humidity levels from an  [Sensiron SHTC3 Temperature and Relative Humidity (rH) sensor](https://sensirion.com/products/catalog/SHTC3/) and uses those values to provide temp. and rH compensation for a [Sciosense ENS160 AQI sensor](https://www.sciosense.com/products/environmental-sensors/digital-multi-gas-sensor/), as seen in the previous example. It uses Sparkfun's SparkFun_ENS160 and SparkFun_SHTC3 libraries. This example also shows how to send JSON strings with just the String object.
-
 
 ## MqttClientSubTopics
 
