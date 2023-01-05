@@ -82,7 +82,7 @@ void setup() {
 }
 
 void loop() {
-   // if you disconnected from the network, reconnect:
+  // if you disconnected from the network, reconnect:
   if (WiFi.status() != WL_CONNECTED) {
     connectToNetwork();
     // skip the rest of the loop until you are connected:
@@ -116,13 +116,10 @@ void loop() {
     // save the button state for comparison next time through:
     lastButtonState = buttonState;
   }
-
-
-  
 }
 
 void onMqttMessage(int messageSize) {
- // we received a message, print out the topic and contents
+  // we received a message, print out the topic and contents
   Serial.println("Received a message with topic ");
   Serial.print(mqttClient.messageTopic());
   Serial.print(", length ");
@@ -132,7 +129,7 @@ void onMqttMessage(int messageSize) {
   if (messageSize > 0) {
     // set up an array for the MIDI bytes:
     byte message[messageSize];
-  
+
     // message byte counter:
     int i = 0;
     // read the message:

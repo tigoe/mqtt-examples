@@ -54,7 +54,7 @@ The mqtt-midi-client example combines Eclipse PAHO and [p5.js](https://p5js.org)
 
 The mqtt-midi-controller example works without p5.js, and with keyboard input so that it can act as a MIDI controller.
  
-This [Arduino MQTT-to-MIDI Client](https://github.com/tigoe/mqtt-examples/tree/main/MqttClientMIDIPlayer) can receive MIDI messages from the same broker and send MIDI to your operating system or MIDI system.  This [Arduino MIDI-to-MQTT client](https://github.com/tigoe/mqtt-examples/tree/main/MqttClientMIDIController) can send noteon and noteoff messages via MQTT at the push of a button.
+This [Arduino MQTT-to-MIDI Client]({{site.codeurl}}/arduino-clients/MqttClientMIDIPlayer/MqttClientMIDIPlayer.ino) can receive MIDI messages from the same broker and send MIDI to your operating system or MIDI system.  This [Arduino MIDI-to-MQTT client]({{site.codeurl}}/arduino-clients/MqttClientMIDIController/MqttClientMIDIController.ino) can send noteon and noteoff messages via MQTT at the push of a button.
 
 ## Philips Hue Control
 
