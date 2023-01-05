@@ -67,4 +67,4 @@ This example shows how to use MQTT subtopics to set the color of a strip of Worl
 
 [See the source code]({{site.codeurl}}/arduino-clients/MqttClientHueControl/MqttClientHueControl.ino)
 
-This example shows how to use MQTT  to set the brightness of a Philips Hue light through a Hue hub. It does so by making HTTP requests to the Hue hub. For more on controlling the Philips Hue, see [this repository](https://tigoe.github.io/hue-control/).
+This example shows how to use MQTT  to set the brightness of a Philips Hue light through a Hue hub. It does so by making HTTP requests to the Hue hub. For more on controlling the Philips Hue, see [this repository](https://tigoe.github.io/hue-control/). It can work with the Eclipse PAHO and p5.js example called [EclipsePahoHueLightControl]({{site.codeurl}}/browser-clients/eclipse-pahojs/eclipse-pahojs/EclipsePahoHueLightControl)

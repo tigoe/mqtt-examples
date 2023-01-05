@@ -1,37 +1,75 @@
 /*
   Hue Hub light control over MQTT
+
+  This example will change the brightness of a light
+  on a local hub when you change the slider, and will
+  send an MQTT message with the value of the slider
+  when you press the button. If it receives an MQTT message
+  on the `lights` topic, it uses that value to change the
+  brightness of the light. So you can use this
+  to change the brightness of a local hub, or of a 
+  friend's hub on a remote network if you are both connected
+  to the same broker.
   
   created 23 July 2020
-  modified 23 Nov 2020
+  modified 5 Jan 2023
   by Tom Igoe
 */
 // Fill in your hue hub IP credentials here:
 let url = '192.168.0.8';
-let username = 'xxxxxxxx-xxxxxxxxx'; 
+let username = 'xxxxxxxx-xxxxxxxxx';
 // slider for dimming the lights:
 let dimmer;
 // the number of the light in the hub:
-let lightNumber = 22;
+let lightNumber = 3;
 // The light state:
 let lightState = {
    bri: 0,
    on: false
 }
 
-// MQTT broker details:
-let broker = {
-   hostname: 'public.cloud.shiftr.io',
-   port: 443
-};
+// All these brokers work with this code. 
+// Uncomment the one you want to use. 
+
+////// emqx. Works in both basic WS and SSL WS:
+// const broker = 'broker.emqx.io'
+// const port = 8083;   // no SSL
+// const broker = 'broker.emqx.io'
+// const port = 8084;   // SSL
+
+//////// shiftr.io desktop client. 
+// Fill in your desktop URL for localhost:
+// const broker = 'localhost';   
+// const port = 1884;  //  no SSL
+
+//////// shiftr.io, requires username and password 
+// (see options variable below):
+const broker = 'public.cloud.shiftr.io';
+const port = 443;
+
+//////// test.mosquitto.org, uses no username and password:
+// const broker = 'test.mosquitto.org';
+// const port = 8081;
 
 // MQTT client:
 let client;
 // client credentials:
-let creds = {
-   clientID: 'p5HueClient',
+let clientID = 'p5HueClient';
+
+let options = {
+   // Clean session
+   cleanSession: true,
+   // connect timeout in seconds:
+   timeout: 10,
+   // callback function for when you connect:
+   onSuccess: onConnect,
+   // username & password:
    userName: 'public',
-   password: 'public'
-}
+   password: 'public',
+   // use SSL
+   useSSL: true
+};
+
 // topic to subscribe to when you connect to the broker:
 let topic = 'lights';
 
@@ -44,7 +82,7 @@ let remoteDiv;
 
 function setup() {
    noLoop();
-//   createCanvas(windowWidth, windowHeight);
+   //   createCanvas(windowWidth, windowHeight);
    // a div for the Hue hub's responses:
    remoteDiv = createDiv('Hub response');
    // position it:
@@ -57,19 +95,13 @@ function setup() {
    dimmer.mouseReleased(changeBrightness);
 
    // Create an MQTT client:
-   client = new Paho.MQTT.Client(broker.hostname, Number(broker.port), creds.clientID);
+   client = new Paho.MQTT.Client(broker, port, clientID);
    // set callback handlers for the client:
-   client.onConnectionLost = onConnectionLost;
-   client.onMessageArrived = onMessageArrived;
+   client.onConnectionLost = onDisconnect;
+   client.onMessageArrived = onMessage;
    // connect to the MQTT broker:
-   client.connect(
-       {
-           onSuccess: onConnect,       // callback function for when you connect
-           userName: creds.userName,   // username
-           password: creds.password,   // password
-           useSSL: true                // use SSL
-       }
-   );
+   client.connect(options);
+
    // create the send button:
    sendButton = createButton('send a message');
    sendButton.position(20, 40);
@@ -108,7 +140,7 @@ function changeBrightness() {
       lightState.on = false;
    }
    // make the HTTP call with the JSON object:
-    setLight(lightNumber, lightState);
+   setLight(lightNumber, lightState);
 }
 
 /*
@@ -134,16 +166,16 @@ function onConnect() {
 }
 
 // called when the client loses its connection
-function onConnectionLost(response) {
+function onDisconnect(response) {
    if (response.errorCode !== 0) {
-       localDiv.html('onConnectionLost:' + response.errorMessage);
+      localDiv.html('onDisconnect:' + response.errorMessage);
    }
 }
 
 // called when a message arrives
-function onMessageArrived(message) {
+function onMessage(message) {
    remoteDiv.html('I got a message:' + message.payloadString);
-   let  incomingNumber = parseInt(message.payloadString);
+   let incomingNumber = parseInt(message.payloadString);
    // use it to set the light:
    lightState.bri = incomingNumber;
    if (lightState.bri > 0) {
@@ -159,15 +191,15 @@ function onMessageArrived(message) {
 function sendMqttMessage() {
    // if the client is connected to the MQTT broker:
    if (client.isConnected()) {
-       // make a string with a random number form 0 to 15:
-       let msg = String(round(random(15)));
-       // start an MQTT message:
-       message = new Paho.MQTT.Message(msg);
-       // choose the destination topic:
-       message.destinationName = topic;
-       // send it:
-       client.send(message);
-       // print what you sent:
-       localDiv.html('I sent: ' + message.payloadString);
+      // make a string with a random number form 0 to 15:
+      let msg = String(dimmer.value());
+      // start an MQTT message:
+      message = new Paho.MQTT.Message(msg);
+      // choose the destination topic:
+      message.destinationName = topic;
+      // send it:
+      client.send(message);
+      // print what you sent:
+      localDiv.html('I sent: ' + message.payloadString);
    }
 }
