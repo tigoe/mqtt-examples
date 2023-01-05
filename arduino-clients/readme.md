@@ -4,7 +4,7 @@ The [ArduinoMqttClient](https://github.com/arduino-libraries/ArduinoMqttClient) 
 
 ## ArduinoMqttClient
 
-[See the source code]({{site.codeurl}}/arduino-clients/ArduinoMqttClient/ArduinoMqttClient.ino)
+[See the source code]({{site.codeurl}}/arduino-clients/ArduinoMqttClient/ArduinoMqttClient.ino) 
 
 This is a basic  client example for the ArduinoMqttClient library. The global variables define the broker and credentials. In the setup, the Arduino connects to WiFi and sets the MQTT client ID and other pre-connect characteristics, including the `onMessage` handler. In the loop, it continually attempts to connect to WiFi if it's not connected using the custom `connectToNetwork()` function; attempts to connect to the broker if not connected using the custom `connectToBroker()` function; then polls for any incoming MQTT messages using the `onMqttMessage()` handler. Then, once every interval, it reads a sensor and publishes the value as an MQTT message on the topic.
 
@@ -23,7 +23,7 @@ The other Arduino examples in this repository follow more or less the same struc
 
 [See the source code]({{site.codeurl}}/arduino-clients/MqttLightSensor/MqttLightSensor.ino)
 
-This example reads lux and color temperature levels from an AMS [TCS34725 light and color sensor](https://ams.com/en/tcs34725) using Adafruit's Adafruit_TCS34725 library. It follows the same structure as the basic example described above. 
+This example reads lux and color temperature levels from an AMS [TCS34725 light and color sensor](https://ams.com/en/tcs34725) using Adafruit's Adafruit_TCS34725 library. It also reads the MAC address of the WIFi radio and uses it as a unique ID to send in the MQTT message. It follows the same structure as the basic example described above. This example also shows how to send JSON strings with just the String object.
 
 ## MqttClient_SensorENS160Sender
 
