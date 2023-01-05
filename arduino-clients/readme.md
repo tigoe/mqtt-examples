@@ -1,5 +1,5 @@
 ## Arduino MQTT Clients
-The [ArduinoMqttClient](https://github.com/arduino-libraries/ArduinoMqttClient) library makes it easy to send and receive MQTT messages using WiFi-enabled Arduino models such as the Nano 33 IoT, MKR1010, MKR1000, or other third-party devices with compatible WiFi libraries. This repository contains examples using this library. All of these will work with the basic MQTT client examples in the [JavaScript Clients](../../#JavaScript_Clients) section of the repository, if you match up the public brokers they are all using.
+The [ArduinoMqttClient](https://github.com/arduino-libraries/ArduinoMqttClient) library makes it easy to send and receive MQTT messages using WiFi-enabled Arduino models such as the Nano 33 IoT, MKR1010, MKR1000, or other third-party devices with compatible WiFi libraries. This repository contains examples using this library. All of these will work with the basic MQTT client examples in the [JavaScript Clients]({{site.baseurl}}/#JavaScript_Clients) section of the repository, if you match up the public brokers they are all using.
 
 ## ArduinoMqttClient
 
