@@ -1,8 +1,7 @@
-## Arduino MQTT Clients
+# Arduino MQTT Clients
 The [ArduinoMqttClient](https://github.com/arduino-libraries/ArduinoMqttClient) library makes it easy to send and receive MQTT messages using WiFi-enabled Arduino models such as the Nano 33 IoT, MKR1010, MKR1000, or other third-party devices with compatible WiFi libraries. This repository contains examples using this library. All of these will work with the basic MQTT client examples in the [JavaScript Clients]({{site.baseurl}}/#javascript-clients) section of the repository, if you match up the public brokers they are all using.
 
-
-### Installing the library and Board Definitions
+## Installing the library and Board Definitions
 
 If you've never used one of the WiFi-capable Arduino boards, you'll need to install the board definition. When you plug the board in, the Arduino IDE should pop up a message asking if you want to install the board definition. If not, click the Tools Menu --> Boards... --> Board Manager, and search for the board you're using. When you find it, click Install. The Nano 33 IoT, the MKR 1010 and the Uno WiFi all use the WiFiNINA library, and the MKR1000 uses the WiFi101 library. These two libraries have identical APIs.
 
@@ -19,7 +18,6 @@ All of the Arduino examples in this repository require an extra file to be inclu
 ````
 
 Note: this assumes you're on a network with WPA2 encryption, which is what most people are using at home these days. If you're not, check the [WiFiNINA library documentation](https://www.arduino.cc/reference/en/libraries/wifinina/) for how to configure your sketches for other network types. 
-
 
 ## ArduinoMqttClient
 
