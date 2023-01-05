@@ -68,13 +68,17 @@ This example shows how to use MQTT subtopics to set the color of a strip of Worl
 This example shows how to use MQTT  to set the brightness of a Philips Hue light through a Hue hub. It does so by making HTTP requests to the Hue hub. For more on controlling the Philips Hue, see [this repository](https://tigoe.github.io/hue-control/). It can work with the Eclipse PAHO and p5.js example called [EclipsePahoHueLightControl]({{site.codeurl}}/browser-clients/eclipse-pahojs/eclipse-pahojs/EclipsePahoHueLightControl)
 
 
-## MqttClientMIDIController
+## MIDI examples
+
+These MIDI examples will work well with the [WebMIDI browser clients]({{site.baseurl}}browser-clients/eclipse-pahojs/#web-midi-clients).
+
+### MqttClientMIDIController
 
 [See the source code]({{site.codeurl}}/arduino-clients/MqttClientMIDIController/MqttClientMIDIController.ino)
 
 This sketch is an MQTT client that connects to a broker, subscribes to a topic, and  sends  messages on that topic. The messages are three-byte arrays that can be read as MIDI noteon and noteoff messages.
 
-## MqttClientMIDIController
+### MqttClientMIDIController
 
 [See the source code]({{site.codeurl}}/arduino-clients/MqttClientMIDIPlayer/MqttClientMIDIPlayer.ino)
 
