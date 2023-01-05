@@ -61,16 +61,12 @@ void setup() {
   // wait for serial monitor to open:
   if (!Serial) delay(3000);
   pinMode(LED_BUILTIN, OUTPUT);
-  // initialize WiFi, if not connected:
-  while (WiFi.status() != WL_CONNECTED) {
-    Serial.print("Connecting to ");
-    Serial.println(SECRET_SSID);
-    WiFi.begin(SECRET_SSID, SECRET_PASS);
-    delay(2000);
-  }
+  // connect to WiFi:
+  connectToNetwork();
   // get MAC address:
   byte mac[6];
   WiFi.macAddress(mac);
+  // put it in a string:
   for (int i = 5; i >= 0; i--) {
     if (mac[i] < 16) macAddr += "0";
     macAddr += String(mac[i], HEX);
@@ -115,6 +111,7 @@ void loop() {
     message.replace("LUX", String(lux));
     message.replace("CT", String(colorTemp));
     message.replace("CT", String(colorTemp));
+    // include the MAC address as a unique ID for this client:
     message.replace("ID", macAddr);
 
     if (mqttClient.connected()) {

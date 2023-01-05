@@ -50,13 +50,9 @@ void setup() {
   // wait for serial monitor to open:
   if (!Serial) delay(3000);
   pinMode(LED_BUILTIN, OUTPUT);
-  // initialize WiFi, if not connected:
-  while (WiFi.status() != WL_CONNECTED) {
-    Serial.print("Connecting to ");
-    Serial.println(SECRET_SSID);
-    WiFi.begin(SECRET_SSID, SECRET_PASS);
-    delay(2000);
-  }
+    // connect to WiFi:
+  connectToNetwork();
+
   // print IP address once connected:
   Serial.print("Connected. My IP address: ");
   Serial.println(WiFi.localIP());
@@ -68,6 +64,13 @@ void setup() {
 }
 
 void loop() {
+   //if you disconnected from the network, reconnect:
+  if (WiFi.status() != WL_CONNECTED) {
+    connectToNetwork();
+    // skip the rest of the loop until you are connected:
+    return;
+  }
+
   // if not connected to the broker, try to connect:
   if (!mqttClient.connected()) {
     Serial.println("attempting to connect to broker");
@@ -138,4 +141,15 @@ void onMqttMessage(int messageSize) {
   }
   // print the result:
   Serial.println(result);
+}
+
+void connectToNetwork() {
+  // try to connect to the network:
+  while (WiFi.status() != WL_CONNECTED) {
+    Serial.println("Attempting to connect to: " + String(SECRET_SSID));
+    //Connect to WPA / WPA2 network:
+    WiFi.begin(SECRET_SSID, SECRET_PASS);
+    delay(2000);
+  }
+  Serial.println("connected.");
 }
