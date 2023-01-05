@@ -20,38 +20,63 @@ let urlString = parent.location.href;
 // an HTML div to display it in:
 let tagDiv;
 
-// MQTT broker details:
-let broker = {
-   // hostname: 'broker.emqx.io',
-   hostname: 'test.mosquitto.org',
-   // hostname: 'public.cloud.shiftr.io',
-   // port: 443
-   port: 8081
-};
+// All these brokers work with this code. 
+// Uncomment the one you want to use. 
+
+////// emqx. Works in both basic WS and SSL WS:
+// const broker = 'broker.emqx.io'
+// const port = 8083;   // no SSL
+// const broker = 'broker.emqx.io'
+// const port = 8084;   // SSL
+
+//////// shiftr.io desktop client. 
+// Fill in your desktop URL for localhost:
+// const broker = 'localhost';   
+// const port = 1884;  //  no SSL
+
+//////// shiftr.io, requires username and password 
+// (see options variable below):
+const broker = 'public.cloud.shiftr.io';
+const port = 443;
+
+//////// test.mosquitto.org, uses no username and password:
+// const broker = 'test.mosquitto.org';
+// const port = 8081;
 
 // MQTT client:
 let client;
 // client credentials:
-let creds = {
-   clientID: 'p5QRClient',
+let clientID = 'p5HueClient';
+
+let options = {
+   // Clean session
+   cleanSession: true,
+   // connect timeout in seconds:
+   timeout: 10,
+   // callback function for when you connect:
+   onSuccess: onConnect,
+   // username & password:
    userName: 'public',
-   password: 'public'
-}
-// topic to subscribe to when you connect:
+   password: 'public',
+   // use SSL
+   useSSL: true
+};
+
+// topic to subscribe to when you connect to the broker:
 let topic = 'lights';
 
-// a pushbutton to send messages
-let sendButton;
-// divs for the local and remote messages:
+// UI elements: 
+let dimmer;
+let brightness = 0;
+
+// divs for text from the broker:
 let localDiv;
 let remoteDiv;
 
-// message to send, affecting the brightness of a light:
-let brightness = 0;
-
 function setup() {
-   // createCanvas(windowWidth, windowHeight);
    noCanvas();
+   noLoop();
+   
    // make the HTML tag div:
    tagDiv = createDiv();
    // make the QR code:
@@ -66,31 +91,28 @@ function setup() {
    tagDiv.position(10, 10);
    // set a callback function for clicking on the tag:
    tagDiv.mousePressed(hideTag);
-   createCanvas(400, 400);
+
+     // a slider to dim one light:
+   dimmer = createSlider(0, 254, 127)
+   // position it:
+   dimmer.position(10, 160);
+   // set a behavior for it:
+   dimmer.mouseReleased(changeBrightness);
+
    // Create an MQTT client:
-   client = new Paho.MQTT.Client(broker.hostname, Number(broker.port), creds.clientID);
+   client = new Paho.MQTT.Client(broker, port, clientID);
    // set callback handlers for the client:
-   client.onConnectionLost = onConnectionLost;
-   client.onMessageArrived = onMessageArrived;
+   client.onConnectionLost = onDisconnect;
+   client.onMessageArrived = onMessage;
    // connect to the MQTT broker:
-   client.connect(
-      {
-         onSuccess: onConnect,       // callback function for when you connect
-         // userName: creds.userName,   // username
-         // password: creds.password,   // password
-         useSSL: true                // use SSL
-      }
-   );
-   // create the send button:
-   sendButton = createButton('Press');
-   sendButton.position(20, 120);
-   sendButton.mousePressed(sendMqttMessage);
+   client.connect(options);
+
    // create a div for local messages:
    localDiv = createDiv('local messages will go here');
-   localDiv.position(20, 150);
+   localDiv.position(20, 100);
    // create a div for the response:
    remoteDiv = createDiv('waiting for messages');
-   remoteDiv.position(20, 180);
+   remoteDiv.position(20, 130);
 }
 
 function draw() {
@@ -102,6 +124,11 @@ function hideTag() {
    tagDiv.hide();
 }
 
+function changeBrightness() {
+   brightness = dimmer.value();
+   sendMqttMessage(brightness);
+}
+
 // called when the client connects
 function onConnect() {
    localDiv.html('client is connected');
@@ -109,23 +136,16 @@ function onConnect() {
 }
 
 // called when the client loses its connection
-function onConnectionLost(response) {
+function onDisconnect(response) {
    if (response.errorCode !== 0) {
-      localDiv.html('onConnectionLost:' + response.errorMessage);
+      localDiv.html('onDisconnect:' + response.errorMessage);
    }
 }
 
 // called when a message arrives
-function onMessageArrived(message) {
+function onMessage(message) {
    remoteDiv.html('I got a message:' + message.payloadString);
-   let incomingNumber = parseInt(message.payloadString);
-   // invert the message each time: 0, then 254, then 0, etc.:
-   if (incomingNumber > 0) {
-      brightness = 0;
-   } else {
-      brightness = 254;
-   }
-}
+ }
 
 // called when you want to send a message:
 function sendMqttMessage() {

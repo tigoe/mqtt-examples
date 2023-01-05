@@ -55,6 +55,14 @@ The mqtt-midi-controller example works without p5.js, and with keyboard input so
  
 This [Arduino MQTT-to-MIDI Client](https://github.com/tigoe/mqtt-examples/tree/main/MqttClientMIDIPlayer) can receive MIDI messages from the same broker and send MIDI to your operating system or MIDI system.  This [Arduino MIDI-to-MQTT client](https://github.com/tigoe/mqtt-examples/tree/main/MqttClientMIDIController) can send noteon and noteoff messages via MQTT at the push of a button.
 
-## Hue Control with QR Code Client
+## Philips Hue Control
 
-There is a [p5.js-based client with QR code](MqttWithQRCode) as well.  It generates its URL in a QR code, to make it easy to pass from one phone to another. It works with [this Philips Hue client](MqttLightControl), which sends HTTP messages to a local Philips Hue hub to control Hue lights. 
+[See the source code]({{site.codeurl}}/browser-clients/eclipse-pahojs/EclipsePahoHueLightControl/)
+
+The [EclipsePahoHueLightControl](EclipsePahoHueLightControl) listens for messages on the topic `lights` and uses them to set the brightness of a Philips Hue light on the browser's local network by sending HTTP messages to a local Philips Hue hub to control Hue lights. For more on controlling the Philips Hue, see [this repository](https://tigoe.github.io/hue-control/). It works with the [Arduino MqttClientHueControl example]({{site.codeurl}}/arduino-clients/MqttClientHueControl/MqttClientHueControl.ino) as well. 
+
+## Hue Control via QRCode Client
+
+[See the source code]({{site.codeurl}}/browser-clients/eclipse-pahojs/EclipsePahoHueLightControl/)
+
+The [EclipsePahoWithQRCode](EclipsePahoWithQRCode) example works with the Philips Hue clients as well.  It generates its URL in a QR code, to make it easy to pass from one phone to another. It sends a value to the topic `lights`. If either of the Philips Hue clients is connected to the same broker and topic, they will receive the message and control a Philips Hue light on their own network.
