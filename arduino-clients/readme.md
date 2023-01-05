@@ -35,3 +35,10 @@ This example reads a [Sciosense ENS160 AQI sensor](https://www.sciosense.com/pro
 [See the source code]({{site.codeurl}}/arduino-clients/MqttClient_SensorCombinedAQISender/MqttClient_SensorCombinedAQISender.ino)
 
 This example reads temperature and humidity levels from an  [Sensiron SHTC3 Temperature and Relative Humidity (rH) sensor](https://sensirion.com/products/catalog/SHTC3/) and uses those values to provide temp. and rH compensation for a [Sciosense ENS160 AQI sensor](https://www.sciosense.com/products/environmental-sensors/digital-multi-gas-sensor/), as seen in the previous example. It uses Sparkfun's SparkFun_ENS160 and SparkFun_SHTC3 libraries. This example also shows how to send JSON strings with just the String object.
+
+
+## MqttClientSubTopics
+
+[See the source code]({{site.codeurl}}/arduino-clients/MqttClientSubTopics/MqttClientSubTopics.ino)
+
+This example shows how to use MQTT subtopics to get and set the properties of a microcontroller's program. The microcontroller has two blinking LEDs and an analog sensor attached. You can change the behavior of the LEDs remotely by publishing to the subtopics `/brightness` and `/blinkInterval` and change the sensor update rate by publishing to `/sendInterval`.
