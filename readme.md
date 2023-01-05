@@ -46,7 +46,7 @@ There is an MQTT library for [Processing](https://github.com/256dpi/processing-m
 
 [MQTTTool](https://apps.apple.com/us/app/mqttool/id1085976398) is a mobile client for iOS. 
 
-[MyMQTT](https://play.google.com/store/apps/details?id=at.tripwire.mqtt.client&hl=en_US&gl=US&pli=1) is a good Anrdoid MQTT client app. 
+[MyMQTT](https://play.google.com/store/apps/details?id=at.tripwire.mqtt.client&hl=en_US&gl=US&pli=1) is a good Android MQTT client app. 
 
 There are multiple other desktop and command line client apps. 
 
