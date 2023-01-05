@@ -60,9 +60,7 @@ void setup() {
   Serial.begin(9600);
   // wait for serial monitor to open:
   if (!Serial) delay(3000);
-  pinMode(LED_BUILTIN, OUTPUT);
-  // connect to WiFi:
-  connectToNetwork();
+
   // get MAC address:
   byte mac[6];
   WiFi.macAddress(mac);
@@ -71,11 +69,7 @@ void setup() {
     if (mac[i] < 16) macAddr += "0";
     macAddr += String(mac[i], HEX);
   }
-
   Serial.println();
-  // print IP address once connected:
-  Serial.print("Connected. My IP address: ");
-  Serial.println(WiFi.localIP());
 
   // set the credentials for the MQTT client:
   mqttClient.setId(clientID);
@@ -178,5 +172,7 @@ void connectToNetwork() {
     WiFi.begin(SECRET_SSID, SECRET_PASS);
     delay(2000);
   }
-  Serial.println("connected.");
+  // print IP address once connected:
+  Serial.print("Connected. My IP address: ");
+  Serial.println(WiFi.localIP());
 }

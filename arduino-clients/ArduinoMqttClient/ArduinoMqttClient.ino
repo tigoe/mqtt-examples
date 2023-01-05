@@ -53,10 +53,6 @@ void setup() {
     // connect to WiFi:
   connectToNetwork();
 
-  // print IP address once connected:
-  Serial.print("Connected. My IP address: ");
-  Serial.println(WiFi.localIP());
-
   // set the credentials for the MQTT client:
   mqttClient.setId(clientID);
   // if needed, login to the broker with a username and password:
@@ -151,5 +147,8 @@ void connectToNetwork() {
     WiFi.begin(SECRET_SSID, SECRET_PASS);
     delay(2000);
   }
-  Serial.println("connected.");
+
+  // print IP address once connected:
+  Serial.print("Connected. My IP address: ");
+  Serial.println(WiFi.localIP());
 }
