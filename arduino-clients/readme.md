@@ -55,11 +55,16 @@ This example reads temperature and humidity levels from an  [Sensiron SHTC3 Temp
 
 [See the source code]({{site.codeurl}}/arduino-clients/MqttClientSubTopics/MqttClientSubTopics.ino)
 
-This example shows how to use MQTT subtopics to get and set the properties of a microcontroller's program. The microcontroller has two blinking LEDs and an analog sensor attached. You can change the behavior of the LEDs remotely by publishing to the subtopics `/brightness` and `/blinkInterval` and change the sensor update rate by publishing to `/sendInterval`.
-
+This example shows how to use MQTT to get and set the properties of a microcontroller's program. The microcontroller has two blinking LEDs and an analog sensor attached. You can change the behavior of the LEDs remotely by publishing to the subtopics `/brightness` and `/blinkInterval` and change the sensor update rate by publishing to `/sendInterval`.
 
 ## MqttClientNeoPixel
 
 [See the source code]({{site.codeurl}}/arduino-clients/MqttClientNeoPixel/MqttClientNeoPixel.ino)
 
 This example shows how to use MQTT subtopics to set the color of a strip of WorldSemi [WS2812 addressable LEDs (NeoPixels)](https://tigoe.github.io/LightProjects/addressable-leds). The microcontroller subscribes to a topic called `color` and looks for a comma-separated string of values, r, g, and b. When it gets these, it uses them to update the NeoPixel's colors.
+
+## MqttClientHueControl
+
+[See the source code]({{site.codeurl}}/arduino-clients/MqttClientHueControl/MqttClientHueControl.ino)
+
+This example shows how to use MQTT  to set the brightness of a Philips Hue light through a Hue hub. It does so by making HTTP requests to the Hue hub. For more on controlling the Philips Hue, see [this repository](https://tigoe.github.io/hue-control/).
