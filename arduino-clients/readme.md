@@ -70,7 +70,7 @@ This example shows how to use MQTT  to set the brightness of a Philips Hue light
 
 ## MIDI examples
 
-These MIDI examples will work well with the [WebMIDI browser clients]({{site.baseurl}}browser-clients/eclipse-pahojs/#web-midi-clients).
+These MIDI examples will work well with the [WebMIDI browser clients]({{site.baseurl}}/browser-clients/eclipse-pahojs/#web-midi-clients).
 
 ### MqttClientMIDIController
 
