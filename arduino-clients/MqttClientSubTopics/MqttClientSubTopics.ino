@@ -1,5 +1,5 @@
 /*
-  MQTT Client Property Changer
+  MQTT Client Property Changer using subtopics
 
   This sketch shows how to use MQTT subtopics to get and set 
   properties of a microcontroller's program. 
