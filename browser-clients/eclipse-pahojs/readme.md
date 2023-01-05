@@ -38,9 +38,7 @@ The example `EclipsePahoSensorReceiverJSON` subscribes to a topic and listens fo
 
 This [JSON validator](https://jsonlint.com/) may be useful for when you start reformatting strings and make mistakes. 
 
-This example will work with the following Arduino examples:
-* [MqttClient_SensorENS160Sender]({{site.codeurl}}/arduino-clients/MqttClient_SensorENS160Sender)- an Air Quality sensor, the [Sciosense ENS160](https://www.sciosense.com/products/environmental-sensors/digital-multi-gas-sensor/)
-* [MqttClient_SensorCombinedAQISender]({{site.codeurl}}/arduino-clients/MqttClient_SensorCombinedAQISender)- an Air Quality sensor, the ENS160, combined with a temperature and relative humidity sensor, the [Sensiron SHTC3](https://sensirion.com/products/catalog/SHTC3/), for compensation. 
+This example will work any of the [Arduino sensor client examples]({{site.baseurl}}/arduino-clients/#sensor-clients).
 
 ## Web MIDI Clients
 
