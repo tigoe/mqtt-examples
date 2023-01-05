@@ -50,7 +50,7 @@ void setup() {
   // wait for serial monitor to open:
   if (!Serial) delay(3000);
   pinMode(LED_BUILTIN, OUTPUT);
-    // connect to WiFi:
+  // connect to WiFi:
   connectToNetwork();
 
   // set the credentials for the MQTT client:
@@ -60,7 +60,7 @@ void setup() {
 }
 
 void loop() {
-   //if you disconnected from the network, reconnect:
+  // if you disconnected from the network, reconnect:
   if (WiFi.status() != WL_CONNECTED) {
     connectToNetwork();
     // skip the rest of the loop until you are connected:

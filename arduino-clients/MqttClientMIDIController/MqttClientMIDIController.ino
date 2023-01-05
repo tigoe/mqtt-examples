@@ -3,10 +3,15 @@
 
   This sketch demonstrates an MQTT client that connects to a broker, subscribes to a topic,
   and  sends  messages on that topic. The messages are three-byte arrays that are MIDI
-  noteon and noteoff messages
+  noteon and noteoff messages.
 
-  This sketch uses https://public.cloud.shiftr.io as the MQTT broker. It uses SSL
-  via the WiFiSSLClient, on port 8883
+ This sketch uses https://public.cloud.shiftr.io as the MQTT broker, but others will work as well.
+  See https://tigoe.github.io/mqtt-examples/#broker-client-settings for connection details. 
+
+ Libraries used:
+  * http://librarymanager/All#WiFiNINA or
+  * http://librarymanager/All#WiFi101 
+  * http://librarymanager/All#ArduinoMqttClient
 
   the arduino_secrets.h file:
   #define SECRET_SSID ""    // network name
@@ -15,9 +20,11 @@
   #define SECRET_MQTT_PASS "public" // broker password
 
   created 24 Nov 2020
+  modified 5 Jan 2023
   by Tom Igoe
 */
-#include <WiFiNINA.h>
+#include <WiFiNINA.h>  // use this for Nano 33 IoT, MKR1010, Uno WiFi
+// #include <WiFi101.h>    // use this for MKR1000
 #include <ArduinoMqttClient.h>
 #include "arduino_secrets.h"
 
@@ -34,7 +41,7 @@ char topic[] = "midi";
 char clientID[] = "arduinoMidiControllerClient";
 
 // musical items:
-int major[] = {2, 2, 1, 2, 2, 2, 1};
+int major[] = { 2, 2, 1, 2, 2, 2, 1 };
 // an array to hold the final notes of the scale:
 int scale[8];
 
@@ -51,28 +58,15 @@ void setup() {
   // initialize serial:
   Serial.begin(9600);
   // wait for serial monitor to open:
-  while (!Serial);
+  if (!Serial) delay(3000);
+  pinMode(LED_BUILTIN, OUTPUT);
+  // connect to WiFi:
+  connectToNetwork();
 
-  // initialize WiFi, if not connected:
-  while (WiFi.status() != WL_CONNECTED) {
-    Serial.print("Connecting to ");
-    Serial.println(SECRET_SSID);
-    WiFi.begin(SECRET_SSID, SECRET_PASS);
-    delay(2000);
-  }
-  // print IP address once connected:
-  Serial.print("Connected. My IP address: ");
-  Serial.println(WiFi.localIP());
   // set the credentials for the MQTT client:
   mqttClient.setId(clientID);
-  // use this if you're using a personal account on shiftr.io:
+  // if needed, login to the broker with a username and password:
   mqttClient.setUsernamePassword(SECRET_MQTT_USER, SECRET_MQTT_PASS);
-
-  while (!connectToBroker()) {
-    Serial.println("attempting to connect to broker");
-    delay(1000);
-  }
-  Serial.println("connected to broker");
 
   // fill the scale array with the scale you want:
   // start with the initial note:
@@ -88,11 +82,20 @@ void setup() {
 }
 
 void loop() {
-  // if not connected, try to connect:
+   // if you disconnected from the network, reconnect:
+  if (WiFi.status() != WL_CONNECTED) {
+    connectToNetwork();
+    // skip the rest of the loop until you are connected:
+    return;
+  }
+
+  // if not connected to the broker, try to connect:
   if (!mqttClient.connected()) {
-    Serial.println("reconnecting");
+    Serial.println("attempting to connect to broker");
     connectToBroker();
   }
+  // poll for new messages from the broker:
+  mqttClient.poll();
 
   // read the pushbutton:
   int buttonState = digitalRead(buttonPin);
@@ -106,7 +109,7 @@ void loop() {
       noteValue = scale[random(8)];
       // play it:
       sendMqttMessage(0x90, noteValue, 0x7F);
-    } else  {
+    } else {
       // turn the note off:
       sendMqttMessage(0x80, noteValue, 0);
     }
@@ -115,14 +118,21 @@ void loop() {
   }
 
 
-  // if a message comes in, read it.
-  // let's assume it's a MIDI message:
-  int messageSize = mqttClient.parseMessage();
+  
+}
+
+void onMqttMessage(int messageSize) {
+ // we received a message, print out the topic and contents
+  Serial.println("Received a message with topic ");
+  Serial.print(mqttClient.messageTopic());
+  Serial.print(", length ");
+  Serial.print(messageSize);
+  Serial.println(" bytes:");
+
   if (messageSize > 0) {
     // set up an array for the MIDI bytes:
     byte message[messageSize];
-    Serial.print("Got a message on topic: ");
-    Serial.println(mqttClient.messageTopic());
+  
     // message byte counter:
     int i = 0;
     // read the message:
@@ -137,24 +147,47 @@ void loop() {
   }
 }
 
-
 boolean connectToBroker() {
+  // if the MQTT client is not connected:
   if (!mqttClient.connect(broker, port)) {
+    // print out the error message:
     Serial.print("MOTT connection failed. Error no: ");
     Serial.println(mqttClient.connectError());
+    // return that you're not connected:
     return false;
   }
-  // once you're connected, you can proceed:
+
+  // set the message receive callback:
+  mqttClient.onMessage(onMqttMessage);
+  // subscribe to a topic:
+  Serial.print("Subscribing to topic: ");
+  Serial.println(topic);
   mqttClient.subscribe(topic);
+
+  // once you're connected, you
+  // return that you're connected:
   return true;
 }
 
-
-void sendMqttMessage(byte cmd, byte data1, byte  data2) {
+void sendMqttMessage(byte cmd, byte data1, byte data2) {
   mqttClient.beginMessage(topic);
   mqttClient.write(cmd);
   mqttClient.write(data1);
   mqttClient.write(data2);
   // send the message:
   mqttClient.endMessage();
+}
+
+void connectToNetwork() {
+  // try to connect to the network:
+  while (WiFi.status() != WL_CONNECTED) {
+    Serial.println("Attempting to connect to: " + String(SECRET_SSID));
+    //Connect to WPA / WPA2 network:
+    WiFi.begin(SECRET_SSID, SECRET_PASS);
+    delay(2000);
+  }
+
+  // print IP address once connected:
+  Serial.print("Connected. My IP address: ");
+  Serial.println(WiFi.localIP());
 }
