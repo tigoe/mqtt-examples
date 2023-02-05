@@ -55,9 +55,10 @@ long lastTimeSent = 0;
 int sendInterval = 10 * 1000;
 // built-in LED blink interval:
 int blinkInterval = 1000;
+int lastBlink = 0;
 
 // properties for the LED on pin 2:
-int brightness = 255;
+int brightness = 0;
 int lastBrightness = brightness;
 // property for built-in LED:
 int status = HIGH;
@@ -109,6 +110,7 @@ void loop() {
     mqttUpdate(subTopic, String(brightness));
     subTopic = topic + String("/blinkInterval");
     mqttUpdate(subTopic, String(blinkInterval));
+    lastTimeSent = millis();
   }
   // if  brightness has changed, change the dimming LED:
   if (brightness != lastBrightness) {
@@ -119,7 +121,7 @@ void loop() {
   if (millis() - lastTimeSent > blinkInterval) {
     digitalWrite(LED_BUILTIN, status);
     status = !status;
-    lastTimeSent = millis();
+    lastBlink = millis();
   }
 }
 // publish a message to a topic:
