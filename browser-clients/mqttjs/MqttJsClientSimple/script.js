@@ -8,6 +8,7 @@
   The publish button allows you to turn on and off publishing status.
 
   created 29 Dec 2022
+  modified 5 Feb 2023
   by Tom Igoe
 */
 
@@ -113,7 +114,7 @@ function onError(error) {
 }
 
 // handler for mqtt subscribe event:
-function onSubscribe(response) {
+function onSubscribe(response, error) {
   if (!error) {
     // update localDiv text:
     localDiv.innerHTML = 'Subscribed to broker.';
