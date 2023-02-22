@@ -1,5 +1,6 @@
 # mqtt.js Browser Client Examples
 
+These examples are based on the [mqtt.js](https://github.com/mqttjs/MQTT.js) web client library. 
 
 ## MqttJsClientSimple
 * [See the example running](MqttJsClientSimple)
