@@ -25,7 +25,8 @@ let client;
 // For shiftr.io, use public for both username and password
 // unless you have an account on the site. 
 let creds = {
-  clientID: 'jsMidiClient',
+  // add random number for unique client ID:
+  clientID: 'jsMidiClient-' + Math.floor(Math.random()*1000000) ,
   userName: 'public',
   password: 'public'
 }

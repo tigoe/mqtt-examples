@@ -45,8 +45,8 @@ const port = 443;
 
 // MQTT client:
 let client;
-// client credentials:
-let clientID = 'p5HueClient';
+// client credentials (add random number for unique ID):
+let clientID = 'p5HueClient-' + Math.floor(Math.random()*1000000);
 
 let options = {
    // Clean session

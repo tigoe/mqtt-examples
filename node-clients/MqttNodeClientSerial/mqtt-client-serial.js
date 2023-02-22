@@ -27,7 +27,8 @@ const broker = 'mqtt://public.cloud.shiftr.io';
 
 // client options:
 const options = {
-  clientId: 'nodeClient',
+  // add a random number for a unique client ID:
+  clientId: 'nodeClient-' + Math.floor(Math.random()*1000000),
   username: 'public',
   password: 'public',
   clean: true,
