@@ -1,6 +1,6 @@
 {
   "name": "mqttnodeclientfilewriter",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A node mqtt client that writes to the filesystem",
   "main": "client.js",
   "dependencies": {
