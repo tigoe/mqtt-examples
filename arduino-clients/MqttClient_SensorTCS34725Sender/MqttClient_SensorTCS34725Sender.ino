@@ -23,7 +23,7 @@ Libraries used:
   #define SECRET_MQTT_PASS "public" // broker password
 
   created 11 June 2020
-  updated 4 Jan 2023
+  updated 25 Feb 2023
   by Tom Igoe
 */
 
@@ -43,7 +43,7 @@ MqttClient mqttClient(wifi);
 char broker[] = "public.cloud.shiftr.io";
 int port = 8883;
 char topic[] = "conndev/light";
-String clientID = "light-client";
+String clientID = "light-client-";
 
 // last time the client sent a message, in ms:
 long lastTimeSent = 0;
@@ -73,6 +73,7 @@ void setup() {
 
   // set the credentials for the MQTT client:
   mqttClient.setId(clientID);
+  clientID += macAddr;
   // if needed, login to the broker with a username and password:
   mqttClient.setUsernamePassword(SECRET_MQTT_USER, SECRET_MQTT_PASS);
 }

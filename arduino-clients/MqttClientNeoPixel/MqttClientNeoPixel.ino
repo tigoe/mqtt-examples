@@ -25,7 +25,7 @@ Libraries used:
   #define SECRET_MQTT_PASS "public" // broker password
 
   created 11 June 2020
-  updated 5 Jan 2023
+  updated 25 Feb 2023
   by Tom Igoe
 */
 
@@ -50,7 +50,7 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(pixelCount, neoPixelPin, NEO_GRBW + 
 char broker[] = "public.cloud.shiftr.io";
 int port = 8883;
 char topic[] = "color";
-char clientID[] = "neoPixelClient";
+String clientID = "neoPixelClient-";
 
 // intensity of LED:
 int intensity = 0;
@@ -62,7 +62,12 @@ void setup() {
   if (!Serial) delay(3000);
   // connect to WiFi:
   connectToNetwork();
-
+  // make the clientID unique by adding the last three digits of the MAC address:
+  byte mac[6];
+  WiFi.macAddress(mac);
+  for (int i = 0; i < 3; i++) {
+    clientID += String(mac[i], HEX);
+  }
   // set the credentials for the MQTT client:
   mqttClient.setId(clientID);
   // if needed, login to the broker with a username and password:
@@ -116,7 +121,7 @@ void onMqttMessage(int messageSize) {
   // we received a message, print out the topic and contents
   Serial.println("Received a message with topic ");
   Serial.println(mqttClient.messageTopic());
-Serial.print(" values: ");
+  Serial.print(" values: ");
   // read the incoming message as a comma-separated string of values:
   while (mqttClient.available()) {
     int r = mqttClient.parseInt();

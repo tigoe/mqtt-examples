@@ -20,7 +20,7 @@ Libraries used:
   #define SECRET_MQTT_PASS "public" // broker password
 
   created 11 June 2020
-  updated 30 Dec 2022
+  updated 25 Feb 2023
   by Tom Igoe
 */
 
@@ -37,7 +37,7 @@ MqttClient mqttClient(wifi);
 char broker[] = "public.cloud.shiftr.io";
 int port = 8883;
 char topic[] = "aardvarks";
-char clientID[] = "arduinoMqttClient";
+String clientID = "arduinoMqttClient-";
 
 // last time the client sent a message, in ms:
 long lastTimeSent = 0;
@@ -52,7 +52,12 @@ void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
   // connect to WiFi:
   connectToNetwork();
-
+  // make the clientID unique by adding the last three digits of the MAC address:
+  byte mac[6];
+  WiFi.macAddress(mac);
+  for (int i = 0; i < 3; i++) {
+    clientID += String(mac[i], HEX);
+  }
   // set the credentials for the MQTT client:
   mqttClient.setId(clientID);
   // if needed, login to the broker with a username and password:

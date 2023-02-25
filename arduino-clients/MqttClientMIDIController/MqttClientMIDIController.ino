@@ -38,7 +38,7 @@ const int buttonPin = 4;
 char broker[] = "public.cloud.shiftr.io";
 int port = 8883;
 char topic[] = "midi";
-char clientID[] = "arduinoMidiControllerClient";
+String clientID = "arduinoMidiControllerClient-";
 
 // musical items:
 int major[] = { 2, 2, 1, 2, 2, 2, 1 };
@@ -62,7 +62,12 @@ void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
   // connect to WiFi:
   connectToNetwork();
-
+  // make the clientID unique by adding the last three digits of the MAC address:
+  byte mac[6];
+  WiFi.macAddress(mac);
+  for (int i = 0; i < 3; i++) {
+    clientID += String(mac[i], HEX);
+  }
   // set the credentials for the MQTT client:
   mqttClient.setId(clientID);
   // if needed, login to the broker with a username and password:
