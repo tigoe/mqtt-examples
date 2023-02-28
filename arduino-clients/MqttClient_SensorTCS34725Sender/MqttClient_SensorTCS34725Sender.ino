@@ -2,8 +2,7 @@
   MQTT Client  Light sensor sender/receiver
 
   This sketch demonstrates an MQTT client that connects to a broker, subscribes to a topic,
-  and both listens for messages on that topic and sends messages to it, a random number between 0 and 255.
-  When the client receives a message, it parses it, and PWMs the built-in LED.
+  and both listens for messages on that topic and sends messages to it.
 
   Uses a TCS34725 light sensor to read lux and color temperature
 
@@ -23,7 +22,7 @@ Libraries used:
   #define SECRET_MQTT_PASS "public" // broker password
 
   created 11 June 2020
-  updated 25 Feb 2023
+  updated 28 Feb 2023
   by Tom Igoe
 */
 
@@ -38,11 +37,10 @@ Libraries used:
 WiFiSSLClient wifi;
 MqttClient mqttClient(wifi);
 
-
 // details for MQTT client:
 char broker[] = "public.cloud.shiftr.io";
 int port = 8883;
-char topic[] = "conndev/light";
+char topic[] = "conndev/tigoe";
 String clientID = "light-client-";
 
 // last time the client sent a message, in ms:
@@ -52,7 +50,7 @@ int interval = 60 * 1000;
 
 // initialize the light sensor:
 Adafruit_TCS34725 tcs = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_600MS, TCS34725_GAIN_1X);
-
+// string for the MAC address:
 String macAddr;
 
 void setup() {
@@ -69,10 +67,10 @@ void setup() {
     if (mac[i] < 16) macAddr += "0";
     macAddr += String(mac[i], HEX);
   }
-  Serial.println();
 
   // set the credentials for the MQTT client:
   mqttClient.setId(clientID);
+  // add mac address to make the clientID unique:
   clientID += macAddr;
   // if needed, login to the broker with a username and password:
   mqttClient.setUsernamePassword(SECRET_MQTT_USER, SECRET_MQTT_PASS);
@@ -102,23 +100,29 @@ void loop() {
     tcs.getRawData(&r, &g, &b, &c);
     colorTemp = tcs.calculateColorTemperature_dn40(r, g, b, c);
     lux = tcs.calculateLux(r, g, b);
-    String message = "{\"lux\": LUX, \"ct\": CT, \"id\":ID}";
-    message.replace("LUX", String(lux));
-    message.replace("CT", String(colorTemp));
-    message.replace("CT", String(colorTemp));
-    // include the MAC address as a unique ID for this client:
-    message.replace("ID", macAddr);
 
     if (mqttClient.connected()) {
       // start a new message on the topic:
-      mqttClient.beginMessage(topic);
+      mqttClient.beginMessage(topic + String("/lux"));
       // print the body of the message:
-      mqttClient.print(message);
+      mqttClient.print(lux);
       // send the message:
       mqttClient.endMessage();
+      // same pattern for other subtopics:
+      mqttClient.beginMessage(topic + String("/ct"));
+      mqttClient.print(colorTemp);
+      mqttClient.endMessage();
+      // include MAC address as an ID for this device:
+      mqttClient.beginMessage(topic + String("/id"));
+      mqttClient.print(macAddr);
+      mqttClient.endMessage();
       // send a serial notification:
-      Serial.print("published a message: ");
-      Serial.println(message);
+      Serial.print("published a set of readings: \nlux: ");
+      Serial.print(lux);
+      Serial.print(",  ct: ");
+      Serial.print(colorTemp);
+      Serial.print(",  id: ");
+      Serial.println(macAddr);
       // timestamp this message:
       lastTimeSent = millis();
     }
@@ -163,7 +167,6 @@ void onMqttMessage(int messageSize) {
   // print the incoming message:
   Serial.println(incoming);
 }
-
 
 void connectToNetwork() {
   // try to connect to the network:
