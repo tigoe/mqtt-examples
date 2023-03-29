@@ -27,6 +27,12 @@ This is a basic  client example for the ArduinoMqttClient library. The global va
 
 The other Arduino examples in this repository follow more or less the same structure. 
 
+## ArduinoMqttClientWithWill
+
+This client shows how to use the keepAliveInterval, the connectionTimeout, and the last will and testament features of MQTT. When a will topic is set, the MQTT client can send it to the broker, but the broker won't publish it unless the client doesn't publish anything before its keepAliveInterval expires. If that happens, the broker assumes that the client has gone offline, and publishes the will topic. 
+
+This example also uses the [RTCZero library](https://www.arduino.cc/reference/en/libraries/rtczero/) which implements the SAMD processor's real-time clock. It will wokr on the Nano 33 IoT and the MKR line of processors. It gets the time from the network every time it connects to WiFi, and publishes the time as the will topic, so that if it goes offline, the broker publishes the last known time that it was online as an [ISO8601](https://www.iso.org/iso-8601-date-and-time-format.html) string.
+
 ## Sensor Clients
 
 There are a couple sensor clients in this repository, to show how to read and publish sensors of differing values. 
