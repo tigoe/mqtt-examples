@@ -11,6 +11,7 @@
 Libraries used:
   * http://librarymanager/All#WiFiNINA or
   * http://librarymanager/All#WiFi101 
+  * http://librarymanager/All#WiFiS3 
   * http://librarymanager/All#ArduinoMqttClient
 
   the arduino_secrets.h file:
@@ -24,18 +25,19 @@ Libraries used:
   by Tom Igoe
 */
 
-#include <WiFiNINA.h>  // use this for Nano 33 IoT, MKR1010, Uno WiFi
+// #include <WiFiNINA.h>  // use this for Nano 33 IoT, MKR1010, Uno WiFi
 // #include <WiFi101.h>    // use this for MKR1000
+#include <WiFiS3.h>  // use this for Uno R4 WiFi
 #include <ArduinoMqttClient.h>
 #include "arduino_secrets.h"
 
 // initialize WiFi connection as SSL:
-WiFiSSLClient wifi;
+WiFiClient wifi;
 MqttClient mqttClient(wifi);
 
 // details for MQTT client:
-char broker[] = "public.cloud.shiftr.io";
-int port = 8883;
+char broker[] = "10.130.22.70";
+int port = 1883;
 char topic[] = "aardvarks";
 char clientID[] = "arduinoMqttClient";
 
@@ -56,7 +58,8 @@ void setup() {
   // set the credentials for the MQTT client:
   mqttClient.setId(clientID);
   // if needed, login to the broker with a username and password:
-  mqttClient.setUsernamePassword(SECRET_MQTT_USER, SECRET_MQTT_PASS);
+  //mqttClient.setUsernamePassword(SECRET_MQTT_USER, SECRET_MQTT_PASS);
+  modem.debug(Serial, 2);
 }
 
 void loop() {
@@ -137,6 +140,7 @@ void onMqttMessage(int messageSize) {
   }
   // print the result:
   Serial.println(result);
+  delay(100);
 }
 
 void connectToNetwork() {
