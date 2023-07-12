@@ -13,20 +13,27 @@ const mqtt = require('mqtt');
 // the broker you plan to connect to. 
 // transport options: 
 // 'mqtt', 'mqtts', 'tcp', 'tls', 'ws', or 'wss':
-const broker = 'mqtt://test.mosquitto.org';
+//const broker = 'mqtt://test.mosquitto.org';
+const broker = 'mqtt://localhost';
 
 // client options:
 const options = {
+<<<<<<< Updated upstream
   // add a random number for a unique clientId:
   clientId: 'nodeClient-' + Math.floor(Math.random()*1000000),
   username: 'public',
   password: 'public',
+=======
+  clientId: 'nodeClient',
+  // username: 'public',
+  // password: 'public',
+>>>>>>> Stashed changes
   clean: true,
   connectTimeout: 4000,
   reconnectPeriod: 1000
 }
 // topic and message payload:
-let myTopic = 'undnet/#';
+let myTopic = 'aardvarks';
 let payload;
 
 // connect handler:
@@ -64,4 +71,4 @@ let client = mqtt.connect(broker, options);
 client.on('connect', setupClient);
 
 // // send a message every two seconds:
-// setInterval(update, 2000);
+ setInterval(update, 100);
