@@ -1,9 +1,16 @@
 /*
-  MQTT Client sender/receiver
+  MQTT Client sender/receiver with will
 
   This sketch demonstrates an MQTT client that connects to a broker, subscribes to a topic,
   and both listens for messages on that topic and sends messages to it, a random number between 0 and 255.
   When the client receives a message, it parses it, and PWMs the built-in LED.
+  This client also has a last will and testament property. with each reading sent,
+  it also updates the will topic with the current date and time. If another 
+  reading does not show up within the keepAlive interval, the broker
+  will publish the will topic.
+
+  Because this uses the SAMD chip's internal realtime clock (RTC),
+  it will only run on the Nano 33 IoT and MKR boards or other SAMD boards.
 
   This sketch uses https://public.cloud.shiftr.io as the MQTT broker, but others will work as well.
   See https://tigoe.github.io/mqtt-examples/#broker-client-settings for connection details. 
@@ -11,8 +18,8 @@
 Libraries used:
   * http://librarymanager/All#WiFiNINA or
   * http://librarymanager/All#WiFi101 
-  * http://librarymanager/All#WiFiS3 
   * http://librarymanager/All#ArduinoMqttClient
+  * http://librarymanager/All#RTCZero
 
   the arduino_secrets.h file:
   #define SECRET_SSID ""    // network name
@@ -20,37 +27,49 @@ Libraries used:
   #define SECRET_MQTT_USER "public" // broker username
   #define SECRET_MQTT_PASS "public" // broker password
 
-  created 11 June 2020
-  updated 25 Feb 2023
+  created 28 Mar 2023
   by Tom Igoe
 */
 
-// #include <WiFiNINA.h>  // use this for Nano 33 IoT, MKR1010, Uno WiFi
+#include <WiFiNINA.h>  // use this for Nano 33 IoT, MKR1010, Uno WiFi
 // #include <WiFi101.h>    // use this for MKR1000
-#include <WiFiS3.h>  // use this for Uno R4 WiFi
+#include <RTCZero.h>
 #include <ArduinoMqttClient.h>
 #include "arduino_secrets.h"
 
 // initialize WiFi connection as SSL:
-WiFiClient wifi;
+WiFiSSLClient wifi;
 MqttClient mqttClient(wifi);
+// initialize realtime clock
+RTCZero rtc;
 
 // details for MQTT client:
-char broker[] = "10.130.22.70";
-int port = 1883;
+char broker[] = "public.cloud.shiftr.io";
+int port = 8883;
 char topic[] = "aardvarks";
 String clientID = "arduinoMqttClient-";
+// properties for the MQTT last will and testament:
+String willPayload = "offline";
+bool willRetain = true;
+int willQos = 1;
+String willTopic = String(topic) + "/last_seen";
 
 // last time the client sent a message, in ms:
 long lastTimeSent = 0;
 // message sending interval:
 int interval = 10 * 1000;
+// keepAlive interval for the will:
+int keepAliveInterval = 60 * 1000;
+// connection timeout:
+int connectionTimeout = 30 * 1000;
 
 void setup() {
   // initialize serial:
   Serial.begin(9600);
   // wait for serial monitor to open:
   if (!Serial) delay(3000);
+  // initialize realtime clock:
+  rtc.begin();
   pinMode(LED_BUILTIN, OUTPUT);
   // connect to WiFi:
   connectToNetwork();
@@ -63,8 +82,11 @@ void setup() {
   // set the credentials for the MQTT client:
   mqttClient.setId(clientID);
   // if needed, login to the broker with a username and password:
-  //mqttClient.setUsernamePassword(SECRET_MQTT_USER, SECRET_MQTT_PASS);
-  modem.debug(Serial, 2);
+  mqttClient.setUsernamePassword(SECRET_MQTT_USER, SECRET_MQTT_PASS);
+  // after keepAliveInterval, the broker will publish the will:
+  mqttClient.setKeepAliveInterval(keepAliveInterval);
+  // after connectionTimeout the client will produce a connection error:
+  mqttClient.setConnectionTimeout(connectionTimeout);
 }
 
 void loop() {
@@ -80,6 +102,7 @@ void loop() {
     Serial.println("attempting to connect to broker");
     connectToBroker();
   }
+
   // poll for new messages from the broker:
   mqttClient.poll();
 
@@ -94,6 +117,9 @@ void loop() {
       mqttClient.print(sensorReading);
       // send the message:
       mqttClient.endMessage();
+      // update the will topic with the last successful timestamp:
+      updateWill();
+
       // send a serial notification:
       Serial.print("published a message: ");
       Serial.println(sensorReading);
@@ -104,6 +130,8 @@ void loop() {
 }
 
 boolean connectToBroker() {
+  // update the will topic with the last successful timestamp:
+  updateWill();
   // if the MQTT client is not connected:
   if (!mqttClient.connect(broker, port)) {
     // print out the error message:
@@ -123,6 +151,20 @@ boolean connectToBroker() {
   // once you're connected, you
   // return that you're connected:
   return true;
+}
+
+
+void updateWill() {
+  if (mqttClient.connected()) {
+    // make an ISO8601 string with the current RTC time:
+    willPayload = getISOString();
+    // set the will value:
+    mqttClient.beginWill(willTopic, willPayload.length(), willRetain, willQos);
+    // send it to the broker:
+    mqttClient.print(willPayload);
+    // close the connection:
+    mqttClient.endWill();
+  }
 }
 
 void onMqttMessage(int messageSize) {
@@ -145,7 +187,6 @@ void onMqttMessage(int messageSize) {
   }
   // print the result:
   Serial.println(result);
-  delay(100);
 }
 
 void connectToNetwork() {
@@ -156,8 +197,57 @@ void connectToNetwork() {
     WiFi.begin(SECRET_SSID, SECRET_PASS);
     delay(2000);
   }
+  // get the current time from the network:
+  long epoch = 0;
+  while (epoch == 0) {
+    epoch = WiFi.getTime();
+  }
+  rtc.setEpoch(epoch);
+  // print current time:
+  Serial.println(getISOString());
 
   // print IP address once connected:
   Serial.print("Connected. My IP address: ");
   Serial.println(WiFi.localIP());
+}
+
+// make an ISO8601 string from the current time. It would look like this:
+// YYYY-MM-DDThh:mm:ssZ
+String getISOString() {
+  // start with the century:
+  String result = "20";
+  // add the year:
+  int year = rtc.getYear();
+  // leading 0 for nubmers less than 10:
+  if (year < 10) result += "0";
+  result += String(year);
+  result += "-";
+  // add the month:
+  int month = rtc.getMonth();
+  if (month < 10) result += "0";
+  result += String(month);
+  result += "-";
+  // add the day:
+  int day = rtc.getDay();
+  if (day < 10) result += "0";
+  result += String(day);
+  result += "T";
+  // add the hours:
+  int hour = rtc.getHours();
+  if (hour < 10) result += "0";
+  result += String(hour);
+  result += ":";
+  // add the minutes:
+  int minute = rtc.getMinutes();
+  if (minute < 10) result += "0";
+  result += String(minute);
+  result += ":";
+  // add the seconds:
+  int second = rtc.getSeconds();
+  if (second < 10) result += "0";
+  result += String(second);
+  // add the closing character:
+  result += "Z";
+  // return the string:
+  return result;
 }

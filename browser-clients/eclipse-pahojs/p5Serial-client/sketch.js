@@ -42,8 +42,8 @@ const port = 443;
 
 // MQTT client:
 let client;
-// client credentials:
-let clientID = 'EclipsePahoClient';
+// client credentials (add random number for unique ID):
+let clientID = 'EclipsePahoClient-' + Math.floor(Math.random()*1000000);
 
 let options = {
     // Clean session

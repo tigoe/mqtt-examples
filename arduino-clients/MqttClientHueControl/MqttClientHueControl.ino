@@ -21,7 +21,7 @@ Libraries used:
   #define SECRET_MQTT_PASS "public" // broker password
 
   created 27 Sep 2020
-  updated 5 Jan 2023
+  updated 25 Feb 2023
   by Tom Igoe
 */
 
@@ -38,15 +38,15 @@ MqttClient mqttClient(wifi);
 char broker[] = "public.cloud.shiftr.io";
 int port = 8883;
 char topic[] = "lights";
-char clientID[] = "arduinoHueClient";
+String clientID = "arduinoHueClient-";
 
 // properties of the Hue light:
 int intensity = 0;
 int lastIntensity = 0;
 int lightNumber = 3;
 
-// fill in IP address of the HUE bridge 
-char hueHubIP[] = "192.168.0.3"; 
+// fill in IP address of the HUE bridge
+char hueHubIP[] = "192.168.0.3";
 String hueUserName = "huebridgeusername";  // fill in hue bridge username
 HttpClient httpClient = HttpClient(wifi, hueHubIP);
 
@@ -58,7 +58,12 @@ void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
   // connect to WiFi:
   connectToNetwork();
-
+  // make the clientID unique by adding the last three digits of the MAC address:
+  byte mac[6];
+  WiFi.macAddress(mac);
+  for (int i = 0; i < 3; i++) {
+    clientID += String(mac[i], HEX);
+  }
   // set the credentials for the MQTT client:
   mqttClient.setId(clientID);
   // if needed, login to the broker with a username and password:

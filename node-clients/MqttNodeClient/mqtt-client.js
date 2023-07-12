@@ -17,7 +17,8 @@ const broker = 'mqtt://test.mosquitto.org';
 
 // client options:
 const options = {
-  clientId: 'nodeClient',
+  // add a random number for a unique clientId:
+  clientId: 'nodeClient-' + Math.floor(Math.random()*1000000),
   username: 'public',
   password: 'public',
   clean: true,

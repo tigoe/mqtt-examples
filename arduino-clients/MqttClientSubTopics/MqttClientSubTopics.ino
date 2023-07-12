@@ -47,7 +47,7 @@ const int ledPin = 2;
 char broker[] = "public.cloud.shiftr.io";
 int port = 8883;
 String topic = "ocelots";
-char clientID[] = "arduinoMqttClient";
+String clientID = "arduinoMqttClient-";
 
 // last time the client sent a message, in ms:
 long lastTimeSent = 0;
@@ -68,11 +68,18 @@ void setup() {
   Serial.begin(9600);
   // wait for serial monitor to open:
   if (!Serial) delay(3000);
+
   pinMode(LED_BUILTIN, OUTPUT);
   pinMode(ledPin, OUTPUT);
   // connect to WiFi:
   connectToNetwork();
 
+  // make the clientID unique by adding the last three digits of the MAC address:
+  byte mac[6];
+  WiFi.macAddress(mac);
+  for (int i = 0; i < 3; i++) {
+    clientID += String(mac[i], HEX);
+  }
   // set the credentials for the MQTT client:
   mqttClient.setId(clientID);
   // if needed, login to the broker with a username and password:
@@ -99,11 +106,11 @@ void loop() {
   // also publish  sendInterval,  brightness and  blinkInterval:
   if (millis() - lastTimeSent > sendInterval) {
     // get an analog reading:
-    int sensorReading = analogRead(A0) ;
+    int sensorReading = analogRead(A0);
     // make a subtopic for it:
     String subTopic = topic + String("/sensor");
     mqttUpdate(subTopic, String(sensorReading));
-      // make a subtopic for the other variables too:
+    // make a subtopic for the other variables too:
     subTopic = topic + String("/sendInterval");
     mqttUpdate(subTopic, String(sendInterval));
     subTopic = topic + String("/brightness");

@@ -5,22 +5,40 @@
   data.txt
 
   created 10 Apr 2021
-  modified 15 Nov 2022
+  modified 25 Feb 2023
   by Tom Igoe
 */
 
 // include the libraries:
 const mqtt = require('mqtt');
-const fs = require('fs')
+const fs = require('fs');
+const { time } = require('console');
+const { validateHeaderName } = require('http');
+const { type } = require('os');
 
-// the broker you plan to connect to. 
-// transport options: 
-// 'mqtt', 'mqtts', 'tcp', 'tls', 'ws', or 'wss':
-const broker = 'mqtt://test.mosquitto.org';
+// All these brokers work with this code. 
+// Uncomment the one you want to use. 
+
+////// emqx. Works in both basic WS and TLS WS:
+// const broker = 'wss://broker.emqx.io:8084/mqtt'
+// const broker = 'ws://broker.emqx.io:8083/mqtt'
+
+//////// shiftr.io desktop client. 
+// Fill in your desktop IP address for localhost:
+// const broker = 'ws://localhost:1884';     
+
+//////// shiftr.io, requires username and password 
+// (see options variable below):
+const broker = 'wss://public.cloud.shiftr.io';
+
+//////// test.mosquitto.org, uses no username and password:
+// const broker = 'wss://test.mosquitto.org:8081';
+
 
 // client options:
 const options = {
-  clientId: 'nodeClient',
+  // add a random number for a unique clientId:
+  clientId: 'nodeClient-' + Math.floor(Math.random() * 1000000),
   username: 'public',
   password: 'public',
   clean: true,
@@ -28,59 +46,84 @@ const options = {
   reconnectPeriod: 1000
 }
 // topic and message payload:
-let myTopic = 'undnet/#';
+let myTopic = 'conndev/#';
 let payload;
+
+let activeClients = new Array();
+let sendInterval = 5;
+let saveInterval = 250;
 
 // connect handler:
 function setupClient() {
+  console.log('client connected');
   client.subscribe(myTopic);
 }
 
 // new message handler:
-function readMqttMessage(topic, message) {
-  // make a timestamp string:
+function readMqttMessage(topic, message, packet) {
+  // // make a timestamp string:
   let now = new Date();
-  let timeStamp = now.toISOString();
-  // message is a Buffer, so convert to a string:
-  let msgString = message.toString();
-  // check if it's a valid JSON string:
-  let msgData = isJsonString(msgString);
-  if (msgData) {
-      // if it is, add the timestamp and re-stringify:
-    msgData.timeStamp = now;
-    msgString = JSON.stringify(msgData);
-  } else {
-    // if not, add the timestamp after the first character:
-    msgString = msgString.slice(0, 1) +
-      '"timestamp": "' + timeStamp + '",' +
-      msgString.slice(1, msgString.length - 1);
-  }
-// if the string doesn't end in a newline, add one:
-  if (msgString.charAt(msgString.length - 1) != '\n') {
-    msgString += '\n';
-  }// dave the data:
-  saveData(topic, msgString);
-}
+  // deal with the topic:
+  let project = {};
+  let subTopics = topic.split('/');
+  // first subTopic is the creator name:
+  project.creator = subTopics[1];
+  // if there's a second subTopic, that's the data label:
+  let dataLabel = subTopics[2];
+  // if it's empty, use the label 'data':
+  if (!dataLabel) dataLabel = 'data';
+  project.timeStamp = now.toISOString();
 
-function isJsonString(thisString) {
-  let result;
+  let known = false;
+  // scan the list if currently active clients:
+  for (c of activeClients) {
+    // if one matches, use it as the current client:
+    if (c.creator == project.creator) {
+      // assume that if two messages came in within
+      // sendInterval ms of each other, that they
+      // were all read at one time:
+      if (now - new Date(c.timeStamp) < sendInterval) {
+        project = c;
+        known = true;
+      }
+    }
+  }
+  // if there's no matching active client, 
+  // add this one to the array:
+  if (!known) {
+    activeClients.push(project);
+  }
+
+  // see if the message parses validly:
   try {
-    result = JSON.parse(thisString);
+    let result = JSON.parse(message.toString());
+    // if it parses, it's JSON or a valid number or array. 
+    // if it's not an object:
+    if (typeof result != 'object') {
+      project[dataLabel] = result;
+    } else {
+      // if JSON, Extract the object properties
+      // and put them in the project object: 
+      for (i in result) {
+        project[i] = result[i];
+      }
+    }
   } catch (err) {
-    result = false;
+    // if it fails parsing, just put the string in the dataLabel property:
+    project[dataLabel] = message.toString();
   }
-  return result;
 }
 
 
-function saveData(topic, data) {
+function saveData(data) {
   // get the path to the data file: 
-  let filePath = __dirname + '/data.txt';
+  let filePath = __dirname + '/data.json';
 
   // this function is called by by the writeFile and appendFile functions 
   // below:
   function fileWriteResponse() {
-    console.log("writing: " + topic + ": " + data);
+    // once you've written, remove it:
+    activeClients.splice(activeClients.indexOf(data));
   }
   /* 
     write to the file asynchronously. The third parameter of 
@@ -89,11 +132,27 @@ function saveData(topic, data) {
   */
   fs.exists(filePath, function (exists) {
     if (exists) {
-      fs.appendFile(filePath, data, fileWriteResponse);
+      fs.appendFile(filePath, JSON.stringify(data) + '\n', fileWriteResponse);
     } else {
-      fs.writeFile(filePath, data, fileWriteResponse);
+      fs.writeFile(filePath, JSON.stringify(data) + '\n', fileWriteResponse);
     }
   });
+}
+/*
+  Because MQTT messages on multiple subtopics can come in
+  asynchronously, you never know if you're getting a whole
+  set of records or not. 
+*/
+function saveActiveRecords() {
+  let now = new Date();
+  // scan the list of active clients:
+  for (c of activeClients) {
+    // if this record is older than the saveInterval, it's probably complete.
+    // save it to the file:
+    if (now - new Date(c.timeStamp) > saveInterval) {
+      saveData(c);
+    }
+  }
 }
 //////////////////////////
 
@@ -101,3 +160,5 @@ function saveData(topic, data) {
 let client = mqtt.connect(broker, options);
 client.on('connect', setupClient);
 client.on('message', readMqttMessage);
+// set an interval for saving any active clients:
+setInterval(saveActiveRecords, saveInterval);
