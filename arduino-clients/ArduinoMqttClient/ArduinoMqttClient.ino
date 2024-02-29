@@ -27,7 +27,8 @@ Libraries used:
 
 // #include <WiFiNINA.h>  // use this for Nano 33 IoT, MKR1010, Uno WiFi
 // #include <WiFi101.h>    // use this for MKR1000
-#include <WiFiS3.h>  // use this for Uno R4 WiFi
+// #include <WiFiS3.h>  // use this for Uno R4 WiFi
+// #include <ESP8266WiFi.h>  // use this for ESP8266-based boards
 #include <ArduinoMqttClient.h>
 #include "arduino_secrets.h"
 
@@ -63,8 +64,7 @@ void setup() {
   // set the credentials for the MQTT client:
   mqttClient.setId(clientID);
   // if needed, login to the broker with a username and password:
-  //mqttClient.setUsernamePassword(SECRET_MQTT_USER, SECRET_MQTT_PASS);
-  modem.debug(Serial, 2);
+  mqttClient.setUsernamePassword(SECRET_MQTT_USER, SECRET_MQTT_PASS);
 }
 
 void loop() {
