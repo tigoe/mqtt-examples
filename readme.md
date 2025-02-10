@@ -48,6 +48,8 @@ There is an MQTT library for [Processing](https://github.com/256dpi/processing-m
 
 [MyMQTT](https://play.google.com/store/apps/details?id=at.tripwire.mqtt.client&hl=en_US&gl=US&pli=1) is a good Android MQTT client app. 
 
+[MQTT Studio](https://www.mqttstudio.com) is a practical MQTT client designed for developers to efficiently create, test, and manage MQTT-based applications, enhancing their development and support workflows.
+
 There are multiple other desktop and command line client apps. 
 
 ## MQTT Brokers
