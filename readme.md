@@ -26,6 +26,9 @@ There are many other Arduino MQTT libraries. Joël Gähwiler's [arduino-mqtt](ht
 ## JavaScript Clients
 
 For JavaScript clients, there are multiple libraries. The examples here use the [Eclipse PAHO library](https://www.eclipse.org/paho/index.php?page=clients/js/index.php) and the [mqtt.js library](https://github.com/mqttjs/MQTT.js#readme). They both have similar functionality, but the mqtt.js library has a bit simpler syntax, and it can be used both in the browser and in node.js scripts. 
+
+**NOTE:** Both of these clients use webSockets to connect to an MQTT broker initially, because they come from the browser, and browsers, can't use MQTT as of this writing (Feb. 2025). So if you are using a local broker like mosquitto, make sure it's set up to receive connections via webSockets as well as via MQTT. 
+
 * [Eclipse PAHO browser examples](browser-clients/eclipse-pahojs/)
 * [mqtt.js browser examples](browser-clients/mqttjs/)
 
