@@ -1,7 +1,6 @@
 # Eclipse PAHO JavaScript Library
 
-* [Eclipse PAHO home](https://www.eclipse.org/paho/index.php?page=clients/js/index.php)
-* [PAHO JS documentation](https://www.eclipse.org/paho/files/jsdoc/index.html)
+There is an MQTT client library from the Eclipse foundation, the [Eclipse PAHO library](https://github.com/eclipse-paho/paho.mqtt.javascript), but it appears to be no longer supported by the foundation.
 
 There are several examples for Eclipse PAHO in [this directory]({{site.codeurl}}/browser-clients/eclipse-pahojs/). 
 

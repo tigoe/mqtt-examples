@@ -9,7 +9,7 @@
     but has also been tested on https://test.mosquitto.org
 
     created 11 Nov 2020
-    modiified 23 Nov 2020
+    modified 23 Nov 2020
     by Tom Igoe
 */
 

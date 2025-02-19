@@ -1,7 +1,6 @@
 /*
     p5.js MQTT and MIDI Client
-    This example uses p5.js: https://p5js.org/
-    and the Eclipse Paho MQTT client library: https://www.eclipse.org/paho/clients/js/
+    This example uses the mqtt.js library: https://www.npmjs.com/package/mqtt
     and the Web MIDI API (https://www.w3.org/TR/webmidi/)
     to create an MQTT client that sends and receives MQTT messages
     that are MIDI messages. 
@@ -10,29 +9,49 @@
     but has also been tested on https://test.mosquitto.org
 
     created 11 Nov 2020
-    modified 12 Apr 2021
+    modified 19 Feb 2025
     by Tom Igoe
 */
 
-// MQTT client details:
-let broker = {
-  hostname: 'public.cloud.shiftr.io',
-  port: 443
-};
+// All these brokers work with this code. 
+// Uncomment the one you want to use. 
+
+////// emqx. Works in both basic WS and TLS WS:
+// const broker = 'wss://broker.emqx.io:8084/mqtt'
+// const broker = 'ws://broker.emqx.io:8083/mqtt'
+
+//////// shiftr.io desktop client. 
+// Fill in your desktop IP address for localhost:
+// const broker = 'ws://localhost:1884';     
+
+//////// shiftr.io, requires username and password 
+// (see options variable below):
+const broker = 'wss://public.cloud.shiftr.io';
+
+//////// test.mosquitto.org, uses no username and password:
+// const broker = 'wss://test.mosquitto.org:8081';
+
 // MQTT client:
 let client;
-// client credentials:
-// For shiftr.io, use public for both username and password
-// unless you have an account on the site. 
-let creds = {
-  // add random number for unique client ID:
-  clientID: 'jsMidiClient-' + Math.floor(Math.random()*1000000) ,
-  userName: 'public',
+
+// connection options:
+let options = {
+  // Clean session
+  clean: true,
+  // connect timeout in ms:
+  connectTimeout: 10000,
+  // Authentication
+  // add a random number for a unique client ID:
+  clientId: 'jsMidiClient-' + Math.floor(Math.random() * 1000000),
+  // add these in for public.cloud.shiftr.io:
+  username: 'public',
   password: 'public'
 }
+
 // topic to subscribe to when you connect
 // For shiftr.io, use whatever word you want for the subtopic
-// unless you have an account on the site. 
+// unless you have an account on the site. This will reduce 
+// the traffic from others. 
 let subTopic = '';
 let topic = 'midi';
 
@@ -56,29 +75,23 @@ let localEcho;
 let messageDiv;
 
 function setup() {
-  // Create an MQTT client:
-  client = new Paho.MQTT.Client(broker.hostname, broker.port, creds.clientID);
-  // set callback handlers for the client:
-  client.onConnectionLost = onConnectionLost;
-  client.onMessageArrived = onMessageArrived;
-  // connect to the MQTT broker:
-  client.connect(
-    {
-      onSuccess: onConnect,       // callback function for when you connect
-      userName: creds.userName,   // username
-      password: creds.password,   // password
-      useSSL: true                // use SSL
-    }
-  );
+  // put the divs in variables for ease of use:
+  localDiv = document.getElementById('local');
+  remoteDiv = document.getElementById('remote');
+
+  // set text of localDiv:
+  localDiv.innerHTML = 'trying to connect';
+  // attempt to connect:
+  client = mqtt.connect(broker, options);
+  // set listeners:
+  client.on('connect', onConnect);
+  client.on('close', onDisconnect);
+  client.on('message', onMessage);
+  client.on('error', onError);
 
   // create keyPress and keyRelease listeners:
   document.addEventListener('keydown', keyPressed);
   document.addEventListener('keyup', keyReleased);
-  // get the div for local messages:
-  localDiv = document.getElementById("local");
-
-  // get the div for the remote response:
-  remoteDiv = document.getElementById("remote");
 
   // get the local echo checkbox:
   localEcho = document.getElementById("echo");
@@ -135,11 +148,11 @@ function keyAction(key, direction) {
     midiCmd[0] = 0x90;
     midiCmd[2] = 0x70;
   }
- // print the MIDI bytes as hexadeciimal values:
- messageDiv.innerHTML = "MIDI message:"
- for (var i=0; i< midiCmd.length; i++) {
-   messageDiv.innerHTML += " 0x" + midiCmd[i].toString(16);
- }
+  // print the MIDI bytes as hexadeciimal values:
+  messageDiv.innerHTML = "MIDI message:"
+  for (var i = 0; i < midiCmd.length; i++) {
+    messageDiv.innerHTML += " 0x" + midiCmd[i].toString(16);
+  }
   // if there is a current MIDIoutput, 
   // and localEcho is checked send it there:
   if (currentOutput != null && localEcho.checked) {
@@ -154,23 +167,39 @@ window.addEventListener('DOMContentLoaded', setup);
 
 /////////////////////////////// MQTT functions
 
-// called when the client connects
+// handler for mqtt connect event:
 function onConnect() {
-  localDiv.innerHTML = 'MQTT client is connected to ';
-  localDiv.innerHTML += broker.hostname;
-  client.subscribe(topic);
+  // update localDiv text:
+  localDiv.innerHTML = 'connected to broker. Subscribing...'
+  // subscribe to the topic:
+  client.subscribe(topic, onSubscribe);
 }
 
-// called when the client loses its connection
-function onConnectionLost(response) {
-  if (response.errorCode !== 0) {
-    localDiv.innerHTML = 'onConnectionLost:' + response.errorMessage;
+// handler for mqtt disconnect event:
+function onDisconnect() {
+  // update localDiv text:
+  localDiv.innerHTML = 'disconnected from broker.'
+}
+
+// handler for mqtt error event:
+function onError(error) {
+  // update localDiv text:
+  localDiv.innerHTML = error;
+}
+
+// handler for mqtt subscribe event:
+function onSubscribe(response, error) {
+  if (!error) {
+    // update localDiv text:
+    localDiv.innerHTML = 'Subscribed to broker.';
+  } else {
+    // update localDiv text with the error:
+    localDiv.innerHTML = error;
   }
 }
 
 // called when an MQTT  message arrives
-function onMessageArrived(message) {
-  let payload = message.payloadBytes;
+function onMessage(topic, payload, packet) {
   // print what you sent in a fancy hexadecimal string:
   let result = 'I got a message: ';
   // convert the array to a hex string:
@@ -197,15 +226,12 @@ function onMessageArrived(message) {
 // called when you want to send a message:
 function sendMqttMessage(msg) {
   // if the client is connected to the MQTT broker:
-  if (client.isConnected()) {
-    // start an MQTT message:
-    message = new Paho.MQTT.Message(msg);
-    // choose the destination topic:
-    message.destinationName = topic;
-    // send it:
-    client.send(message);
-    // convert the message to a byte array for printing:
-    let bytes = new Uint8Array(message.payloadBytes);
+  // convert the message to a byte array for printing:
+  let bytes = new Uint8Array(msg);
+
+  if (client.connected) {
+    client.publish(topic, bytes);
+    // update localDiv text
     // print what you sent in a fancy hexadecimal string:
     let result = 'I sent: ';
     // function to convert a number to a hex string:
@@ -214,6 +240,24 @@ function sendMqttMessage(msg) {
     };
     localDiv.innerHTML = result;
   }
+
+  // if (client.isConnected()) {
+  //   // start an MQTT message:
+  //   message = new Paho.MQTT.Message(msg);
+  //   // choose the destination topic:
+  //   message.destinationName = topic;
+  //   // send it:
+  //   client.send(message);
+  //   // convert the message to a byte array for printing:
+  //   let bytes = new Uint8Array(message.payloadBytes);
+  //   // print what you sent in a fancy hexadecimal string:
+  //   let result = 'I sent: ';
+  //   // function to convert a number to a hex string:
+  //   for (var i = 0; i < bytes.length; i++) {
+  //     result += ' 0x' + bytes[i].toString(16);
+  //   };
+  //   localDiv.innerHTML = result;
+  // }
 }
 
 // MIDI Functions /////////////////////////////////////////////////////
@@ -331,7 +375,7 @@ function getMIDIMessage(message) {
 
   // print the message (print the MIDI bytes as hexadeciimal values):
   messageDiv.innerHTML = "MIDI message:"
-  for (var i=0; i< message.data.length; i++) {
+  for (var i = 0; i < message.data.length; i++) {
     messageDiv.innerHTML += " 0x" + message.data[i].toString(16);
   }
 

@@ -1,0 +1,17 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+#black-keys {
+  font-size: 24px;
+  letter-spacing: 5px;
+}
+
+#white-keys {
+  font-size: 24px;
+  letter-spacing: 5px;
+}
+
+#notes {
+  font-size: 12px;
+  word-spacing: 14px;
+}
