@@ -23,7 +23,7 @@ This example uses [p5.js](https://p5js.org/) and the [mqtt.js client library](ht
 This example uses the [mqtt.js library](https://www.npmjs.com/package/mqtt) and the [Web MIDI API](https://www.w3.org/TR/webmidi/) to create an MQTT client that sends and receives MQTT messages that are MIDI messages.  You can use keyboard input as well, as shown in the HTML. 
 The client is set up for use on the [shiftr.io test MQTT broker](https://www.shiftr.io/try/), but has also been tested on other brokers.
  
-This [Arduino MQTT-to-MIDI Player Client]({{site.codeurl}}/arduino-clients/MqttClientMIDIPlayer/MqttClientMIDIPlayer.ino) can receive MIDI messages from the same broker and send MIDI to your operating system or MIDI system.  This [Arduino MIDI-to-MQTT Congtroller Client]({{site.codeurl}}/arduino-clients/MqttClientMIDIController/MqttClientMIDIController.ino) can send noteon and noteoff messages via MQTT at the push of a button.
+This [Arduino MQTT-to-MIDI Player Client]({{site.codeurl}}/arduino-clients/MqttClientMIDIPlayer/MqttClientMIDIPlayer.ino) can receive MIDI messages from the same broker and send MIDI to your operating system or MIDI system.  This [Arduino MIDI-to-MQTT Controller Client]({{site.codeurl}}/arduino-clients/MqttClientMIDIController/MqttClientMIDIController.ino) can send noteon and noteoff messages via MQTT at the push of a button.
 
 ## mqttjsHueLightControl
 * [See the example running](mqttjsHueLightControl)
