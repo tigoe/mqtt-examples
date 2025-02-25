@@ -21,26 +21,29 @@ Libraries used:
   #define SECRET_MQTT_PASS "public" // broker password
 
   created 11 June 2020
-  updated 25 Feb 2023
+  updated 25 Feb 2025
   by Tom Igoe
 */
 
-// #include <WiFiNINA.h>  // use this for Nano 33 IoT, MKR1010, Uno WiFi
+#include <WiFiNINA.h>  // use this for Nano 33 IoT, MKR1010, Uno WiFi
 // #include <WiFi101.h>    // use this for MKR1000
 // #include <WiFiS3.h>  // use this for Uno R4 WiFi
 // #include <ESP8266WiFi.h>  // use this for ESP8266-based boards
 #include <ArduinoMqttClient.h>
 #include "arduino_secrets.h"
 
-// initialize WiFi connection as SSL:
+// initialize WiFi connection. If the broker is using
+// encrypted mqtts, use SSL like so:
+// WiFiSSLClient wifi;
+// if the broker is not using mqtts, connect without SSL like so:
 WiFiClient wifi;
 MqttClient mqttClient(wifi);
 
 // details for MQTT client:
-char broker[] = "10.130.22.70";
+char broker[] = "public.cloud.shiftr.io";
 int port = 1883;
 char topic[] = "aardvarks";
-String clientID = "arduinoMqttClient-";
+String clientID = "tigoeClient";
 
 // last time the client sent a message, in ms:
 long lastTimeSent = 0;
@@ -160,4 +163,6 @@ void connectToNetwork() {
   // print IP address once connected:
   Serial.print("Connected. My IP address: ");
   Serial.println(WiFi.localIP());
+
+  digitalWrite(LED_BUILTIN, HIGH);
 }
