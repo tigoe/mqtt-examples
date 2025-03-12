@@ -14,20 +14,14 @@ const mqtt = require('mqtt');
 // transport options: 
 // 'mqtt', 'mqtts', 'tcp', 'tls', 'ws', or 'wss':
 //const broker = 'mqtt://test.mosquitto.org';
-const broker = 'mqtt://localhost';
+const broker = 'mqtt://public.cloud.shiftr.io';
 
 // client options:
 const options = {
-<<<<<<< Updated upstream
   // add a random number for a unique clientId:
   clientId: 'nodeClient-' + Math.floor(Math.random()*1000000),
   username: 'public',
   password: 'public',
-=======
-  clientId: 'nodeClient',
-  // username: 'public',
-  // password: 'public',
->>>>>>> Stashed changes
   clean: true,
   connectTimeout: 4000,
   reconnectPeriod: 1000
