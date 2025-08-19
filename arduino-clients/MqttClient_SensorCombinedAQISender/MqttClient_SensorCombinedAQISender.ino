@@ -25,7 +25,7 @@ Libraries used:
   #define SECRET_MQTT_PASS "public" // broker password
 
   created 11 June 2020
-  updated 25 Feb 2023
+  updated 19 Aug 2025
   by Tom Igoe
 */
 
