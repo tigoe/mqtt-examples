@@ -54,6 +54,11 @@ int interval = 10 * 1000;
 // instance of the ENS160 sensor library:
 SparkFun_ENS160 AQISensor;
 SHTC3 temp_rHSensor;
+// JSON string for the readings:
+String payload = "{\"sensor\": \"SHTC3-ENS160\",";
+payload += "\"aqi\": AQI, \"tvoc\": TVOC, \"eCO2\": ECO2,";
+payload += "\"status\": STATUS, \"tempC\": TEMPC,";
+payload += "\"tempF\": TEMPF, \"humidity\": RH}";
 
 void setup() {
   // initialize serial:
@@ -131,14 +136,14 @@ void loop() {
 
   // once every interval, send a message:
   if (millis() - lastTimeSent > interval) {
-    // if the AQI sensor is ready:
-    // ask for a reading:
+    // if the temp/RH sensor is ready, get a reading:
     temp_rHSensor.update();
-    // read the results:
-    float tempC = AQISensor.getTempCelsius();
-    float rh = AQISensor.getRH();
+    // read temp and rH:
+    float rh = temp_rHSensor.toPercent();
+    float tempC = temp_rHSensor.toDegC();
+    float tempF = temp_rHSensor.toDegF();
 
-    // the sensor can have four possible states:
+    // the AQI sensor can have four possible states:
     // 0 - Operating ok: Standard Opepration
     // 1 - Warm-up: occurs for 3 minutes after power-on.
     // 2 - Initial Start-up: Occurs for the first hour of operation.
@@ -151,16 +156,13 @@ void loop() {
       int tvoc = AQISensor.getTVOC();
       int eCO2 = AQISensor.getECO2();
 
-      // put them into a JSON String:
-      String payload = "{\"sensor\": \"SGP30 and ENS160\",";
-      payload += "\"aqi\": AQI, \"tvoc\": TVOC, \"eCO2\": ECO2,";
-      payload += "\"status\": STATUS, \"temp\": TEMP, \"humidity\": RH}";
-      // replace the value substrings with actual values:
+      // replace the JSON string value substrings with actual values:
       payload.replace("AQI", String(aqi));
       payload.replace("TVOC", String(tvoc));
       payload.replace("ECO2", String(eCO2));
       payload.replace("STATUS", String(ensStatus));
-      payload.replace("TEMP", String(tempC));
+      payload.replace("TEMPC", String(tempC));
+      payload.replace("TEMPF", String(tempF));
       payload.replace("RH", String(rh));
 
       // start a new message on the topic:
