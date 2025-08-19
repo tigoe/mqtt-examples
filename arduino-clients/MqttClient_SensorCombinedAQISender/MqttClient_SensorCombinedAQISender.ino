@@ -55,10 +55,10 @@ int interval = 10 * 1000;
 SparkFun_ENS160 AQISensor;
 SHTC3 temp_rHSensor;
 // JSON string for the readings:
-String payload = "{\"sensor\": \"SHTC3-ENS160\",";
-payload += "\"aqi\": AQI, \"tvoc\": TVOC, \"eCO2\": ECO2,";
-payload += "\"status\": STATUS, \"tempC\": TEMPC,";
-payload += "\"tempF\": TEMPF, \"humidity\": RH}";
+// (note: this is a quick way to format a multi-line string literal in C/C++)
+String payload = "{\"sensor\": \"SHTC3-ENS160\",\"aqi\": AQI,"
+                 "\"tvoc\": TVOC, \"eCO2\": ECO2,\"status\": STATUS, \"tempC\":"
+                 "TEMPC,\"tempF\": TEMPF, \"humidity\": RH}";
 
 void setup() {
   // initialize serial:
