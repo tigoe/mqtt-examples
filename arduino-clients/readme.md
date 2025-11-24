@@ -35,7 +35,7 @@ This example also uses the [RTCZero library](https://www.arduino.cc/reference/en
 
 ## Sensor Clients
 
-There are a couple sensor clients in this repository, to show how to read and publish sensors of differing values. 
+There are a number of sensor clients in this repository, to show how to read and publish sensors of differing values. 
 
 ### MqttClient_SensorTCS34725Sender
 
@@ -72,6 +72,12 @@ This example shows how to use MQTT subtopics to set the color of a strip of Worl
 [See the source code]({{site.codeurl}}/arduino-clients/MqttClientHueControl/MqttClientHueControl.ino)
 
 This example shows how to use MQTT  to set the brightness of a Philips Hue light through a Hue hub. It does so by making HTTP requests to the Hue hub. For more on controlling the Philips Hue, see [this repository](https://tigoe.github.io/hue-control/). It can work with the Eclipse PAHO and p5.js example called [EclipsePahoHueLightControl]({{site.codeurl}}/browser-clients/eclipse-pahojs/eclipse-pahojs/EclipsePahoHueLightControl)
+
+### MqttClientAS7343
+
+[See the source code]({{site.codeurl}}/arduino-clients/MqttClientAS7343/MqttClientAS7343.ino)
+
+This example reads spectral illuminance levels from an  [AMS AS7343 Spectral Light Sensor](https://ams-osram.com/products/sensor-solutions/ambient-light-color-spectral-proximity-sensors/ams-as7343-spectral-sensor). It uses Sparkfun's SparkFun_AS7343 library. This example also shows how to send CVS strings.
 
 
 ## MIDI examples
