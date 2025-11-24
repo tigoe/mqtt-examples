@@ -33,7 +33,7 @@ Libraries used:
 
 #include <SparkFun_AS7343.h>     // include sensor library
 SfeAS7343ArdI2C spectralSensor;  // make an instance of the library
-uint16_t sensorData[18];         // Array to hold spectral data
+uint16_t sensorData[18];         // array to hold the spectral data
 String spectralReadings = "";    // String to send it
 
 // initialize WiFi connection. If the broker is using
