@@ -2,15 +2,12 @@
   MQTT Client sender/receiver with will
 
   This sketch demonstrates an MQTT client that connects to a broker, subscribes to a topic,
-  and both listens for messages on that topic and sends messages to it, a random number between 0 and 255.
+  and both listens for messages on that topic and sends messages to it.
   When the client receives a message, it parses it, and PWMs the built-in LED.
   This client also has a last will and testament property. with each reading sent,
-  it also updates the will topic with the current date and time. If another 
+  it also updates the will topic with the current network time. If another 
   reading does not show up within the keepAlive interval, the broker
   will publish the will topic.
-
-  Because this uses the SAMD chip's internal realtime clock (RTC),
-  it will only run on the Nano 33 IoT and MKR boards or other SAMD boards.
 
   This sketch uses https://public.cloud.shiftr.io as the MQTT broker, but others will work as well.
   See https://tigoe.github.io/mqtt-examples/#broker-client-settings for connection details. 
@@ -19,8 +16,7 @@ Libraries used:
   * http://librarymanager/All#WiFiNINA or
   * http://librarymanager/All#WiFi101 
   * http://librarymanager/All#ArduinoMqttClient
-  * http://librarymanager/All#RTCZero
-
+ 
   the arduino_secrets.h file:
   #define SECRET_SSID ""    // network name
   #define SECRET_PASS ""    // network password
@@ -31,17 +27,15 @@ Libraries used:
   by Tom Igoe
 */
 
-#include <WiFiNINA.h>  // use this for Nano 33 IoT, MKR1010, Uno WiFi
+#include <WiFiNINA.h>  // use this for Nano 33 IoT, MKR1010, Nano RP2040 Connect
 // #include <WiFi101.h>    // use this for MKR1000
-#include <RTCZero.h>
 #include <ArduinoMqttClient.h>
 #include "arduino_secrets.h"
 
-// initialize WiFi connection as SSL:
+// initialize WiFi connection as SSL.
+// If you are not using MQTTS, use WiFiClient:
 WiFiSSLClient wifi;
 MqttClient mqttClient(wifi);
-// initialize realtime clock
-RTCZero rtc;
 
 // details for MQTT client:
 char broker[] = "public.cloud.shiftr.io";
@@ -49,9 +43,9 @@ int port = 8883;
 char topic[] = "aardvarks";
 String clientID = "arduinoMqttClient-";
 // properties for the MQTT last will and testament:
-String willPayload = "offline";
-bool willRetain = true;
-int willQos = 1;
+String willPayload;
+const bool willRetain = true;
+const int willQos = 1;
 String willTopic = String(topic) + "/last_seen";
 
 // last time the client sent a message, in ms:
@@ -68,17 +62,16 @@ void setup() {
   Serial.begin(9600);
   // wait for serial monitor to open:
   if (!Serial) delay(3000);
-  // initialize realtime clock:
-  rtc.begin();
   pinMode(LED_BUILTIN, OUTPUT);
   // connect to WiFi:
   connectToNetwork();
   // make the clientID unique by adding the last three digits of the MAC address:
   byte mac[6];
   WiFi.macAddress(mac);
-  for (int i = 0; i < 3; i++) {
+  for (int i = 3; i < 6; i++) {
     clientID += String(mac[i], HEX);
   }
+
   // set the credentials for the MQTT client:
   mqttClient.setId(clientID);
   // if needed, login to the broker with a username and password:
@@ -117,8 +110,6 @@ void loop() {
       mqttClient.print(sensorReading);
       // send the message:
       mqttClient.endMessage();
-      // update the will topic with the last successful timestamp:
-      updateWill();
 
       // send a serial notification:
       Serial.print("published a message: ");
@@ -155,16 +146,19 @@ boolean connectToBroker() {
 
 
 void updateWill() {
-  if (mqttClient.connected()) {
-    // make an ISO8601 string with the current RTC time:
-    willPayload = getISOString();
-    // set the will value:
-    mqttClient.beginWill(willTopic, willPayload.length(), willRetain, willQos);
-    // send it to the broker:
-    mqttClient.print(willPayload);
-    // close the connection:
-    mqttClient.endWill();
-  }
+  // get the seconds since 1/1/1970 from a network time server
+  // note: the WiFi.getTime() command only works
+  // for WiFiNINA and WiFi101. For an example of how to get
+  // network time from other WiFi libraries, see
+  // this example:
+  willPayload = String(WiFi.getTime());
+
+  // set the will value:
+  mqttClient.beginWill(willTopic, willTopic.length(), willRetain, willQos);
+  // send it to the broker:
+  mqttClient.print(willPayload);
+  // close the connection:
+  mqttClient.endWill();
 }
 
 void onMqttMessage(int messageSize) {
@@ -197,57 +191,8 @@ void connectToNetwork() {
     WiFi.begin(SECRET_SSID, SECRET_PASS);
     delay(2000);
   }
-  // get the current time from the network:
-  long epoch = 0;
-  while (epoch == 0) {
-    epoch = WiFi.getTime();
-  }
-  rtc.setEpoch(epoch);
-  // print current time:
-  Serial.println(getISOString());
 
   // print IP address once connected:
   Serial.print("Connected. My IP address: ");
   Serial.println(WiFi.localIP());
-}
-
-// make an ISO8601 string from the current time. It would look like this:
-// YYYY-MM-DDThh:mm:ssZ
-String getISOString() {
-  // start with the century:
-  String result = "20";
-  // add the year:
-  int year = rtc.getYear();
-  // leading 0 for nubmers less than 10:
-  if (year < 10) result += "0";
-  result += String(year);
-  result += "-";
-  // add the month:
-  int month = rtc.getMonth();
-  if (month < 10) result += "0";
-  result += String(month);
-  result += "-";
-  // add the day:
-  int day = rtc.getDay();
-  if (day < 10) result += "0";
-  result += String(day);
-  result += "T";
-  // add the hours:
-  int hour = rtc.getHours();
-  if (hour < 10) result += "0";
-  result += String(hour);
-  result += ":";
-  // add the minutes:
-  int minute = rtc.getMinutes();
-  if (minute < 10) result += "0";
-  result += String(minute);
-  result += ":";
-  // add the seconds:
-  int second = rtc.getSeconds();
-  if (second < 10) result += "0";
-  result += String(second);
-  // add the closing character:
-  result += "Z";
-  // return the string:
-  return result;
 }
