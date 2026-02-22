@@ -31,7 +31,14 @@ The other Arduino examples in this repository follow more or less the same struc
 
 This client shows how to use the keepAliveInterval, the connectionTimeout, and the last will and testament features of MQTT. When a will topic is set, the MQTT client can send it to the broker, but the broker won't publish it unless the client doesn't publish anything before its keepAliveInterval expires. If that happens, the broker assumes that the client has gone offline, and publishes the will topic. 
 
-This example also uses the [RTCZero library](https://www.arduino.cc/reference/en/libraries/rtczero/) which implements the SAMD processor's real-time clock. It will wokr on the Nano 33 IoT and the MKR line of processors. It gets the time from the network every time it connects to WiFi, and publishes the time as the will topic, so that if it goes offline, the broker publishes the last known time that it was online as an [ISO8601](https://www.iso.org/iso-8601-date-and-time-format.html) string.
+This example uses the `WiFi.getTime()` command to get the network timestamp.  This command will work on the WiFiNINA and WiFi101 libraries. It gets the time from the network every time it connects to WiFi, and publishes the time as the will topic, so that if it goes offline, the broker publishes the last known time that it was online as an [Unix epoch](https://www.epochconverter.com/). This is the number of seconds since Jan 1 1970, and is a common time format among network programming APIs. 
+
+## ArduinoMqttClientWithWill-NTPTime
+
+This client is similar to the previous one, in that it publishes a will so you know when it went offline. Instead of relying on the `WiFi.getTime()` command, however, it shows how to get the network time from a Network Time Protocol (NTP) server. The code to do so is based on WiFi library's [UdpNtpClient](https://github.com/arduino-libraries/WiFi/blob/master/examples/WiFiUdpNtpClient/WiFiUdpNtpClient.ino), originally written by Michael Margolis, and modified by Tom Igoe. This client then publishes the network time as an [ISO8601](https://www.iso.org/iso-8601-date-and-time-format.html) string. 
+
+For more on Network Time Protocol, see the [NTP site](https://www.ntp.org/). For more on ISO8601, see ISO's [site on ISO8601](https://www.iso.org/iso-8601-date-and-time-format.html). The [EpochConverter site](https://www.epochconverter.com/) is also useful. The [Clock Club repository](https://itpnyu.github.io/clock-club/) may be useful as well. 
+
 
 ## Sensor Clients
 
