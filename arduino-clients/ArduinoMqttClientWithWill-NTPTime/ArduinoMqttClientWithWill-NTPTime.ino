@@ -4,15 +4,17 @@
   This sketch demonstrates an MQTT client that connects to a broker, subscribes to a topic,
   and both listens for messages on that topic and sends messages to it.
   When the client receives a message, it parses it, and PWMs the built-in LED.
-  This client also has a last will and testament property. with each reading sent,
-  it  updates the will topic with the current network time. If another 
-  reading does not show up within the keepAlive interval, the broker
+  
+  This client also has a last will and testament property. 
+  With each reading sent, it  updates the will topic with 
+  the current network time. If another reading does not 
+  show up within the keepAlive interval, the broker 
   will publish the will topic.
 
-  The network time code is based on  WiFi library's
-   UdpNtpClient, originally written by Michael Margolis, and
-   modified by Tom Igoe:
-   https://github.com/arduino-libraries/WiFi/blob/master/examples/WiFiUdpNtpClient/WiFiUdpNtpClient.ino
+  The network time code is based on the  WiFi library's
+  UdpNtpClient, originally written by Michael Margolis, and
+  modified by Tom Igoe:
+  https://github.com/arduino-libraries/WiFi/blob/master/examples/WiFiUdpNtpClient/WiFiUdpNtpClient.ino
 
   This sketch uses https://public.cloud.shiftr.io as the MQTT broker, but others will work as well.
   See https://tigoe.github.io/mqtt-examples/#broker-client-settings for connection details. 
@@ -28,7 +30,7 @@ Libraries used:
   #define SECRET_MQTT_USER "public" // broker username
   #define SECRET_MQTT_PASS "public" // broker password
 
-  created 28 Mar 2023
+  created 21 Feb 2026
   by Tom Igoe
 */
 
@@ -60,23 +62,22 @@ long lastTimeSent = 0;
 int interval = 10 * 1000;
 // keepAlive interval for the will:
 int keepAliveInterval = 60 * 1000;
-// connection timeout:
+// connection timeout for the MQTT client:
 int connectionTimeout = 30 * 1000;
 
 // details for the UDP/NTP transmissions:
 const unsigned int localPort = 2390;  // local port to listen for UDP packets
 const int NTP_PACKET_SIZE = 48;       // NTP timestamp is in the first 48 bytes of the message
 byte packetBuffer[NTP_PACKET_SIZE];   //buffer to hold incoming and outgoing packets
-
-// A UDP instance to let us send and receive packets over UDP
+// A UDP instance to send and receive packets over UDP
 WiFiUDP Udp;
-
 
 void setup() {
   // initialize serial:
   Serial.begin(9600);
   // wait for serial monitor to open:
   if (!Serial) delay(3000);
+  // initialize built-in LED:
   pinMode(LED_BUILTIN, OUTPUT);
   // connect to WiFi:
   connectToNetwork();
@@ -98,7 +99,6 @@ void setup() {
 
   // start the UDP port for the NTP time setting:
   Udp.begin(localPort);
-  getNetworkTime();
 }
 
 void loop() {
@@ -140,9 +140,10 @@ void loop() {
 }
 
 boolean connectToBroker() {
-  // update the will topic with the last successful timestamp:
+  // before connecting, update the update the will topic
+  // with the last successful timestamp:
   updateWill();
-  // if the MQTT client is not connected:
+  // Try to connect. if the connection fails:
   if (!mqttClient.connect(broker, port)) {
     // print out the error message:
     Serial.print("MOTT connection failed. Error no: ");
@@ -165,14 +166,22 @@ boolean connectToBroker() {
 
 
 void updateWill() {
+  // you can't update the will if connected,
+  // so if you are connected, quit this function:
+  if (mqttClient.connected()) return;
+
   /* get the seconds since 1/1/1970 from a network time server
    For more on time setting, see the WIFiUdpNtpClient example at:
     https://github.com/arduino-libraries/WiFi/blob/master/examples/WiFiUdpNtpClient/WiFiUdpNtpClient.ino
    or the Clock Club examples at:
    https://itpnyu.github.io/clock-club/
    */
-  willPayload = getNetworkTime();
+  // get the network time as a single number:
+  // willPayload = String(getNetworkTime());
+  // alternately, you can send the time as an ISO8601 string:
+  willPayload = getISOString(getNetworkTime());
   Serial.println(willPayload);
+
   // set the will message:
   mqttClient.beginWill(willTopic, willTopic.length(), willRetain, willQos);
   // send it to the broker:
@@ -218,54 +227,33 @@ void connectToNetwork() {
 }
 
 
-String getNetworkTime() {
-  String result = "UTC Time: ";
-  /* this function is a modification of the WiFi library's
-   Udp NTP Client, originally written by Michael Margolis, and
-   modified by Tom Igoe
-*/
-  sendNTPpacket();  // send an NTP packet to a time server
-  // wait for a reply:
-  delay(1000);
+unsigned long getNetworkTime() {
+  unsigned long epoch = 0;
+  sendNTPpacket();
+  delay(2000);
+  // assumes a packet has arrived:
   if (Udp.parsePacket()) {
-    // Read the reply from the NTP server
+    // Read the reply from the NTP server:
     Udp.read(packetBuffer, NTP_PACKET_SIZE);
-    //the timestamp starts at byte 40 of the received packet and is four bytes,
-    // or two words, long. First, extract the two words:
+    //the timestamp starts at byte 40 of the received packet
+    // and is four bytes, or two words, long.
+    // First, extract the two words:
     unsigned long highWord = word(packetBuffer[40], packetBuffer[41]);
     unsigned long lowWord = word(packetBuffer[42], packetBuffer[43]);
-    // combine the four bytes (two words) into a long integer
-    // this is NTP time (seconds since Jan 1 1900):
+    // next combine the four bytes (two words)
+    // into a long integer this is NTP time
+    // (seconds since Jan 1 1900):
     unsigned long secsSince1900 = highWord << 16 | lowWord;
 
     //  convert NTP time into Unix time:
-    // Unix time starts on Jan 1 1970. In seconds, that's 2208988800:
+    // Unix time starts on Jan 1 1970.
+    // That's 2208988800 seconds from Jan 1 1900:
     const unsigned long seventyYears = 2208988800UL;
     // subtract seventy years:
-    unsigned long epoch = secsSince1900 - seventyYears;
-    // Now we have the  Unix time epoch (secs since 1/1/1970).
-    // you could send this as your timestamp, as most
-    // network programming APIs know how to convert it to 
-    // a time value. Or you could convert it like so:
-    
-    // convert to a time string:
-    // add the hour:
-    result += String((epoch % 86400L) / 3600);  // print the hour (86400 equals secs per day)
-    result += ":";
-    if (((epoch % 3600) / 60) < 10) {
-      // In the first 10 minutes of each hour, add a leading 0
-      result += "0";
-    }
-    // add the minute (3600 equals secs per minute)
-    result += String((epoch % 3600) / 60);
-    result += ":";
-    if ((epoch % 60) < 10) {
-      // In the first 10 seconds of each minute, add a leading 0
-      result += "0";
-    }
-    result += String(epoch % 60);  // print the second
+    epoch = secsSince1900 - seventyYears;
+    // Now you have the  Unix time epoch (secs since 1/1/1970).
+    return epoch;
   }
-  return result;
 }
 
 // send an NTP request to the time server at the given address
@@ -275,24 +263,112 @@ unsigned long sendNTPpacket() {
   // https://en.wikipedia.org/wiki/Network_Time_Protocol#NTP_packet_header_format:
   // there are more bytes in the NTP packet header,
   // and this is a very rough calculation,
-  // but you can get a time response
+  // but you can get a good time response
   // with just these four bytes set:
-  packetBuffer[0] = 0b11100011;  // Leap Indicator, Version, Mode, in binary format
-  // Indicates the distance from the reference clock.
+  // First byte contains Leap Indicator, Version, Mode, in binary format:
+  packetBuffer[0] = 0b11100011;
+  // Next byte indicates the distance from the reference clock.
   // 0 = invalid:
   packetBuffer[1] = 0;
-  // Max. polling interval between successive messages,
-  // in log₂(seconds). Typical range is 6 to 10:
+  // next byte is the max. polling interval
+  // between successive messages, in log₂(seconds).
+  // Typical range is 6 to 10:
   packetBuffer[2] = 6;
-  // Signed log₂(seconds) of system clock precision
-  // (e.g., –18 ≈ 1 microsecond).
+  // Nect byte is the signed log₂(seconds)
+  // of system clock precision (e.g., –18 ≈ 1 microsecond):
   packetBuffer[3] = 0xEC;
   // zero out the rest of the array:
   for (int b = 4; b < NTP_PACKET_SIZE; b++) {
     packetBuffer[b] = 0;
   }
-  // send a packet requesting a timestamp:
-  Udp.beginPacket("pool.ntp.org", 123);  //NTP requests are to port 123
+
+  // send a packet to port 123 requesting a timestamp:
+  Udp.beginPacket("pool.ntp.org", 123);
   Udp.write(packetBuffer, NTP_PACKET_SIZE);
   Udp.endPacket();
+}
+
+
+String getISOString(long epoch) {
+  //ISO8601 time is the standard time format.
+  // see https://en.wikipedia.org/wiki/ISO_8601 for details.
+  // the string looks like this:
+  String result = "YYYY-MM-DD hh:mm:ss";
+
+  // calculate the hour (86400 secs per day):
+  int hour = (epoch % 86400L) / 3600;
+  // calculate the minute (3600 per minute):
+  int minute = (epoch % 3600) / 60;
+  // calculate the second:
+  int second = epoch % 60;
+  // a variable for the days in a given year:
+  unsigned int daysPerYear = 365;
+  // the day and month of this particular epoch:
+  unsigned int day;
+  unsigned int month = 0;
+  // days in this epoch. seconds per day = 846400:
+  unsigned long days = epoch / 86400UL;
+  // year in this epoch. Minumum is 1970:
+  unsigned int year = 1970;
+  // days in the months:
+  unsigned int monthLengths[12] = {
+    31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
+  };
+  // add a day to count for 0-indexing of days:
+  unsigned int daysLeft = days + 1;
+  // count down the days to get the month and year:
+  while (daysLeft >= daysPerYear) {
+    // first, check if it's a leap year:
+    if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
+      monthLengths[1] = 29;  // Feb. gets an extra day
+      daysPerYear = 366;
+    } else {
+      monthLengths[1] = 28;
+      daysPerYear = 365;
+    }
+
+    // next, subtract this years' length
+    // from the total number of days in the epoch:
+    daysLeft -= daysPerYear;
+    // next, increment the year:
+    year++;
+
+    // when there are less than a year of days,
+    // calculate the current month:
+    if (daysLeft < daysPerYear) {
+      // if the days left is greater than current month length,
+      // subtract the length of the month, then increment the month:
+      while (daysLeft > monthLengths[month]) {
+        daysLeft -= monthLengths[month];
+        month++;
+      }
+    }
+  }
+
+
+
+  // add 1 to month to adjust (months start with 1):
+  month++;
+  // day of month = daysLeft + 1 (days start with 1):
+  day = daysLeft++;
+  // replace the placeholders in the ISO8601 String
+  // with the actual values:
+  result.replace("YYYY", String(year));
+  result.replace("MM", numToString(month));
+  result.replace("DD", numToString(day));
+  result.replace("hh", numToString(hour));
+  result.replace("mm", numToString(minute));
+  result.replace("ss", numToString(second));
+  // return the string:
+  return result;
+}
+
+// this function adds leading zeroes to any
+// single-digit numbers, and converts them to strings:
+String numToString(int number) {
+  String resultString = String(number);
+  if (number < 10) {
+    resultString = "0" + resultString;
+  }
+  return resultString;
 }
