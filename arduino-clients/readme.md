@@ -33,7 +33,7 @@ This client shows how to use the keepAliveInterval, the connectionTimeout, and t
 
 This example uses the `WiFi.getTime()` command to get the network timestamp.  This command will work on the WiFiNINA and WiFi101 libraries. It gets the time from the network every time it connects to WiFi, and publishes the time as the will topic, so that if it goes offline, the broker publishes the last known time that it was online as an [Unix epoch](https://www.epochconverter.com/). This is the number of seconds since Jan 1 1970, and is a common time format among network programming APIs. 
 
-## ArduinoMqttClientWithWill-NTPTime
+### ArduinoMqttClientWithWill-NTPTime
 
 This client is similar to the previous one, in that it publishes a will so you know when it went offline. Instead of relying on the `WiFi.getTime()` command, however, it shows how to get the network time from a Network Time Protocol (NTP) server. The code to do so is based on WiFi library's [UdpNtpClient](https://github.com/arduino-libraries/WiFi/blob/master/examples/WiFiUdpNtpClient/WiFiUdpNtpClient.ino), originally written by Michael Margolis, and modified by Tom Igoe. This client then publishes the network time as an [ISO8601](https://www.iso.org/iso-8601-date-and-time-format.html) string. 
 
