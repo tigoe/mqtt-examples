@@ -288,7 +288,6 @@ unsigned long sendNTPpacket() {
   Udp.endPacket();
 }
 
-
 String getISOString(long epoch) {
   //ISO8601 time is the standard time format.
   // see https://en.wikipedia.org/wiki/ISO_8601 for details.
@@ -301,56 +300,49 @@ String getISOString(long epoch) {
   int minute = (epoch % 3600) / 60;
   // calculate the second:
   int second = epoch % 60;
-  // a variable for the days in a given year:
-  unsigned int daysPerYear = 365;
   // the day and month of this particular epoch:
-  unsigned int day;
+  unsigned int day = 0;
   unsigned int month = 0;
   // days in this epoch. seconds per day = 846400:
-  unsigned long days = epoch / 86400UL;
+  // minimum is one day:
+  unsigned long days = (epoch / 86400UL) + 1;
   // year in this epoch. Minumum is 1970:
-  unsigned int year = 1970;
+  unsigned int year = (days / 365.25F) + 1970;
   // days in the months:
   unsigned int monthLengths[12] = {
     31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
   };
-  // add a day to count for 0-indexing of days:
-  unsigned int daysLeft = days + 1;
-  // count down the days to get the month and year:
-  while (daysLeft >= daysPerYear) {
-    // first, check if it's a leap year:
-    if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
-      monthLengths[1] = 29;  // Feb. gets an extra day
-      daysPerYear = 366;
+
+  // go over the years since 1970 and subtract the years
+  // from the total number of days in the epoch:
+  for (int y = 1970; y < year; y++) {
+    // account for leap year:
+    if ((y % 4 == 0 && y % 100 != 0) || (y % 400 == 0)) {
+      days -= 366;
     } else {
-      monthLengths[1] = 28;
-      daysPerYear = 365;
-    }
-
-    // next, subtract this years' length
-    // from the total number of days in the epoch:
-    daysLeft -= daysPerYear;
-    // next, increment the year:
-    year++;
-
-    // when there are less than a year of days,
-    // calculate the current month:
-    if (daysLeft < daysPerYear) {
-      // if the days left is greater than current month length,
-      // subtract the length of the month, then increment the month:
-      while (daysLeft > monthLengths[month]) {
-        daysLeft -= monthLengths[month];
-        month++;
-      }
+      days -= 365;
     }
   }
+  // go over the remaining days and subtract each month's worth
+  // for the current year until they're fewer days 
+  // than the current month:
+  while (days > monthLengths[month]) {
+    // account for leap year; Feb. gets an extra day:
+    if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
+      monthLengths[1] = 29;
+    } else {
+      monthLengths[1] = 28;
+    }
+    // subtract a month
+    days -= monthLengths[month];
+    month++;
+  }
 
-
-
-  // add 1 to month to adjust (months start with 1):
+  // add 1 so the year starts on month 1 rather than 0:
   month++;
-  // day of month = daysLeft + 1 (days start with 1):
-  day = daysLeft++;
+  // add 1 so the month starts on day 1 rather than 0:
+  day = days++;
+
   // replace the placeholders in the ISO8601 String
   // with the actual values:
   result.replace("YYYY", String(year));
