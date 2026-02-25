@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 3300 2550" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
+    <g transform="matrix(1.25518,0,0,1.5175,-506.146,16.2213)">
+        <rect x="1070.36" y="407.59" width="1095.7" height="770.936" style="fill:none;stroke:rgb(35,31,32);stroke-width:2.99px;stroke-dasharray:11.97,5.98,11.97,5.98,0,0;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,-180.404,227.151)">
+        <g transform="matrix(1,-0,-0,1,180.404,-227.151)">
+            <path d="M1989.64,1423.29L1979.8,1449.45L1964.77,1425.89C1971.63,1431.45 1984.07,1430.16 1989.64,1423.29Z" style="fill:rgb(35,31,32);"/>
+            <path d="M1751.2,1370.57C1751.2,1370.57 1954.82,1334.58 1977.72,1429.56" style="fill:none;stroke:rgb(35,31,32);stroke-width:4.17px;"/>
+        </g>
+    </g>
+    <g transform="matrix(1,0,0,1,225.211,426.578)">
+        <text x="1292.13px" y="751.825px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">Appends values</text>
+        <g transform="matrix(50,0,0,50,1465.88,803.46)">
+        </g>
+        <g transform="matrix(50,0,0,50,1479.77,803.46)">
+        </g>
+        <g transform="matrix(50,0,0,50,1529.79,803.46)">
+        </g>
+        <text x="1410.29px" y="803.46px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">to ﬁle</text>
+    </g>
+    <g transform="matrix(1,0,0,1,575.308,504.611)">
+        <g transform="matrix(50,0,0,50,1522.83,751.825)">
+        </g>
+        <g transform="matrix(50,0,0,50,1536.73,751.825)">
+        </g>
+        <text x="1353.33px" y="751.825px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">Serves ﬁle</text>
+        <text x="1313px" y="803.46px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">in response to</text>
+        <g transform="matrix(50,0,0,50,1625.19,855.096)">
+        </g>
+        <text x="1314.89px" y="855.096px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">HTTP<tspan x="1444.53px 1458.42px " y="855.096px 855.096px "> r</tspan>equest</text>
+    </g>
+    <g transform="matrix(1,0,0,1,-359.275,-140.322)">
+        <g transform="matrix(50,0,0,50,1947.87,751.825)">
+        </g>
+        <text x="1214.33px" y="751.825px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">virtual host (e.g. myDomain.com)</text>
+    </g>
+    <g transform="matrix(1,0,0,1,120.441,226.281)">
+        <g transform="matrix(1,0,0,1,391.65,-193.977)">
+            <text x="1319.1px" y="751.825px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">MQTT<tspan x="1459.82px 1473.71px " y="751.825px 751.825px "> B</tspan>roker</text>
+            <text x="1345px" y="803.46px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">(mosquitto)</text>
+            <text x="1335.24px" y="855.096px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">(listening on</text>
+            <g transform="matrix(50,0,0,50,1584,906.732)">
+            </g>
+            <text x="1356.07px" y="906.732px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">port 1883)</text>
+        </g>
+        <g transform="matrix(0.83718,0,0,0.747665,-296.286,83.598)">
+            <rect x="2361.79" y="500.953" width="437.009" height="370.189" style="fill:none;stroke:rgb(35,31,32);stroke-width:5.25px;"/>
+        </g>
+    </g>
+    <g transform="matrix(1,0,0,1,-140.551,287.898)">
+        <g transform="matrix(1,0,0,1,653.721,485.093)">
+            <text x="1404.77px" y="751.825px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">HTTP</text>
+            <text x="1400.58px" y="803.46px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">server</text>
+            <text x="1393.62px" y="855.096px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">(nginx)</text>
+            <text x="1335.24px" y="906.732px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">(listening on</text>
+            <g transform="matrix(50,0,0,50,1611.8,958.367)">
+            </g>
+            <text x="1328.28px" y="958.367px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">port 80, 443)</text>
+        </g>
+        <g transform="matrix(0.83718,0,0,0.873048,-36.0389,725.686)">
+            <rect x="2361.79" y="500.953" width="437.009" height="370.189" style="fill:none;stroke:rgb(35,31,32);stroke-width:4.87px;"/>
+        </g>
+    </g>
+    <g transform="matrix(1,0,0,1,-188.36,344.906)">
+        <g>
+            <g transform="matrix(1,0,0,1,-88.6955,152.887)">
+                <text x="1334.37px" y="751.825px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">MQTT<tspan x="1475.09px 1488.98px " y="751.825px 751.825px "> c</tspan>lient</text>
+                <text x="1229.64px" y="803.46px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">(subscribed to broker<tspan x="1696.54px " y="803.46px ">,</tspan></text>
+                <g transform="matrix(50,0,0,50,1608.99,855.096)">
+                </g>
+                <g transform="matrix(50,0,0,50,1622.88,855.096)">
+                </g>
+                <g transform="matrix(50,0,0,50,1689.56,855.096)">
+                </g>
+                <text x="1250.52px" y="855.096px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">writes values to ﬁle)</text>
+            </g>
+            <g transform="matrix(1.19756,0,0,0.800387,-1690.34,401.66)">
+                <rect x="2361.79" y="500.953" width="437.009" height="370.189" style="fill:none;stroke:rgb(35,31,32);stroke-width:4.09px;"/>
+            </g>
+        </g>
+    </g>
+    <g transform="matrix(1,0,0,1,1442.83,-612.76)">
+        <g>
+            <g transform="matrix(1,0,0,1,-58.6955,152.887)">
+                <text x="1229.67px" y="751.825px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">Microcontroller-based</text>
+                <text x="1334.37px" y="803.46px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">MQTT<tspan x="1475.09px 1488.98px " y="803.46px 803.46px "> c</tspan>lient</text>
+                <g transform="matrix(50,0,0,50,1697.92,855.096)">
+                </g>
+                <text x="1242.16px" y="855.096px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">(publishes to broker)</text>
+            </g>
+            <g transform="matrix(1.19756,0,0,0.800387,-1690.34,401.66)">
+                <rect x="2361.79" y="500.953" width="437.009" height="370.189" style="fill:none;stroke:rgb(35,31,32);stroke-width:4.09px;"/>
+            </g>
+        </g>
+    </g>
+    <g transform="matrix(1,0,0,1,1379.1,456.836)">
+        <g>
+            <g transform="matrix(1,0,0,1,-58.6955,152.887)">
+                <text x="1301.91px" y="751.825px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">Browser-based</text>
+                <text x="1334.37px" y="803.46px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">MQTT<tspan x="1475.09px 1488.98px " y="803.46px 803.46px "> c</tspan>lient</text>
+                <text x="1329.71px" y="855.096px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">using mqtt.js</text>
+                <text x="1231.05px" y="906.732px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">(subscribes to broker<tspan x="1695.14px " y="906.732px ">,</tspan></text>
+                <g transform="matrix(50,0,0,50,1702.09,958.367)">
+                </g>
+                <text x="1237.98px" y="958.367px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">displays latest value)</text>
+            </g>
+            <g transform="matrix(1.19756,0,0,0.998915,-1690.34,302.207)">
+                <rect x="2361.79" y="500.953" width="437.009" height="370.189" style="fill:none;stroke:rgb(35,31,32);stroke-width:3.78px;"/>
+            </g>
+        </g>
+    </g>
+    <g transform="matrix(1,0,0,1,308.846,1342.09)">
+        <g>
+            <g transform="matrix(1,0,0,1,-58.6955,152.887)">
+                <text x="1301.91px" y="751.825px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">Browser-based</text>
+                <text x="1358.87px" y="803.46px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">web client</text>
+                <text x="1349.13px" y="855.096px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">using fetch</text>
+                <text x="1257.42px" y="906.732px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">(requests data.json</text>
+                <g transform="matrix(50,0,0,50,1636.79,958.367)">
+                </g>
+                <text x="1303.29px" y="958.367px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">and displays it)</text>
+            </g>
+            <g transform="matrix(1.19756,0,0,0.998915,-1690.34,302.207)">
+                <rect x="2361.79" y="500.953" width="437.009" height="370.189" style="fill:none;stroke:rgb(35,31,32);stroke-width:3.78px;"/>
+            </g>
+        </g>
+    </g>
+    <g transform="matrix(1,0,0,1,-61.4491,129.669)">
+        <g transform="matrix(1.15361,0,0,1.03068,-217.269,-43.4718)">
+            <path d="M1597.32,1210.8L1756.98,1210.8L1756.98,1479.25L1564.85,1479.25L1564.85,1243.28L1596.87,1243.38L1597.32,1210.8Z" style="fill:none;stroke:rgb(35,31,32);stroke-width:3.81px;"/>
+        </g>
+        <g transform="matrix(1,0,0,1,229.611,582.777)">
+            <text x="1368.57px" y="751.825px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">data.json</text>
+            <g transform="matrix(50,0,0,50,1438.08,803.46)">
+            </g>
+            <g transform="matrix(50,0,0,50,1451.97,803.46)">
+            </g>
+            <g transform="matrix(50,0,0,50,1502,803.46)">
+            </g>
+            <text x="1438.08px" y="803.46px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">ﬁle</text>
+        </g>
+        <path d="M1587.96,1237.95L1625.42,1204.48" style="fill:none;stroke:rgb(35,31,32);stroke-width:4.17px;"/>
+    </g>
+    <g transform="matrix(1.01761,-0.00875168,-0.00873567,1.00447,-210.254,241.914)">
+        <g transform="matrix(0.98277,0.00856264,0.00854697,0.995627,204.564,-239.056)">
+            <path d="M1230.67,1122.01L1240.5,1148.18L1255.54,1124.62C1248.67,1130.18 1236.24,1128.88 1230.67,1122.01Z" style="fill:rgb(35,31,32);"/>
+            <path d="M1242.59,1128.29C1281.93,879.644 1801.79,805.56 1801.79,805.56" style="fill:none;stroke:rgb(35,31,32);stroke-width:4.17px;"/>
+        </g>
+    </g>
+    <g transform="matrix(1,0,0,1,-183.157,226.383)">
+        <g transform="matrix(1,-0,-0,1,183.157,-226.383)">
+            <path d="M1664.69,1307.12L1651.64,1331.84L1639.7,1306.57C1645.81,1312.95 1658.3,1313.23 1664.69,1307.12Z" style="fill:rgb(35,31,32);"/>
+            <path d="M1475.18,1242.66C1475.18,1242.66 1645.63,1197.36 1652.08,1311.84" style="fill:none;stroke:rgb(35,31,32);stroke-width:4.17px;"/>
+        </g>
+    </g>
+    <g transform="matrix(1,0,0,1,-218.212,40.5624)">
+        <text x="1347.75px" y="751.825px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">broadcasts</text>
+        <text x="1317.17px" y="803.46px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">new values to</text>
+        <g transform="matrix(50,0,0,50,1663.19,855.096)">
+        </g>
+        <text x="1276.89px" y="855.096px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">subscribed topics</text>
+    </g>
+    <g transform="matrix(1,0,0,1,1453.46,230.838)">
+        <text x="1347.75px" y="751.825px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">broadcasts</text>
+        <text x="1317.17px" y="803.46px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">new values to</text>
+        <g transform="matrix(50,0,0,50,1663.19,855.096)">
+        </g>
+        <text x="1276.89px" y="855.096px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">subscribed topics</text>
+    </g>
+    <g transform="matrix(1,0,0,1,1005.37,-110.155)">
+        <text x="1282.43px" y="751.825px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">publishes sensor</text>
+        <g transform="matrix(50,0,0,50,1647.91,803.46)">
+        </g>
+        <text x="1292.17px" y="803.46px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">values to broker</text>
+    </g>
+    <path d="M2198.98,823.609L2173.37,812.423L2197.68,798.643C2191.77,805.208 2192.42,817.692 2198.98,823.609Z" style="fill:rgb(35,31,32);"/>
+    <path d="M2865.37,486.669C2865.37,486.669 2829.29,775.376 2193.34,811.385" style="fill:none;stroke:rgb(35,31,32);stroke-width:4.17px;"/>
+    <path d="M2784.76,1229.69L2798.68,1253.93L2809.72,1228.25C2803.84,1234.85 2791.36,1235.57 2784.76,1229.69Z" style="fill:rgb(35,31,32);"/>
+    <path d="M2797.53,1233.96C2767.25,927.287 2169.88,864.041 2169.88,864.041" style="fill:none;stroke:rgb(35,31,32);stroke-width:4.17px;"/>
+    <g transform="matrix(1,0,0,1,8.84191,0.588235)">
+        <g transform="matrix(1,-0,-0,1,-8.84191,-0.588235)">
+            <path d="M1990.98,1799.81L2002.04,1774.14L2015.94,1798.39C2009.34,1792.51 1996.86,1793.21 1990.98,1799.81Z" style="fill:rgb(35,31,32);"/>
+            <path d="M1764.41,2144.51C1920.83,2100.42 2006.69,1933.88 2003.17,1794.11" style="fill:none;stroke:rgb(35,31,32);stroke-width:4.17px;"/>
+        </g>
+    </g>
+    <g transform="matrix(1,0,0,1,-10.913,2.26103)">
+        <g transform="matrix(1,-0,-0,1,10.913,-2.26103)">
+            <path d="M1742.48,2118.88L1754.31,2144.2L1767.47,2119.54C1761.05,2125.62 1748.56,2125.29 1742.48,2118.88Z" style="fill:rgb(35,31,32);"/>
+            <path d="M1754.84,2124.21C1761.4,2009.02 1828.45,1841.87 1982.29,1775.81" style="fill:none;stroke:rgb(35,31,32);stroke-width:4.17px;"/>
+        </g>
+    </g>
+    <g transform="matrix(1,0,0,1,134.262,1173.95)">
+        <text x="1360.25px" y="751.825px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">response:</text>
+        <text x="1313.5px" y="803.46px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">HTTP<tspan x="1443.13px 1457.03px " y="803.46px 803.46px "> 2</tspan>00 OK</text>
+        <g transform="matrix(50,0,0,50,1571.5,855.096)">
+        </g>
+        <text x="1368.57px" y="855.096px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">data.json</text>
+    </g>
+    <g transform="matrix(1,0,0,1,619.783,1206.99)">
+        <text x="1379.71px" y="751.825px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">request:</text>
+        <text x="1419.1px" y="803.46px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">GET</text>
+        <g transform="matrix(50,0,0,50,1578.45,855.096)">
+        </g>
+        <text x="1361.63px" y="855.096px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;fill:rgb(35,31,32);stroke:rgb(35,31,32);stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;">/data.json</text>
+    </g>
+</svg>
