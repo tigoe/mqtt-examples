@@ -8,7 +8,7 @@
   The publish button allows you to turn on and off publishing status.
 
   created 29 Dec 2022
-  modified 5 Feb 2023
+  modified 25 Feb 2026
   by Tom Igoe
 */
 
@@ -41,7 +41,7 @@ let options = {
   connectTimeout: 10000,
   // Authentication
   // add a random number for a unique client ID:
-  clientId: 'mqttJsClient-' + Math.floor(Math.random()*1000000) ,
+  clientId: 'mqttJsClient-' + Math.floor(Math.random() * 1000000),
   // add these in for public.cloud.shiftr.io:
   username: 'public',
   password: 'public'
@@ -50,6 +50,7 @@ let options = {
 let topic = 'aardvarks';
 // divs to show messages:
 let localDiv, remoteDiv;
+let topicField;
 // whether the client should be publishing or not:
 let publishing = false;
 
@@ -57,9 +58,10 @@ function setup() {
   // put the divs in variables for ease of use:
   localDiv = document.getElementById('local');
   remoteDiv = document.getElementById('remote');
-
+  topicField = document.getElementById('topic');
   // set text of localDiv:
   localDiv.innerHTML = 'trying to connect';
+
   // attempt to connect:
   client = mqtt.connect(broker, options);
   // set listeners:
@@ -67,6 +69,8 @@ function setup() {
   client.on('close', onDisconnect);
   client.on('message', onMessage);
   client.on('error', onError);
+  // set topic:
+  topicField.value = topic;
 }
 
 function loop() {
@@ -96,6 +100,7 @@ function changeSendStatus(target) {
 
 // handler for mqtt connect event:
 function onConnect() {
+  console.log("connecting");
   // update localDiv text:
   localDiv.innerHTML = 'connected to broker. Subscribing...'
   // subscribe to the topic:
@@ -139,6 +144,13 @@ function onMessage(topic, payload, packet) {
   result += '</ul>';
   // update the remote div text:
   remoteDiv.innerHTML = result;
+}
+
+function setTopic() {
+  topic = topicField.value;
+  console.log(topic);
+  // subscribe to the topic:
+  client.subscribe(topic, onSubscribe);
 }
 
 // on page load, call the setup function:

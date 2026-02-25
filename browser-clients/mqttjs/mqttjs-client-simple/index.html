@@ -11,7 +11,9 @@
   <h1>mqtt.js basic example</h1>
   
   Click <a href="https://github.com/tigoe/mqtt-examples/tree/main/browser-clients/mqttjs/mqttjs-client-simple">here</a> for the source code
-  <button id="publishStatus" onclick="changeSendStatus(this)">stop publishing</button>
+  <button id="publishStatus" onclick="changeSendStatus(this)">start publishing</button>
+ <br />
+  Topic: <input id="topic" onchange="setTopic()">
   <div id="local"></div>
   <div id="remote"></div>
 </body>
