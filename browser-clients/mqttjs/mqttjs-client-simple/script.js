@@ -51,7 +51,7 @@ let topic = 'aardvarks';
 // divs to show messages:
 let localDiv, remoteDiv;
 // whether the client should be publishing or not:
-let publishing = true;
+let publishing = false;
 
 function setup() {
   // put the divs in variables for ease of use:
