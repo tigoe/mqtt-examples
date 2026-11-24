@@ -10,8 +10,9 @@
 
 Libraries used:
   * http://librarymanager/All#WiFiNINA or
-  * http://librarymanager/All#WiFi101 
-  * http://librarymanager/All#WiFiS3 
+  * http://librarymanager/All#WiFi101  or
+  * http://librarymanager/All#WiFiS3 or
+  * http://librarymanager/All#WiFi and 
   * http://librarymanager/All#ArduinoMqttClient
 
   the arduino_secrets.h file:
@@ -28,6 +29,7 @@ Libraries used:
 #include <WiFiNINA.h>  // use this for Nano 33 IoT, MKR1010, Uno WiFi
 // #include <WiFi101.h>    // use this for MKR1000
 // #include <WiFiS3.h>  // use this for Uno R4 WiFi
+//  #include <WiFi.h>  // use this for Nano ESP32, Xiao ESP32C3, ESP32S3
 // #include <ESP8266WiFi.h>  // use this for ESP8266-based boards
 #include <ArduinoMqttClient.h>
 #include "arduino_secrets.h"
@@ -41,21 +43,23 @@ MqttClient mqttClient(wifi);
 
 // details for MQTT client:
 char broker[] = "public.cloud.shiftr.io";
+// char broker[] = "tigoe.net";
 int port = 1883;
 char topic[] = "aardvarks";
-String clientID = "tigoeClient";
+String clientID = "aardvarkClient";
 
 // last time the client sent a message, in ms:
 long lastTimeSent = 0;
 // message sending interval:
 int interval = 10 * 1000;
+int builtIn_LED = LED_BUILTIN; // use LED_BUILTIN for Arduino boards, 21 for Xiao boards
 
 void setup() {
   // initialize serial:
   Serial.begin(9600);
   // wait for serial monitor to open:
   if (!Serial) delay(3000);
-  pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(builtIn_LED, OUTPUT);
   // connect to WiFi:
   connectToNetwork();
   // make the clientID unique by adding the last three digits of the MAC address:
@@ -144,7 +148,7 @@ void onMqttMessage(int messageSize) {
   int result = incoming.toInt();
   // use the result to dim the builtin LED:
   if (result > 0) {
-    analogWrite(LED_BUILTIN, result);
+    analogWrite(builtIn_LED, result);
   }
   // print the result:
   Serial.println(result);
@@ -163,6 +167,4 @@ void connectToNetwork() {
   // print IP address once connected:
   Serial.print("Connected. My IP address: ");
   Serial.println(WiFi.localIP());
-
-  digitalWrite(LED_BUILTIN, HIGH);
 }
